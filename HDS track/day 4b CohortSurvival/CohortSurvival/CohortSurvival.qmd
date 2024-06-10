@@ -21,6 +21,7 @@ editor: visual
 ---
 
 # CohortSurvival
+
 ## CohortSurvival
 
 Stable version available on CRAN
@@ -29,7 +30,7 @@ Stable version available on CRAN
 install.packages("CohortSurvival")
 ```
 
-<br/> 
+<br/>
 
 . . .
 
@@ -37,7 +38,7 @@ install.packages("CohortSurvival")
 packageVersion("CohortSurvival")
 ```
 
-<br/> 
+<br/>
 
 . . .
 
@@ -93,6 +94,7 @@ MGUS_death %>%
 ```
 
 ## Estimating overall survival
+
 We can plot our survival results like so.
 
 ```{r}
@@ -100,13 +102,15 @@ plotSurvival(MGUS_death)
 ```
 
 ## Estimating overall survival
+
 Or we might want to plot cumulative incidence instead.
 
 ```{r}
-plotCumulativeIncidence(MGUS_death)
+plotSurvival(MGUS_death, cumulativeFailure = TRUE)
 ```
 
 ## Estimating overall survival
+
 Our returned results also have attributes containing information that summarises survival.
 
 ```{r}
@@ -163,12 +167,12 @@ attr(MGUS_death, "summary") %>%
 
 Using the MGUS mock data:
 
-1. Estimate risk of death of death over the year following diagnosis stratifying by age group (hint, see followUpDays argument for constraining amount of follow up)
+1.  Estimate risk of death of death over the year following diagnosis stratifying by age group (hint, see followUpDays argument for constraining amount of follow up)
 
-2. Plot results for age group
+2.  Plot results for age group
 
+## Survival within a cohort
 
-## Survival within a cohort 
 Our outcome can be the cohort end date for our target cohort. Here we're estimating the risk of cohort exit (e.g. to study drug discontinuation)
 
 For this we'll use Eunomia.
@@ -183,7 +187,7 @@ cdm <- cdm_from_con(
 )
 ```
 
-## Survival within a cohort 
+## Survival within a cohort
 
 ```{r}
 library(DrugUtilisation)
@@ -193,7 +197,7 @@ cdm <- generateIngredientCohortSet(cdm = cdm,
 cohortCount(cdm$acetaminophen)
 ```
 
-## Survival within a cohort 
+## Survival within a cohort
 
 ```{r}
 surv <- estimateSingleEventSurvival(cdm, 
@@ -205,24 +209,22 @@ surv <- estimateSingleEventSurvival(cdm,
 plotSurvival(surv)
 ```
 
-
 ## Your turn
 
 Using eunomia:
 
-1. Estimate risk of discontinuation following initiation with amoxicillin
+1.  Estimate risk of discontinuation following initiation with amoxicillin
 
-2. Plot the overall survival proability
+2.  Plot the overall survival proability
 
-3. Estimate risk of discontinuation following initiation with amoxicillin stratified by two age groups: 0 to 59 and 60 to 150 (hint, you can add age groups using PatientProfiles)
+3.  Estimate risk of discontinuation following initiation with amoxicillin stratified by two age groups: 0 to 59 and 60 to 150 (hint, you can add age groups using PatientProfiles)
 
-4. Plot survival proability stratified by age group
+4.  Plot survival proability stratified by age group
 
 # Extra
 
 ## Your turn
 
-1. Estimate risk of progression for the MGUS cohort
+1.  Estimate risk of progression for the MGUS cohort
 
-2. Estimate risk of progression for MGUS cohort, accounting for competing risk of death
-
+2.  Estimate risk of progression for MGUS cohort, accounting for competing risk of death

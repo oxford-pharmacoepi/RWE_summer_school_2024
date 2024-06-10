@@ -1,8 +1,4 @@
-- source: CodelistGenerator.qmd
-  quarto-pub:
-    - id: 05743744-7742-4782-9ccd-12c31d1deec7
-      url: 'https://dpa-pde-oxford.quarto.pub/codelistgenerator'
 - source: CohortSurvival.qmd
   quarto-pub:
-    - id: 3ac0cd57-e0f7-466e-a72f-d7dd00629ab3
-      url: 'https://dpa-pde-oxford.quarto.pub/cohort_survival'
+    - id: d03db9b2-6929-40c4-bd67-1838e3a3dcdf
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/cohortsurvival'
