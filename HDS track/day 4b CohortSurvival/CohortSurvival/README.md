@@ -1,0 +1,1 @@
+# Practical 1 - Characterisation of eunomia

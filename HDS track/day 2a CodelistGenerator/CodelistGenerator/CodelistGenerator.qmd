@@ -1,0 +1,403 @@
+---
+title: "CodelistGenerator"
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+  output: true
+  include: true
+editor: visual
+---
+
+# Reference to the CDM vocabulary tables
+
+## Reference to the CDM vocabulary tables
+
+```{r}
+library(CDMConnector)
+library(dplyr)
+library(tidyr)
+library(DBI)
+
+db <- DBI::dbConnect(duckdb::duckdb(), 
+                     dbdir = CDMConnector::eunomia_dir())
+cdm <- cdm_from_con(
+  con = db,
+  cdm_schema = "main", 
+  write_schema = "main"
+)
+```
+
+```{r}
+cdm
+```
+
+## CodelistGenerator
+
+Stable version available on CRAN
+
+```{r, eval=FALSE}
+install.packages("CodelistGenerator")
+```
+
+Package website can be found at <https://darwin-eu.github.io/CodelistGenerator/>
+
+## Reference to the CDM vocabulary tables
+
+Note, Eunomia doesn´t have a full set of vocabularies:
+
+```{r}
+cdm$concept %>% tally() %>% pull()
+```
+
+<br/>
+
+We'll create a mock to show some of the functions where Eunomia won't work because of its partial vocabularies
+
+```{r}
+library(CodelistGenerator)
+cdm_mock <- mockVocabRef()
+cdm_mock
+```
+
+# CDM vocabulary tables
+
+## CDM vocabulary tables
+
+<https://athena.ohdsi.org>
+
+![](images/paste-08513A51.png){width="2000"}
+
+## CDM vocabulary tables
+
+```{r}
+cdm$concept %>% glimpse()
+```
+
+## CDM vocabulary tables
+
+```{r}
+cdm$condition_occurrence %>% 
+  group_by(condition_concept_id) %>% 
+  tally() %>% 
+  left_join(cdm$concept %>% 
+              select("concept_id", "concept_name"),
+            by = c("condition_concept_id" = "concept_id")) %>% 
+  collect() %>% 
+  arrange(desc(n))
+```
+
+## CDM vocabulary tables
+
+```{r}
+cdm$concept_ancestor %>% glimpse()
+```
+
+## CDM vocabulary tables
+
+```{r}
+cdm$concept_relationship %>% glimpse()
+```
+
+## CDM vocabulary tables
+
+```{r}
+cdm$concept_synonym %>% glimpse()
+```
+
+# Achilles analysis results
+
+## Achilles
+
+Achilles provides descriptive statistics on an OMOP CDM database and is typically run after performing ETL.
+
+![](images/achilles.png)
+
+## Achilles
+
+![](images/achilles2.png)
+
+## Achilles
+
+```{r}
+cdm_mock$achilles_analysis |> 
+  glimpse()
+```
+
+## Achilles
+
+```{r}
+cdm_mock$achilles_results |> 
+  glimpse()
+```
+
+## Achilles
+
+```{r}
+cdm_mock$achilles_results_dist |> 
+  glimpse()
+```
+
+# Exploring vocabulary tables using CodelistGenerator
+
+## Vocabulary version
+
+Search results will be specific to the version of the vocabulary being used
+
+```{r}
+getVocabVersion(cdm)
+```
+
+## Available vocabularies
+
+What vocabularies are available?
+
+```{r}
+getVocabularies(cdm = cdm)
+```
+
+## Available domains
+
+What domains are present?
+
+```{r}
+getDomains(cdm)
+```
+
+## Concept classes
+
+What concept classes are present?
+
+```{r}
+getConceptClassId(cdm,
+                  standardConcept = "Standard",
+                  domain = "Drug")
+```
+
+. . .
+
+```{r}
+getConceptClassId(cdm,
+                  standardConcept = "Standard",
+                  domain = "Condition")
+```
+
+## Relationship ID
+
+What relationships do we have between standard concepts?
+
+```{r}
+getRelationshipId(cdm_mock, 
+                                     standardConcept1 = c("standard"),
+                                     standardConcept2 = c("standard"), 
+                                     domains1 = "condition", 
+                                     domains2 = "condition")
+```
+
+What relationships do we have between non-standard to standard concepts?
+
+```{r}
+getRelationshipId(cdm_mock, 
+                                     standardConcept1 = c("standard"),
+                                     standardConcept2 = c("non-standard"), 
+                                     domains1 = "condition", 
+                                     domains2 = "condition")
+```
+
+## Drug dose forms
+
+```{r}
+getDoseForm(cdm_mock)
+```
+
+## Your turn
+
+Using a cdm reference you have connected to:
+
+1.  What is the vocabulary version of the cdm?
+
+2.  How many concepts are in your concept table? How many of these are standard concepts?
+
+3.  What domains are available? Which domains would you use if you were defining a cohort of people with asthma?
+
+# Vocabulary based codelists using CodelistGenerator
+
+## Vocabulary-based codelists using CodelistGenerator
+
+We can use drug hierarchies and relationships to create vocabulary-based codelists.
+
+## Drug ingredients
+
+```{r}
+ingredients <- getDrugIngredientCodes(cdm = cdm)
+ingredients
+```
+
+. . .
+
+```{r}
+ingredients$warfarin
+```
+
+. . .
+
+```{r}
+cdm$concept |> 
+  filter(concept_id %in% c(1310149, 40163554))
+```
+
+## ATC classifications
+
+```{r}
+atc <- getATCCodes(cdm = cdm_mock)
+atc
+```
+
+<br/>
+
+. . .
+
+```{r}
+atc$alimentary_tract_and_metabolism
+```
+
+## ICD10 chapters
+
+```{r}
+icd <- getICD10StandardCodes(cdm = cdm_mock)
+icd
+```
+
+<br/>
+
+. . .
+
+```{r}
+icd$arthropathies
+```
+
+## Your turn
+
+Using Eunomia data:
+
+1.  Get codes for memantine using `getDrugIngredientCodes`
+
+2.  How how many records for memantine are in the drug exposure table (hint: filter on the drug_concept_id field from the drug_exposure table)?
+
+    -   0
+
+    -   67
+
+    -   110
+
+    -   245
+
+# Systematic search using CodelistGenerator
+
+## Systematic search using CodelistGenerator
+
+<br/>
+
+CodelistGenerator is used to create a candidate set of codes for helping to define patient cohorts in data mapped to the OMOP common data model.
+
+<br/>
+
+. . .
+
+A little like the process for a systematic review, the idea is that for a specified search strategy, CodelistGenerator will identify a set of concepts that may be relevant, with these then being screened to remove any irrelevant codes.
+
+## Codes for asthma
+
+```{r}
+asthma_codes <- getCandidateCodes(cdm=cdm,
+                           keywords= "asthma",
+                           domains = "Condition")
+asthma_codes %>% glimpse()
+```
+
+<br/>
+
+. . .
+
+```{r}
+asthma_cs <- omopgenerics::newCodelist(list("asthma" = asthma_codes$concept_id))
+asthma_cs
+```
+
+## Your turn
+
+Using Eunomia data:
+
+1.  Search for codes for sinusitis recorded in the condition domain
+
+2.  Do you identify any more codes if you also search in the observation domain
+
+# Codelist diagnostics
+
+## Code counts
+
+```{r}
+asthma_code_use <- summariseCodeUse(asthma_cs, 
+                                    byYear = TRUE, 
+                                    bySex = TRUE, 
+                                    ageGroup = list(c(0,17),
+                                                    c(18,65), 
+                                                    c(66, 150)),
+                                    cdm=cdm) |> 
+  omopgenerics::suppress(minCellCount = 5)
+
+tableCodeUse(asthma_code_use |> 
+               filter(strata_name == "overall"))
+```
+
+## Code counts
+
+```{r}
+tableCodeUse(asthma_code_use |> 
+               filter(strata_name == "year",
+         strata_level %in% c("2004", "2005", "2006")))
+```
+
+## Code counts
+
+```{r}
+tableCodeUse(asthma_code_use |> 
+               filter(strata_name == "age group and sex"))
+```
+
+## Code counts using achilles
+
+```{r, eval=FALSE}
+summariseAchillesCodeUse(asthma_cs, cdm = cdm)
+```
+
+## Orphan concepts
+
+```{r}
+my_asthma_cs <- list(asthma = 317009) # only 
+asthma_orphan_codes <- summariseOrphanCodes(my_asthma_cs, 
+                                            cdm = cdm,
+                                            domains = c("condition"))
+tableOrphanCodes(asthma_orphan_codes)
+```
+
+## Your turn
+
+Using Eunomia data:
+
+1.  Identify codes for concussion
+
+2.  Get a count of the usage of these codes
+
+3.  Search for orphan concepts related to your concussion codes
