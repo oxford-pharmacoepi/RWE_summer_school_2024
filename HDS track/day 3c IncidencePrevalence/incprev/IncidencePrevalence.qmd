@@ -1,0 +1,538 @@
+---
+title: ""
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    slide-number: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+execute:
+  echo: true
+---
+
+![](images/hexsticker.png){fig-align="center"}
+
+## Oveview
+
+-   **Concepts**
+-   Interface
+-   More information
+
+## Concepts
+
+1.  Denominator population
+
+2.  Incidence rates
+
+3.  Prevalence
+
+    -   Point prevalence
+
+    -   Period prevalence
+
+## Denominator population
+
+Observation periods <br><br>
+
+![](images/inc%20prev%20diags(10)(4)-denominator%20no%20criteria.drawio.png){fig-align="center" width="350"}
+
+<br>
+
+## Denominator population
+
+Observation periods + study period <br><br>
+
+![](images/inc%20prev%20diags(10)(4)-denom%20study%20period.drawio.png){fig-align="center" width="350"}
+
+<br>
+
+## Denominator population
+
+Observation periods + study period + prior history requirement <br><br>
+
+![](images/inc%20prev%20diags(10)(4)-denom%20without%20age.drawio-01.png){fig-align="center" width="350"}
+
+<br>
+
+## Denominator population
+
+Observation periods + study period + prior history requirement + age (and sex) restriction <br>
+
+![](images/dpop4.png){fig-align="center" width="350"}
+
+<br>
+
+## Incidence rates
+
+Washout all history, no repetitive events <br><br>
+
+![](images/inc_no_rep_washout_all.png){fig-align="center" width="350"}
+
+<br>
+
+## Incidence rates
+
+No washout, no repetitive events <br><br>
+
+![](images/inc_no_rep_no_washout.png){fig-align="center" width="350"}
+
+<br>
+
+## Incidence rates
+
+Some washout, no repetitive events <br><br>
+
+![](images/inc_no_rep_some_washout.png){fig-align="center" width="350"}
+
+<br>
+
+## Incidence rates
+
+Some washout, repetitive events <br><br>
+
+![](images/inc_rep_some_washout.png){fig-align="center" width="350"}
+
+<br>
+
+## Prevalence
+
+Point prevalence <br><br>
+
+![](images/point_prev.png)
+
+<br>
+
+## Prevalence
+
+Period prevalence <br><br>
+
+![](images/period_prev.png)
+
+<br>
+
+## Oveview
+
+-   Concepts
+-   **Interface**
+-   More information
+
+## Required packages
+
+```{r, eval=FALSE}
+install.packages("IncidencePrevalence")
+```
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(CDMConnector)
+library(IncidencePrevalence)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gt)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cdm <- mockIncidencePrevalenceRef(sampleSize = 50000)
+
+cdm <- generateDenominatorCohortSet(cdm, name = "dpop")
+
+cdm$dpop %>%
+  glimpse()
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "dpop",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01"))
+)
+
+cdm$dpop %>%
+  glimpse()
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cohortCount(cdm$dpop)
+```
+
+```{r}
+settings(cdm$dpop)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+attrition(cdm$dpop)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "dpop",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01")),
+  ageGroup = list(
+    c(0, 49),
+    c(50, 100)
+  ),
+  sex = c("Male", "Female")
+)
+
+cdm$dpop %>%
+  glimpse()
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "dpop",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01")),
+  ageGroup = list(
+    c(0, 49),
+    c(50, 100)
+  ),
+  sex = c("Male", "Female"),
+  daysPriorObservation= c(0, 180)
+)
+
+cdm$dpop %>%
+  glimpse()
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+settings(cdm$dpop)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+cohortCount(cdm$dpop)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+attrition(cdm$dpop) %>%
+  filter(cohort_definition_id == 1)
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+# get some people who are in more than one cohort
+ids <- cdm$dpop %>% 
+  group_by(subject_id) %>% 
+  tally() %>% 
+  collect() %>% 
+  arrange(desc(n)) %>% 
+  head(4) %>% 
+  pull("subject_id")
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+dpop <- cdm$dpop %>%
+  collect() %>%
+  left_join(settings(cdm$dpop),
+            by = "cohort_definition_id") %>% 
+  mutate(cohort_definition_id=as.character(cohort_definition_id))
+
+plot <- dpop %>%
+  filter(subject_id %in% ids) %>%
+  pivot_longer(cols = c(
+    "cohort_start_date",
+    "cohort_end_date"
+  )) %>%
+  ggplot(aes(x = as.character(subject_id), y = value, colour = cohort_definition_id, group = subject_id)) +
+  facet_grid(sex + days_prior_observation ~ ., space = "free_y") +
+  geom_point(position = position_dodge(width = 0.5)) +
+  geom_line(position = position_dodge(width = 0.5)) +
+  theme_bw() +
+  theme(legend.position = "top") +
+  ylab("Year") +
+  coord_flip()
+```
+
+## generateDenominatorCohortSet()
+
+```{r}
+plot 
+```
+
+## Adding (time-invariant) variables for stratification
+
+If later we want to estimate incidence or prevalence stratified for some time-invariant characteristic, we will need to add a variable to our denominator cohort table.
+
+```{r}
+cdm$dpop <- cdm$dpop %>% 
+  mutate(group = if_else(as.numeric(subject_id)  < 20, "first", "second")) 
+
+cdm$dpop |> 
+  glimpse()
+```
+
+## generateTargetDenominatorCohortSet()
+
+When we want to stratify on a time-varying characteristic, we will do this by first creating a cohort for it. Once we have the cohort we will will use it when creating our denominator cohort.
+
+## generateTargetDenominatorCohortSet()
+
+```{r}
+personTable <- tibble(
+  person_id = c("1", "2", "3", "4", "5"),
+  gender_concept_id = c(rep("8507", 2), rep("8532", 3)),
+  year_of_birth = 2000,
+  month_of_birth = 06,
+  day_of_birth = 01
+)
+observationPeriodTable <- tibble(
+  observation_period_id = "1",
+  person_id = c("1", "2", "3", "4", "5"),
+  observation_period_start_date = c(
+    as.Date("2010-12-19"),
+    as.Date("2005-04-01"),
+    as.Date("2009-04-10"),
+    as.Date("2010-08-20"),
+    as.Date("2010-01-01")
+  ),
+  observation_period_end_date = c(
+    as.Date("2011-06-19"),
+    as.Date("2005-11-29"),
+    as.Date("2016-01-02"),
+    as.Date("2011-12-11"),
+    as.Date("2015-06-01")
+  )
+)
+
+acute_asthma <- tibble(
+  cohort_definition_id = rep("1", 5),
+  subject_id = c("3", "3", "5", "5", "2"),
+  cohort_start_date = c(
+    as.Date("2012-01-01"),
+    as.Date("2015-06-01"),
+    as.Date("2014-10-01"),
+    as.Date("2010-06-01"),
+    as.Date("2005-08-20")
+  ),
+  cohort_end_date = c(
+    as.Date("2013-01-01"),
+    as.Date("2015-12-31"),
+    as.Date("2015-04-01"),
+    as.Date("2010-06-01"),
+    as.Date("2005-09-20")
+  )
+)
+
+# mock database
+cdm <- mockIncidencePrevalenceRef(
+  personTable = personTable,
+  observationPeriodTable = observationPeriodTable,
+  targetCohortTable = acute_asthma
+)
+```
+
+## generateTargetDenominatorCohortSet()
+
+```{r}
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm, 
+  name = "denominator_acute_asthma",
+  targetCohortTable = "target"
+)
+
+cdm$denominator_acute_asthma |> 
+  dplyr::glimpse()
+```
+
+## generateTargetDenominatorCohortSet()
+
+We can add demographic requirements like before. But it is important to note that these are applied at the cohort start date of the target cohort.
+
+```{r}
+cdm <- generateTargetDenominatorCohortSet(
+  cdm = cdm, 
+  name = "denominator_acute_asthma_2",
+  ageGroup = list(c(11, 15)),
+  sex = "Female",
+  daysPriorObservation = 0,
+  targetCohortTable = "target"
+)
+cdm$denominator_acute_asthma_2 |> 
+  dplyr::glimpse()
+```
+
+## estimateIncidence()
+
+```{r}
+cdm <- mockIncidencePrevalenceRef(
+  sampleSize = 50000,
+  outPre = 0.5
+)
+
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denominator",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01")),
+  ageGroup = list(
+    c(0, 30),
+    c(31, 50),
+    c(51, 70),
+    c(71, 100)
+  )
+)
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = "years",
+  outcomeWashout = Inf,
+  repeatedEvents = FALSE
+)
+```
+
+## estimateIncidence()
+
+```{r}
+inc %>%
+  glimpse()
+```
+
+## estimateIncidence()
+
+```{r}
+inc <- estimateIncidence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = c("Months"),
+  outcomeWashout = c(0, 365),
+  repeatedEvents = FALSE
+)
+inc %>%
+  glimpse()
+```
+
+## estimateIncidence()
+
+```{r}
+plot <- plotIncidence(inc,
+              facet = "denominator_age_group")
+```
+
+## estimateIncidence()
+
+```{r}
+plot 
+```
+
+## estimateIncidence()
+
+```{r}
+tableIncidence <- inc |> 
+     select("cdm_name","incidence_start_date",
+            "denominator_age_group", "denominator_sex",
+            "n_persons", "person_days", "n_events",
+            "incidence_100000_pys", "incidence_100000_pys_95CI_lower",
+            "incidence_100000_pys_95CI_lower") |> 
+     mutate(incidence = paste0(
+            round(incidence_100000_pys),
+            " (", round(incidence_100000_pys_95CI_lower), 
+            " to ", round(incidence_100000_pys_95CI_lower),
+            " )")) |> 
+    select(-c("incidence_100000_pys", 
+            "incidence_100000_pys_95CI_lower",
+            "incidence_100000_pys_95CI_lower")) |> 
+    head(8)
+```
+
+## estimateIncidence()
+
+```{r}
+gt(tableIncidence)
+```
+
+## estimatePointPrevalence() and estimatePeriodPrevalence()
+
+```{r}
+cdm <- mockIncidencePrevalenceRef(
+  sampleSize = 50000,
+  outPre = 0.5
+)
+
+cdm <- generateDenominatorCohortSet(
+  cdm = cdm, name = "denominator",
+  cohortDateRange = as.Date(c("2008-01-01", "2012-01-01")),
+  ageGroup = list(
+    c(0, 30),
+    c(31, 50),
+    c(51, 70),
+    c(71, 100)
+  )
+)
+prev <- estimatePointPrevalence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = "Years"
+)
+```
+
+## estimatePointPrevalence() and estimatePeriodPrevalence()
+
+```{r}
+prev %>%
+  glimpse()
+```
+
+## estimatePointPrevalence() and estimatePeriodPrevalence()
+
+```{r}
+prev <- estimatePeriodPrevalence(
+  cdm = cdm,
+  denominatorTable = "denominator",
+  outcomeTable = "outcome",
+  interval = "months"
+)
+
+prev %>%
+  glimpse()
+```
+
+## estimatePointPrevalence() and estimatePeriodPrevalence()
+
+```{r}
+plot <- plotPrevalence(prev,
+              facet = "denominator_age_group")
+```
+
+## estimatePointPrevalence() and estimatePeriodPrevalence()
+
+```{r}
+plot 
+```
+
+## Oveview
+
+-   Concepts
+-   Interface
+-   **More information**
+
+## Package website
+
+<https://darwin-eu.github.io/IncidencePrevalence/>
+
+## Package paper
+
+<https://onlinelibrary.wiley.com/doi/10.1002/pds.5717>
+
+![](images/incprev.png)

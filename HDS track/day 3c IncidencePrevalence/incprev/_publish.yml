@@ -1,0 +1,4 @@
+- source: IncidencePrevalence.qmd
+  quarto-pub:
+    - id: efd20fa5-49d0-4f72-bd26-88d4d4e48f0d
+      url: 'https://dpa-pde-oxford.quarto.pub/incidenceprevalence'
