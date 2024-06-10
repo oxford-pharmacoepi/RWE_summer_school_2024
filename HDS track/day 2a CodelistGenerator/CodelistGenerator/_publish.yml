@@ -1,4 +1,4 @@
 - source: CodelistGenerator.qmd
   quarto-pub:
     - id: 05743744-7742-4782-9ccd-12c31d1deec7
-      url: 'https://dpa-pde-oxford.quarto.pub/codelistgenerator'
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/codelistgenerator'
