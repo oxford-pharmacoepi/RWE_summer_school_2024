@@ -592,8 +592,8 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># CohortCharacteristics R package</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">age_cohort</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu">plotCohortAttrition</span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-ac80ca1c47d7519ee073" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-ac80ca1c47d7519ee073">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,2.1!\"] \n  \"2\" [label = \"Final events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,0.7!\"] \n  \"3\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.4!\"] \n  \"4\" [label = \"Age requirement: 18 to\n65\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.76\", pos = \"1,1.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"4\"->\"3\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-2b8eac7358bc9800148a" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-2b8eac7358bc9800148a">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,2.1!\"] \n  \"2\" [label = \"Final events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,0.7!\"] \n  \"3\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.4!\"] \n  \"4\" [label = \"Age requirement: 18 to\n65\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.76\", pos = \"1,1.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"4\"->\"3\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
@@ -665,7 +665,7 @@
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span>, <span class="st">"cohort_codelist"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [8 x 4]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\RtmpyMMNZ3\file5f3c3b187dc4.duckdb]
+# Database: DuckDB v0.10.2 [nuriamb@Windows 10 x64:R 4.2.3/C:\Users\nuriamb\AppData\Local\Temp\RtmpqiCAup\file7b801a0b41e7.duckdb]
   cohort_definition_id codelist_name concept_id type       
                  &lt;int&gt; &lt;chr&gt;              &lt;int&gt; &lt;chr&gt;      
 1                    1 diclofenac       1124300 index event
@@ -679,17 +679,38 @@
 </div>
 </div>
 </div>
-</section><section id="your-turn---set-up" class="slide level2 incremental:FALSE"><h2>Your turn - Set up</h2>
+</section><section id="concept-based---measurement" class="slide level2"><h2>Concept based - Measurement</h2>
+<ul>
+<li class="fragment"><p>Cohorts can be created from the measurement table with <code>measurementCohort</code>.</p></li>
+<li class="fragment"><p>This is how we can create a cohort of high fever from oral temperature measurements results.</p></li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">fever_codelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"oral_temperature_measurement"</span> <span class="op">=</span> <span class="fl">3006322</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cdm</span><span class="op">$</span><span class="va">temperature</span> <span class="op">&lt;-</span> <span class="fu">measurementCohort</span><span class="op">(</span></span>
+<span>  cdm <span class="op">=</span> <span class="va">cdm</span>,</span>
+<span>  conceptSet <span class="op">=</span> <span class="va">fever_codelist</span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"temperature"</span>,</span>
+<span>  valueAsNumber <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"586323"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">39</span>, <span class="fl">45</span><span class="op">)</span><span class="op">)</span> <span class="co"># 586323 -&gt; unit concept for celsius</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="lets-get-started" class="slide level2"><h2>Let’s get started!</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 15px;">
 
 </div>
 <ul>
-<li class="fragment">Relevant packages</li>
+<li class="fragment">Get the necessary packages</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Install packages (install only those that you don't have)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"CohortConstructor"</span>, <span class="st">"CDMConnector"</span>, <span class="st">"CodelistGenerator"</span>, <span class="st">"dplyr"</span>, <span class="st">"duckdb"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load packages </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ohdsi.github.io/CohortConstructor/">CohortConstructor</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -698,15 +719,33 @@
 
 </div>
 <ul>
-<li class="fragment">Let’s create a cdm object (Eunomia database)</li>
+<li class="fragment">We will use the Eunomia synthetic dataset for the practicals</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, </span>
-<span>                      dbdir <span class="op">=</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/eunomiaDir.html">eunomia_dir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cdm_from_con.html">cdm_from_con</a></span><span class="op">(</span><span class="va">con</span>, cdm_schema <span class="op">=</span> <span class="st">"main"</span>, </span>
-<span>                    write_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"my_study_"</span>, schema <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co"># Prepare R environment and download Eunomia </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"EUNOMIA_DATA_FOLDER"</span> <span class="op">=</span> <span class="fu">here</span><span class="fu">::</span><span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/downloadEunomiaData.html">downloadEunomiaData</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section><section id="lets-get-started-1" class="slide level2"><h2>Let’s get started!</h2>
+<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
+<div style="margin-bottom: 15px;">
+
+</div>
+<ul>
+<li class="fragment">Connect to Eunomia and create the cdm object</li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">con</span> <span class="op">&lt;-</span> <span class="fu">DBI</span><span class="fu">::</span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu">duckdb</span><span class="fu">::</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/eunomiaDir.html">eunomia_dir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cdm_from_con.html">cdm_from_con</a></span><span class="op">(</span></span>
+<span>  con <span class="op">=</span> <span class="va">con</span>, </span>
+<span>  cdm_schema <span class="op">=</span> <span class="st">"main"</span>,  </span>
+<span>  write_schema <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>prefix <span class="op">=</span> <span class="st">"my_practical"</span>, schema <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -739,28 +778,14 @@ drug_strength</code></pre>
 
 </div>
 <ul>
-<li class="fragment">Create a cohort of aspirin use.</li>
+<li class="fragment"><strong>Create a cohort of aspirin use.</strong></li>
 </ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
 <li class="fragment">How many records does it have? And how many subjects?</li>
-</ul>
-<div class="fragment">
-<p><em>Move forward in the presentation for the results.</em></p>
-</div>
-</section><section id="your-turn-1" class="slide level2"><h2>Your turn</h2>
-<div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  cohort_definition_id number_records number_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1           4379            1927</code></pre>
-</div>
-</div>
-</section></section><section><section id="applying-cohort-requirements" class="title-slide slide level1 center"><h1>Applying cohort requirements</h1>
+</ul></section></section><section><section id="applying-cohort-requirements" class="title-slide slide level1 center"><h1>Applying cohort requirements</h1>
 
 </section><section id="functions-to-apply-cohort-requirements" class="slide level2"><h2>Functions to apply cohort requirements</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
@@ -770,35 +795,51 @@ drug_strength</code></pre>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>On demographics</p></li>
+<li class="fragment">
+<p>On demographics</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDemographics.html">requireDemographics()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireAge.html">requireAge()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireSex.html">requireSex()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requirePriorObservation.html">requirePriorObservation()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireFutureObservation.html">requireFutureObservation()</a></code></p></li>
 </ul>
+</li>
+</ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment"><p>On cohort entries</p></li>
+<li class="fragment">
+<p>On cohort entries</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsFirstEntry.html">requireIsFirstEntry()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsLastEntry.html">requireIsLastEntry()</a></code></p></li>
 </ul>
+</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>On cohort dates</p></li>
-<li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireInDateRange.html">requireInDateRange()</a></code></p></li>
+<li class="fragment">
+<p>On cohort dates</p>
+<ul>
+<li class="fragment"><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireInDateRange.html">requireInDateRange()</a></code></li>
+</ul>
+</li>
 </ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment"><p>Require presence or absence based on other cohorts, tables and concepts</p></li>
+<li class="fragment">
+<p>Require presence or absence based on other cohorts, tables and concepts</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireCohortIntersectFlag.html">requireCohortIntersectFlag()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireConceptIntersectFlag.html">requireConceptIntersectFlag()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireTableIntersectFlag.html">requireTableIntersectFlag()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDeathFlag.html">requireDeathFlag()</a></code></p></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -822,15 +863,19 @@ drug_strength</code></pre>
 
 </div>
 <ul>
-<li class="fragment"><p>We can apply different inclusion and exclusion criteria using CohortConstructor’s functions in a pipe-line fashion. For instance, in what follows we require</p></li>
+<li class="fragment">
+<p>We can apply different inclusion and exclusion criteria using CohortConstructor’s functions in a pipe-line fashion. For instance, in what follows we require</p>
+<ul>
 <li class="fragment"><p>only first record per person</p></li>
 <li class="fragment"><p>subjects 18 years old or more at cohort start date</p></li>
 <li class="fragment"><p>only females</p></li>
 <li class="fragment"><p>more than 180 days of prior observation at cohort start date</p></li>
 </ul>
+</li>
+</ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireIsFirstEntry.html">requireIsFirstEntry</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireDemographics.html">requireDemographics</a></span><span class="op">(</span></span>
 <span>    ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">18</span>, <span class="fl">85</span><span class="op">)</span><span class="op">)</span>,</span>
@@ -850,8 +895,8 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-16ea94250625b7d7cb96" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-16ea94250625b7d7cb96">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-95bdb3b1a5cb26a31fe7" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-95bdb3b1a5cb26a31fe7">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="requirement-functions---example-2" class="slide level2 incremental:FALSE"><h2>Requirement functions - Example</h2>
@@ -865,8 +910,8 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-c29f163f6286d081c1e9" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-c29f163f6286d081c1e9">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,908\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 11229\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-69b01a1ec2e0b4c49232" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-69b01a1ec2e0b4c49232">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,839\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 11160\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="requirement-functions---example-3" class="slide level2"><h2>Requirement functions - Example</h2>
@@ -879,7 +924,7 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_no_gi_bleed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_no_gi_bleed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/requireConceptIntersectFlag.html">requireConceptIntersectFlag</a></span><span class="op">(</span>conceptSet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"gi_bleed"</span> <span class="op">=</span> <span class="fl">192671</span><span class="op">)</span>, </span>
 <span>                              indexDate <span class="op">=</span> <span class="st">"cohort_start_date"</span>, </span>
 <span>                              window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="cn">Inf</span>, <span class="fl">0</span><span class="op">)</span>, </span>
@@ -898,8 +943,8 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-59ab45bea06cf9f3f262" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-59ab45bea06cf9f3f262">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-9810985c9ad6472d131c" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-9810985c9ad6472d131c">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="requirement-functions---example-5" class="slide level2 incremental:FALSE"><h2>Requirement functions - Example</h2>
@@ -913,8 +958,8 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-6d6b5ce7fcb49320a2ac" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-6d6b5ce7fcb49320a2ac">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,908\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 11229\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-488771f7a01bc2657249" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-488771f7a01bc2657249">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,839\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,6.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.2!\"] \n  \"6\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.1!\"] \n  \"7\" [label = \"N subjects = 0\nN records = 11160\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.4!\"] \n  \"8\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.4!\"] \n  \"9\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.2!\"] \n  \"10\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.2!\"] \n  \"11\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3!\"] \n  \"12\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3!\"] \n  \"13\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.8!\"] \n  \"14\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.8!\"] \n  \"15\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.6!\"] \n  \"16\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.6!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n\"12\"->\"11\" [color = \"black\"] \n\"14\"->\"13\" [color = \"black\"] \n\"16\"->\"15\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="name-argument" class="slide level2"><h2>
@@ -940,74 +985,39 @@ drug_strength</code></pre>
 <ul>
 <li class="fragment">
 <strong>Warning:</strong> Omitting the name argument will overwrite the existing cohort table.</li>
-</ul></section><section id="your-turn-2" class="slide level2"><h2>Your turn</h2>
+</ul></section><section id="your-turn-1" class="slide level2"><h2>Your turn</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
-<p>Create a <strong>new cohort</strong> named “<em>aspirin_last</em>” by applying the following criteria to the base aspirin cohort:</p>
-<div style="margin-bottom: 10px;">
+<p><strong>Create a new cohort named <em>aspirin_last</em> by applying the following criteria to the base aspirin cohort:</strong></p>
+<div style="margin-bottom: 5px;">
 
 </div>
 <ul>
-<li class="fragment">Last Drug Exposure: Include only the last drug exposure for each subject.</li>
+<li class="fragment">Include only the <strong>last</strong> drug exposure for each subject.</li>
 </ul>
 <div style="margin-bottom: 5px;">
 
 </div>
 <ul>
-<li class="fragment">Date range: Include exposures starting between January 1, 1960, and December 31, 1979.</li>
+<li class="fragment">Include exposures that <strong>start between</strong> January 1, 1960, and December 31, 1979.</li>
 </ul>
 <div style="margin-bottom: 5px;">
 
 </div>
 <ul>
-<li class="fragment">Exclusion: Exclude individuals with an amoxicillin exposure in the 7 days prior to the aspirin exposure.</li>
+<li class="fragment">
+<strong>Exclude</strong> individuals with an amoxicillin exposure in the 7 days prior to the aspirin exposure.</li>
 </ul>
-<div style="margin-bottom: 20px;">
+<div style="margin-bottom: 25px;">
 
 </div>
 <div class="fragment">
-<p>Refer to the package <a href="https://ohdsi.github.io/CohortConstructor/reference/index.html">website</a> for a summary of the package functions with a short description.</p>
+<p><em>Move forward in the presentation to get some tips on how to resolve the exercise</em></p>
 </div>
 <div class="fragment">
-<p><em>Move forward in the presentation for the results.</em></p>
-</div>
-</section><section id="your-turn-3" class="slide level2"><h2>Your turn</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 10px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin_last</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  cohort_definition_id number_records number_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1           1173            1173</code></pre>
-</div>
-</div>
-<div style="margin-bottom: 20px;">
-
-</div>
-<div class="cell">
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cohortAttrition.html">cohortAttrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin_last</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5 × 7
-  cohort_definition_id number_records number_subjects reason_id reason                          excluded_records excluded_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                      &lt;int&gt;             &lt;int&gt;
-1                    1           4379            1927         1 Initial qualifying events                      0                 0
-2                    1           1927            1927         2 Restricted to last entry                    2452                 0
-3                    1           1511            1511         3 cohort_start_date after 1960-0…              416               416
-4                    1           1174            1174         4 cohort_start_date before 1979-…              337               337
-5                    1           1173            1173         5 Not in concept amoxicillin bet…                1                 1</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p><em>Move forward in the presentation to get some tips on how to solve it…</em></p>
-</div>
-<div class="fragment">
-<p><em>Or don’t, and try to solve it with the content seen so far! :)</em></p>
+<p><em>Or don’t, and try to resolve it with the content seen so far and the <a href="https://ohdsi.github.io/CohortConstructor/reference/index.html">package website</a> :)</em></p>
 </div>
 </section><section id="tips" class="slide level2"><h2>Tips</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
@@ -1038,25 +1048,37 @@ drug_strength</code></pre>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>Cohort exit</p></li>
+<li class="fragment">
+<p>Cohort exit</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtObservationEnd.html">exitAtObservationEnd()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtDeath.html">exitAtDeath()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtFirstDate.html">exitAtFirstDate()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtLastDate.html">exitAtLastDate()</a></code></p></li>
 </ul>
+</li>
+</ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
-<li class="fragment"><p>Cohort entry</p></li>
+<li class="fragment">
+<p>Cohort entry</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtFirstDate.html">entryAtFirstDate()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/entryAtLastDate.html">entryAtLastDate()</a></code></p></li>
 </ul>
+</li>
+</ul>
 </div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>Trim start and end dates</p></li>
+<li class="fragment">
+<p>Trim start and end dates</p>
+<ul>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/trimDemographics.html">trimDemographics()</a></code></p></li>
 <li class="fragment"><p><code><a href="https://ohdsi.github.io/CohortConstructor/reference/trimToDateRange.html">trimToDateRange()</a></code></p></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -1070,25 +1092,25 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/exitAtObservationEnd.html">exitAtObservationEnd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cdm</span><span class="op">$</span><span class="va">medications</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;main.my_study_medications&gt; [?? x 4]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\RtmpyMMNZ3\file5f3c473e2e10.duckdb]
+<pre><code># Source:   table&lt;main.my_practicalmedications&gt; [?? x 4]
+# Database: DuckDB v0.10.2 [nuriamb@Windows 10 x64:R 4.2.3/C:\Users\nuriamb\AppData\Local\Temp\RtmpqiCAup\file7b80176a3a4c.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;         
- 1                    1        341 1995-08-27        2018-12-03     
- 2                    1       3638 2002-12-13        2019-06-06     
- 3                    1       3443 2012-05-19        2019-04-24     
- 4                    1       3986 1996-06-07        2018-09-07     
- 5                    1       1073 1974-04-02        2019-04-18     
- 6                    1       3394 1999-10-09        2019-01-06     
- 7                    1       1250 1991-08-01        2019-06-24     
- 8                    2       5300 1959-05-24        2018-08-24     
- 9                    1        764 2003-12-24        2018-05-29     
-10                    1       3436 2003-02-20        2019-06-17     
+ 1                    1       2319 1990-02-24        2019-03-16     
+ 2                    1       3392 2002-02-10        2018-07-15     
+ 3                    1       3307 2003-07-05        2018-11-09     
+ 4                    2       1844 1977-07-15        2018-11-21     
+ 5                    1        592 2007-03-09        2018-10-12     
+ 6                    1       4333 1994-06-03        2018-11-25     
+ 7                    1       4527 2002-01-21        2019-05-10     
+ 8                    2       2185 1959-05-13        2019-01-10     
+ 9                    1       3370 2011-10-30        2019-04-20     
+10                    1       2084 1999-08-17        2018-12-26     
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -1104,7 +1126,7 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_trimmed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">medications_trimmed</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/trimDemographics.html">trimDemographics</a></span><span class="op">(</span>ageRange <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                   minPriorObservation <span class="op">=</span> <span class="fl">365</span>,</span>
 <span>                   name <span class="op">=</span> <span class="st">"medications_trimmed"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1121,8 +1143,8 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-499f24ff074fd216e4ba" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-499f24ff074fd216e4ba">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,6.4!\"] \n  \"9\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.2!\"] \n  \"11\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4!\"] \n  \"13\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2.8!\"] \n  \"15\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.6!\"] \n  \"17\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.4!\"] \n  \"19\" [label = \"Exit at observation period end\ndate\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-c2916fdb3db20459e4c5" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-c2916fdb3db20459e4c5">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 830\nN records = 830\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.28\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 435\nN records = 435\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.28\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,6.4!\"] \n  \"9\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.2!\"] \n  \"11\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 395\nN records = 395\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4!\"] \n  \"13\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2.8!\"] \n  \"15\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.6!\"] \n  \"17\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.4!\"] \n  \"19\" [label = \"Exit at observation period end\ndate\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="update-cohort-start-and-end-dates---example-3" class="slide level2 incremental:FALSE"><h2>Update cohort start and end dates - Example</h2>
@@ -1136,126 +1158,64 @@ drug_strength</code></pre>
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-10b386829e4d6e34f9a0" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-10b386829e4d6e34f9a0">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,908\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 11229\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,6.4!\"] \n  \"9\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.2!\"] \n  \"11\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4!\"] \n  \"13\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2.8!\"] \n  \"15\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.6!\"] \n  \"17\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.4!\"] \n  \"19\" [label = \"Exit at observation period end\ndate\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-8db9ff4f9326a4abbef3" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-8db9ff4f9326a4abbef3">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,839\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 2,679\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 308\nN records = 308\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 175\nN records = 175\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 11160\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,6.4!\"] \n  \"9\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 2,371\nN records = 2371\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,5.2!\"] \n  \"11\" [label = \"Age requirement: 18 to\n85\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 133\nN records = 133\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4!\"] \n  \"13\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2.8!\"] \n  \"15\" [label = \"Prior observation requirement: 30\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,1.6!\"] \n  \"17\" [label = \"Future observation requirement: 0\ndays\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.4!\"] \n  \"19\" [label = \"Exit at observation period end\ndate\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
-</section><section id="your-turn-4" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-2" class="slide level2"><h2>Your turn</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
-<p><strong>1)</strong> Create new cohort called “<em>aspirin_death</em>”, from the “<em>aspirin_last</em>” cohort, that</p>
-<ul>
-<li class="fragment"><p>Only includes subjects with a record of death.</p></li>
-<li class="fragment"><p>Subjects leave the cohort at death date.</p></li>
-</ul>
-<div style="margin-bottom: 20px;">
-
-</div>
+<p><strong>From the <em>aspirin_last</em> cohort…</strong></p>
 <div class="fragment">
-<p><strong>2)</strong> Create a second cohort called “<em>aspirin_30days</em>”, from the “<em>aspirin_last</em>” cohort, in which</p>
+<p><strong>1) Create a new cohort named <em>aspirin_death</em> that </strong></p>
 <ul>
-<li class="fragment"><p>Subjects contribute during the first 30 days of taking aspirin, or until the end of the drug exposure if it is shorter than 30 days.</p></li>
-<li class="fragment"><p>How many people leave after 30 days? And how many people leave before that?</p></li>
+<li class="fragment"><p>Includes only subjects who have a record of death.</p></li>
+<li class="fragment"><p>Subjects exit the cohort on their date of death.</p></li>
 </ul>
-<div style="margin-bottom: 20px;">
-
-</div>
-</div>
-<div class="fragment">
-<p><em>Move forward in the presentation for the results.</em></p>
-</div>
-</section><section id="your-turn-5" class="slide level2"><h2>Your turn</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
-<ul>
-<li class="fragment">Death cohort:</li>
-</ul>
+</div>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin_death</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 3
-  cohort_definition_id number_records number_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1              0               0</code></pre>
-</div>
-</div>
+<p><strong>2) Create a second cohort called <em>aspirin_30days</em> which</strong></p>
+<ul>
+<li class="fragment">
+<p>Includes subjects for the <strong>first 30 days</strong> of taking aspirin, or until the end of their drug exposure if it is shorter than 30 days.</p>
+<ul>
+<li class="fragment">Determine the number of subjects who leave after 30 days and the number who leave before 30 days.</li>
+</ul>
+</li>
+</ul>
 <div style="margin-bottom: 20px;">
 
 </div>
 </div>
 <div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cohortAttrition.html">cohortAttrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin_death</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 7 × 7
-  cohort_definition_id number_records number_subjects reason_id reason                          excluded_records excluded_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                      &lt;int&gt;             &lt;int&gt;
-1                    1           4379            1927         1 Initial qualifying events                      0                 0
-2                    1           1927            1927         2 Restricted to last entry                    2452                 0
-3                    1           1511            1511         3 cohort_start_date after 1960-0…              416               416
-4                    1           1174            1174         4 cohort_start_date before 1979-…              337               337
-5                    1           1173            1173         5 Not in concept amoxicillin bet…                1                 1
-6                    1              0               0         6 No death recorded                           1173              1173
-7                    1              0               0         7 Exit at death                                  0                 0</code></pre>
-</div>
-</div>
-</div>
-</section><section id="your-turn-6" class="slide level2"><h2>Your turn</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 10px;">
-
-</div>
-<ul>
-<li class="fragment">30 days cohort:</li>
-</ul>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin_30days</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">exit_reason</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Source:   SQL [3 x 2]
-# Database: DuckDB v0.10.1 [nmercade@Windows 10 x64:R 4.2.2/C:\Users\nmercade\AppData\Local\Temp\RtmpyMMNZ3\file5f3c473e2e10.duckdb]
-  exit_reason                        n
-  &lt;chr&gt;                          &lt;dbl&gt;
-1 cohort_end_date                  834
-2 start_30_days; cohort_end_date    75
-3 start_30_days                    264</code></pre>
-</div>
-</div>
-<div style="margin-bottom: 20px;">
-
-</div>
+<p><em>Move forward in the presentation to get some tips on how to resolve the exercise</em></p>
 </div>
 <div class="fragment">
-<p><em>Move forward in the presentation to get some tips on how to solve it…</em></p>
-</div>
-<div class="fragment">
-<p><em>Or don’t, and try to solve it with the content seen so far! :)</em></p>
+<p><em>Or don’t, and try to resolve it with the content seen so far! :)</em></p>
 </div>
 </section><section id="tips-1" class="slide level2"><h2>Tips</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 20px;">
+<div style="margin-bottom: 10px;">
 
 </div>
 <p><strong>1) Death cohort</strong></p>
 <ul>
-<li class="fragment">Use the function to update cohort end to the death date, and tune its arguments to obtain a cohort restricted to people with a death event.</li>
+<li class="fragment">Use the function that allows to update the cohort end date to the date of death. Adjust the function’s arguments to restrict the cohort to individuals who have a death event.</li>
 </ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <div class="fragment">
-<p><strong>2) 30 days aspirin</strong></p>
+<p><strong>2) 30 Days Aspirin cohort</strong></p>
 <ul>
-<li class="fragment"><p>Create a new column by adding 30 days to cohort start date.</p></li>
-<li class="fragment"><p><strong>!Warning:</strong> To add dates in SQL tables (e.g.&nbsp;OMOP CDM cohorts) you can use the function <code>dateadd</code> from CDMConnector.</p></li>
-<li class="fragment"><p>Use the adequate function to update the cohort end date to be the first of this new date column, or the previous cohort end date.</p></li>
+<li class="fragment"><p>Create a new column by adding 30 days to the cohort start date.</p></li>
+<li class="fragment"><p>!! Warning: When adding dates in SQL tables (e.g., OMOP CDM cohorts), use the <code>dateadd</code> function from CDMConnector.</p></li>
+<li class="fragment"><p>Use the appropriate function to update the cohort end date to be either the new date column or the previous cohort end date, whichever comes first.</p></li>
 </ul>
 </div>
 </section></section><section><section id="cohort-manipulation" class="title-slide slide level1 center"><h1>Cohort manipulation</h1>
@@ -1313,7 +1273,7 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">intersection</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">intersection</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu">CohortConstructor</span><span class="fu">::</span><span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/intersectCohorts.html">intersectCohorts</a></span><span class="op">(</span></span>
 <span>    gap <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>    mutuallyExclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1343,7 +1303,7 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">medications</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ohdsi.github.io/CohortConstructor/reference/matchCohorts.html">matchCohorts</a></span><span class="op">(</span></span>
 <span>    cohortId <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>    matchSex <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -1368,13 +1328,13 @@ drug_strength</code></pre>
 
 </div>
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">diclofenac_match</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   cohort_definition_id number_records number_subjects
                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1            417             417
-2                    2            898             898</code></pre>
+1                    1            416             416
+2                    2            900             900</code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -1385,75 +1345,35 @@ drug_strength</code></pre>
 <div class="fragment">
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-fdc505358aa6ea0e4c15" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-fdc505358aa6ea0e4c15">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,5.1!\"] \n  \"2\" [label = \"N subjects = 2,259\nN records = 2,259\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.8!\"] \n  \"3\" [label = \"N subjects = 914\nN records = 914\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.6!\"] \n  \"4\" [label = \"N subjects = 900\nN records = 900\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.4!\"] \n  \"5\" [label = \"Final events\nN subjects = 898\nN records = 898\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,0.1!\"] \n  \"6\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.4!\"] \n  \"7\" [label = \"Exclude cases from\ncontrols\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.4!\"] \n  \"8\" [label = \"N subjects = 1,345\nN records = 1345\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3.2!\"] \n  \"9\" [label = \"Exclude individuals that do not have\nany match\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3.2!\"] \n  \"10\" [label = \"N subjects = 14\nN records = 14\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2!\"] \n  \"11\" [label = \"Exclude individuals not in\nobservation\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2!\"] \n  \"12\" [label = \"N subjects = 2\nN records = 2\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.8!\"] \n  \"13\" [label = \"Exclude individuals to fulfil the\nratio\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.8!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"7\"->\"6\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-1bcb775881940bbe8233" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-1bcb775881940bbe8233">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,694\nN records = 2,694\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,5.1!\"] \n  \"2\" [label = \"N subjects = 2,259\nN records = 2,259\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,3.8!\"] \n  \"3\" [label = \"N subjects = 914\nN records = 914\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,2.6!\"] \n  \"4\" [label = \"N subjects = 902\nN records = 902\", shape = \"box\", penwidth = \"1\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", pos = \"1,1.4!\"] \n  \"5\" [label = \"Final events\nN subjects = 900\nN records = 900\", shape = \"box\", penwidth = \"2\", color = \"black\", fillcolor = \"#F0F8FF\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", pos = \"1,0.1!\"] \n  \"6\" [label = \"N subjects = 435\nN records = 435\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,4.4!\"] \n  \"7\" [label = \"Exclude cases from\ncontrols\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,4.4!\"] \n  \"8\" [label = \"N subjects = 1,345\nN records = 1345\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,3.2!\"] \n  \"9\" [label = \"Exclude individuals that do not have\nany match\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,3.2!\"] \n  \"10\" [label = \"N subjects = 12\nN records = 12\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,2!\"] \n  \"11\" [label = \"Exclude individuals not in\nobservation\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,2!\"] \n  \"12\" [label = \"N subjects = 2\nN records = 2\", shape = \"box\", color = \"black\", fillcolor = \"#C0C0C0\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", pos = \"3,0.8!\"] \n  \"13\" [label = \"Exclude individuals to fulfil the\nratio\", shape = \"box\", color = \"black\", fillcolor = \"#FFFFFF\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", pos = \"1,0.8!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"7\"->\"6\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </div>
-</section><section id="your-turn-7" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-3" class="slide level2"><h2>Your turn</h2>
 <p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
 <div style="margin-bottom: 10px;">
 
 </div>
+<p><strong>Starting from the concept-based aspirin cohort…</strong></p>
 <ul>
-<li class="fragment">[<em>Collapse asipirin exposures</em>: Overwrite your concept-based “aspirin” cohort by merging any aspirin exposures for the same subject that occur within 7 days of each other.] –&gt; pending on issue</li>
+<li class="fragment">[<strong>Collapse asipirin exposures</strong>: Overwrite your concept-based “aspirin” cohort by merging any aspirin exposures for the same subject that occur within 7 days of each other.] –&gt; <strong>CC new release needed</strong>
+</li>
 </ul>
 <div style="margin-bottom: 10px;">
 
 </div>
 <ul>
 <li class="fragment">
-<em>Create yearly cohorts</em>: From your collapsed cohort, create five separate cohorts. Each cohort should include records for one specific year from the following list: 1965, 1967, 1968, 1969, and 1970.</li>
-</ul>
-<div class="fragment">
-<p><em>Move forward in the presentation for the results.</em></p>
-</div>
-</section><section id="your-turn-8" class="slide level2"><h2>Your turn</h2>
-<p><img data-src="logoCC.png" class="absolute" style="top: 0px; right: 70px; width: 70px; height: 70px; "><img data-src="logoHDS.png" class="absolute" style="top: 0px; right: 0px; width: 70px; height: 70px; "></p>
-<div style="margin-bottom: 10px;">
+<strong>Create yearly cohorts</strong>: From your collapsed cohort, create five separate cohorts. Each cohort should include records for one specific year from the following list: 1965, 1967, 1968, 1969, and 1970.</li>
+</ul></section></section><section id="thank-you-for-your-attention" class="title-slide slide level1 center"><h1>Thank you for your attention!</h1>
+<div style="margin-bottom: 25px;">
 
 </div>
-<div class="cell">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 3
-  cohort_definition_id number_records number_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;
-1                    1            134             132
-2                    2            143             138
-3                    3            141             137
-4                    4            151             145
-5                    5            134             130
-6                    6            139             138</code></pre>
-</div>
-</div>
-<div style="margin-bottom: 10px;">
-
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cohortAttrition.html">cohortAttrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">aspirin</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 7
-   cohort_definition_id number_records number_subjects reason_id reason                         excluded_records excluded_subjects
-                  &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                     &lt;int&gt;             &lt;int&gt;
- 1                    1           4379            1927         1 Initial qualifying events                     0                 0
- 2                    1            134             132         2 Restrict to observations betw…             4245              1795
- 3                    2           4379            1927         1 Initial qualifying events                     0                 0
- 4                    2            143             138         2 Restrict to observations betw…             4236              1789
- 5                    3           4379            1927         1 Initial qualifying events                     0                 0
- 6                    3            141             137         2 Restrict to observations betw…             4238              1790
- 7                    4           4379            1927         1 Initial qualifying events                     0                 0
- 8                    4            151             145         2 Restrict to observations betw…             4228              1782
- 9                    5           4379            1927         1 Initial qualifying events                     0                 0
-10                    5            134             130         2 Restrict to observations betw…             4245              1797
-11                    6           4379            1927         1 Initial qualifying events                     0                 0
-12                    6            139             138         2 Restrict to observations betw…             4240              1789</code></pre>
-</div>
-</div>
-</div>
-</section></section><section id="thank-you-for-your-attention" class="title-slide slide level1 center"><h1>Thank you for your attention!</h1>
 <p><strong>Questions?</strong></p>
+<div style="margin-bottom: 25px;">
+
+</div>
 <div class="title-slide-logos">
 <p><img src="logoCC.png" alt="Logo 1" class="logo"><img src="logoHDS.png" alt="Logo 2" class="logo"><img src="logoOHDSI.png" alt="Logo 3" class="logo"></p>
 </div>
