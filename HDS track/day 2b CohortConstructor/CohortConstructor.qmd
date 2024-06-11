@@ -356,14 +356,15 @@ cdm
 
 . . .
 
-## Results {visibility="hidden"}
+## Results {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 25px;"}
 :::
 
-- Number of records and subjects in the cohort.
+Number of records and subjects in the cohort.
+
 
 ```{r, echo=FALSE}
 aspirin_codes <- getDrugIngredientCodes(cdm, name = c("aspirin"))
@@ -376,7 +377,7 @@ summariseCohortCount(cdm$aspirin) |> tableCohortCount()
 ```
 
 
-## Solution {visibility="hidden"}
+## Solution {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -665,12 +666,15 @@ summary(cdm$medications) |>
 
 -   Use CodelistGenerator to find amoxicillin codes, and then use the relevant requirement function to impose the absence of those concepts in the pertinent time-window.
 
-## Results {visibility="hidden"}
+## Results {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 25px;"}
 :::
+
+Attrition of the *aspirin_last* cohort.
+
 
 ```{r, echo=FALSE}
 amoxicillin_codes <- getDrugIngredientCodes(cdm, "amoxicillin")
@@ -685,7 +689,7 @@ cdm$aspirin_last <- cdm$aspirin |>
 summary(cdm$aspirin_last) |> tableCohortAttrition()
 ```
 
-## Solution {visibility="hidden"}
+## Solution {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -887,14 +891,14 @@ summary(cdm$medications) |>
 
 - Use the appropriate function to update the cohort end date to be either the new date column or the previous cohort end date, whichever comes first.
 
-## Results {visibility="hidden"}
+## Results {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
-**Death cohort**
+**Death cohort:** cohort counts.
 
 ```{r, echo=FALSE}
 cdm$aspirin_death <- cdm$aspirin_last |>
@@ -907,10 +911,10 @@ cdm$aspirin_30days <- cdm$aspirin_last %>%
 summariseCohortCount(cdm$aspirin_death) |> tableCohortCount()
 ```
 
-::: {style="margin-bottom: 25px;"}
+::: {style="margin-bottom: 30px;"}
 :::
 
-**30 Days Aspirin cohort**
+**30 Days Aspirin cohort:** exit reason counts.
 
 
 ```{r, echo=FALSE}
@@ -921,7 +925,7 @@ cdm$aspirin_30days |>
   visOmopResults::gtTable()
 ```
 
-## Solution {visibility="hidden"}
+## Solution {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -1085,12 +1089,15 @@ summary(cdm$diclofenac_match) |>
 
 -   **Create yearly cohorts**: From your collapsed cohort, create five separate cohorts. Each cohort should include records for one specific year from the following list: 1965, 1967, 1968, 1969, and 1970.
 
-## Results {visibility="hidden"}
+## Results {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
 ::: {style="margin-bottom: 10px;"}
 :::
+
+Counts for each of the cohort years
+
 
 ```{r, echo=FALSE}
 cdm$aspirin <- cdm$aspirin |>
@@ -1100,11 +1107,11 @@ cdm$aspirin <- cdm$aspirin |>
 summariseCohortCount(cdm$aspirin) |> tableCohortCount()
 ```
 
-## Solution {visibility="hidden"}
+## Solution {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
-::: {style="margin-bottom: 10px;"}
+::: {style="margin-bottom: 25px;"}
 :::
 
 ```{r, eval=FALSE}
