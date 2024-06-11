@@ -1,0 +1,4 @@
+- source: CohortConstructor.qmd
+  quarto-pub:
+    - id: 3c6894dc-9399-4520-8cd0-e9b9868bdb58
+      url: 'https://dpa-pde-oxford.quarto.pub/cohortconstructorohdsieurope24'
