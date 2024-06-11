@@ -10,7 +10,7 @@
 https://dpa-pde-oxford.quarto.pub/codelistgenerator/
 
 ### day 2b CohortConstructor
-https://dpa-pde-oxford.quarto.pub/cohortconstructorss24-students/#/cohortconstructor
+https://dpa-pde-oxford.quarto.pub/cohortconstructorss24-students/
 
 ### day 2c CohortCharacteristics
 
