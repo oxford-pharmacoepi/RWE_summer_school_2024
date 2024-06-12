@@ -1,0 +1,117 @@
+---
+title: "Introduction"
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## Welcome
+
+Welcome everyone in the Analytics track :)
+
+## Motivation
+
+-   To do our own studies
+
+## Background
+
+-   A basic knowledge of what is the OMOP Common Data Model
+
+-   A basic knowledge of R and RStudio
+
+## Goals of the course
+
+-   Understand how to create and perform basic manipulations of the cdm object.
+
+-   
+
+## How we are going to work
+
+a)  Option 1, set up your own laptop: [instructions](www.omopverse.org). If you decide to work on your own you will have to download the following repository that contains the data that you need: LINK.
+
+b)  We have set up a posit cloud for you: LINK
+
+## SET UP TIME
+
+PICTURE OF POSIT CLOUD
+
+## Schedule
+
+### Monday
+**Connecting to a database, using R on an OMOPped database, database characterisation using OMOPSketch**
+
+13.30 to 13.45 *Introduction*
+
+13.45 to 14.25 *OMOP and CDMConnector*
+
+14.25 to 15.00 *Bespoke programming*
+
+15.00 to 15.15 **Break**
+
+15.15 to 16.00 *omopSketch and database characterisation*
+
+16.00 to 16.30 **General practical**
+
+## Schedule
+
+### Tuesday
+**Generating code lists systematically using CodeListGenerator; validating phenotypes built from OMOPped data using PhenotypeR**
+
+13.30 to 14.15 *CodelistGenerator*
+
+14.15 to 15.00 *CohortConstructor*  
+
+15.00 to 15.15 **Break**
+
+15.15 to 15.45 *CohortCharacteristics Part 1* 
+
+15.45 to 16.30 **General practical** 
+
+## Schedule
+
+### Wednesday 
+**Estimating descriptive epi using IncidencePrevalence; large-scale characterisation of OMOP-based cohorts using PatientProfiles**
+
+13.30 to 14.15 *PatientProfiles*
+
+14.15 to 14.45 *CohortCharacteristics Part 2*
+
+14.45 to 15.00 **Break** 
+
+15.00 to 15.45 *IncidencePrevalence*
+
+15.45 to 16.30 **General practical**
+
+## Schedule
+
+### Thursday
+**Performing drug utilisation research in OMOP using DrugUtilisation; new user cohort designs and CohortSurvival**
+
+13.30 to 14.15 *DrugUtilisation*
+
+14.15 to 14.45 *CohortSurvival*
+
+14.45 to 15.00 **Break** 
+
+15.00 to 16.30 **General practical**
+
+## Links
+
+- Repository of the summer school: [https://github.com/oxford-pharmacoepi/RWE_summer_school_2024](https://github.com/oxford-pharmacoepi/RWE_summer_school_2024)
+
+- Posit cloud: [https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1](https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1)
+
+- Repository to work: 

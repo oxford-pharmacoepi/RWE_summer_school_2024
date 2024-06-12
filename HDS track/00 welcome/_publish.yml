@@ -1,0 +1,4 @@
+- source: welcome.qmd
+  quarto-pub:
+    - id: 9582f2cf-c1a1-443f-9006-ff68a28313ef
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/welcome'
