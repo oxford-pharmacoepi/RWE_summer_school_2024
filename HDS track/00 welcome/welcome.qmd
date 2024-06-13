@@ -36,7 +36,11 @@ Welcome everyone in the Analytics track :)
 
 -   Understand how to create and perform basic manipulations of the cdm object.
 
--   
+-   Basic knowledge of how to create a codelist.
+
+-   Basic knowledge og how to create a cohort.
+
+-   Introduction to the different epidemiological studies: Characterisation, Descriptive epidemiology, Drug Utilisation Studies and Survival analysis.
 
 ## How we are going to work
 
@@ -48,9 +52,30 @@ b)  We have set up a posit cloud for you: LINK
 
 PICTURE OF POSIT CLOUD
 
+## Sessions
+
+Two parts:
+
+- 'Package session': A package will be explained with some exercices in between.
+
+- 'General practical': During the week we will have a total of 3h30 to do the general practice
+
+## Your turn
+
+During the 'Package session' when there is a slide with your turn this means that this slide contains exercises. Some of the exercises will show the expected result but not the code to do it. We will have two posits (blue and orange). We will use the post-its following this principle:
+
+- ORANGE post-it means: [**HELP :(**]{style="color:red;"}, if you put that post-it in your laptop this means that you are stuck and need help. Then one of the teachers will approach you to help you.
+
+- BLUE post-it means: [**I AM DONE :)**]{style="color:green;"}, if you put that post-it in your laptop this means that you finished the task. The session will continue when most of the attendees have the blue post-it.
+
+. . .
+
+The same will work for the General practice session.
+
 ## Schedule
 
-### Monday
+### `Monday`
+
 **Connecting to a database, using R on an OMOPped database, database characterisation using OMOPSketch**
 
 13.30 to 13.45 *Introduction*
@@ -67,29 +92,31 @@ PICTURE OF POSIT CLOUD
 
 ## Schedule
 
-### Tuesday
+### `Tuesday`
+
 **Generating code lists systematically using CodeListGenerator; validating phenotypes built from OMOPped data using PhenotypeR**
 
 13.30 to 14.15 *CodelistGenerator*
 
-14.15 to 15.00 *CohortConstructor*  
+14.15 to 15.00 *CohortConstructor*
 
 15.00 to 15.15 **Break**
 
-15.15 to 15.45 *CohortCharacteristics Part 1* 
+15.15 to 15.45 *CohortCharacteristics Part 1*
 
-15.45 to 16.30 **General practical** 
+15.45 to 16.30 **General practical**
 
 ## Schedule
 
-### Wednesday 
+### `Wednesday`
+
 **Estimating descriptive epi using IncidencePrevalence; large-scale characterisation of OMOP-based cohorts using PatientProfiles**
 
 13.30 to 14.15 *PatientProfiles*
 
 14.15 to 14.45 *CohortCharacteristics Part 2*
 
-14.45 to 15.00 **Break** 
+14.45 to 15.00 **Break**
 
 15.00 to 15.45 *IncidencePrevalence*
 
@@ -97,21 +124,22 @@ PICTURE OF POSIT CLOUD
 
 ## Schedule
 
-### Thursday
+### `Thursday`
+
 **Performing drug utilisation research in OMOP using DrugUtilisation; new user cohort designs and CohortSurvival**
 
 13.30 to 14.15 *DrugUtilisation*
 
 14.15 to 14.45 *CohortSurvival*
 
-14.45 to 15.00 **Break** 
+14.45 to 15.00 **Break**
 
 15.00 to 16.30 **General practical**
 
 ## Links
 
-- Repository of the summer school: [https://github.com/oxford-pharmacoepi/RWE_summer_school_2024](https://github.com/oxford-pharmacoepi/RWE_summer_school_2024)
+-   Repository of the summer school: <https://github.com/oxford-pharmacoepi/RWE_summer_school_2024>
 
-- Posit cloud: [https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1](https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1)
+-   Posit cloud: <https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1>
 
-- Repository to work: 
+-   Repository to work:
