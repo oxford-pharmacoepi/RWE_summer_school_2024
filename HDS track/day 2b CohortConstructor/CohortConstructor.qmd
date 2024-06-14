@@ -37,27 +37,147 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
--   CohortConstructor package is designed to support cohort building pipelines in R.
+- CohortConstructor package is designed to support cohort building pipelines in R.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   The approach taken to create cohorts is to first build a set of **base cohorts**, and then apply **inclusion criteria** to derive the final study cohorts of interest.
+- The approach taken to create cohorts is to first build a set of **base cohorts**, and then apply **inclusion criteria** to derive the final study cohorts of interest.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   The code is publicly available in OHDSI's GitHub repository [CohortConstructor](https://github.com/OHDSI/CohortConstructor).
+- The code is publicly available in OHDSI's GitHub repository [CohortConstructor](https://github.com/OHDSI/CohortConstructor).
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Vignettes with further information can be found in the package [website](https://ohdsi.github.io/CohortConstructor/index.html){.link}.
+- Vignettes with further information can be found in the package [website](https://ohdsi.github.io/CohortConstructor/index.html){.link}.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Available from [CRAN](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){.link}.
+- Available from [CRAN](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){.link}.
+
+# Understanding cohorts
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+"A cohort is a set of persons who satisfy one or more inclusion criteria for a duration of time."
+
+## Cohorts in R
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+A cohort table in R is represented by four fundamental columns:
+
+- `cohort_definition_id`: An integer identifying the cohort.
+
+- `subject_id`: An identifier for the patients who are part of the cohort.
+
+- `cohort_start_date`: The date when the patient begins contributing time to the cohort.
+
+- `cohort_end_date`: The date when the patient leaves the cohort.
+
+. . .
+
+::: {style="margin-bottom: 30px;"}
+:::
+
+**!!** *Subjects can contribute multiple times in a cohort, but their contributions cannot overlap!*
+
+## Cohorts in R
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+```{r, echo=FALSE}
+library(CDMConnector)
+library(CodelistGenerator)
+library(CohortConstructor)
+library(CohortCharacteristics)
+library(dplyr)
+con <- DBI::dbConnect(duckdb::duckdb(), 
+                      dbdir = eunomia_dir())
+cdm <- cdm_from_con(con, cdm_schema = "main", 
+                    write_schema = c(prefix = "my_study_", schema = "main"))
+example <- getDrugIngredientCodes(cdm, c("aspirin", "ibuprofen"))
+cdm$my_cohort <- conceptCohort(
+  cdm, conceptSet = example, name = "my_cohort"
+) |>
+  requireSex(sex = "Female")
+```
+
+```{r}
+cdm$my_cohort
+```
+
+## Cohort attributes
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+- `settings`: Relates `cohort_definition_id` with `cohort_name`, and other variables that define the cohort.
+
+- `attrition`: Inclusion logic to create each cohort and the resulting number of records and subjects at each step.
+
+- `cohortCount`: Number of records and subjects in each cohort.
+
+- `cohortCodelist`: Concepts used to derive the cohort.
+
+## Cohort attributes
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+- **settings**
+
+. . .
+
+```{r}
+settings(cdm$my_cohort)
+```
+
+- **attrition**
+
+. . .
+
+```{r}
+attrition(cdm$my_cohort)
+```
+
+## Cohort attributes
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+- **cohortCount**
+
+. . .
+
+```{r}
+cohortCount(cdm$my_cohort)
+```
+
+
+- **cohortCodelist**
+
+. . .
+
+```{r}
+cohortCodelist(cdm$my_cohort, 1)
+```
+```{r}
+cohortCodelist(cdm$my_cohort, 2)
+```
+
+# CohortConstructor
 
 ## Function sets
 
@@ -134,17 +254,17 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 ::: {style="margin-bottom: 25px;"}
 :::
 
--   `demographicsCohort()`
+- `demographicsCohort()`
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   `conceptCohort()`
+- `conceptCohort()`
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   `measurementCohort()`
+- `measurementCohort()`
 
 ## Demographic based - Example
 
@@ -152,18 +272,6 @@ An R package to build and curate cohorts in the OMOP Common Data Model
 
 ::: {style="margin-bottom: 15px;"}
 :::
-
-```{r, echo=FALSE}
-library(CDMConnector)
-library(CodelistGenerator)
-library(CohortConstructor)
-library(CohortCharacteristics)
-library(dplyr)
-con <- DBI::dbConnect(duckdb::duckdb(), 
-                      dbdir = eunomia_dir())
-cdm <- cdm_from_con(con, cdm_schema = "main", 
-                    write_schema = c(prefix = "my_study_", schema = "main"))
-```
 
 ```{r}
 cdm$age_cohort <- demographicsCohort(cdm = cdm, 
@@ -207,12 +315,12 @@ summary(cdm$age_cohort) |> plotCohortAttrition()
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
--   Base cohorts are built **by domain** rather than by cohort definition.
+- Base cohorts are built **by domain** rather than by cohort definition.
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   This approach reduces the joins to OMOP CDM tables by using all the `concept sets` together, making it less computationally expensive.
+- This approach reduces the joins to OMOP CDM tables by using all the `concept sets` together, making it less computationally expensive.
 
 . . .
 
@@ -225,7 +333,7 @@ summary(cdm$age_cohort) |> plotCohortAttrition()
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   Get relevant codelists
+- Get relevant codelists
 
 . . .
 
@@ -235,7 +343,7 @@ drug_codes <- getDrugIngredientCodes(cdm,
 drug_codes
 ```
 
--   Create concept based cohorts
+- Create concept based cohorts
 
 . . .
 
@@ -253,14 +361,13 @@ settings(cdm$medications)
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   Cohort codelist as an attribute
+- Cohort codelist as an attribute
 
 . . .
 
 ```{r}
 attr(cdm$medications, "cohort_codelist")
 ```
-
 
 ## Concept based - Measurement
 
@@ -281,7 +388,6 @@ cdm$temperature <- measurementCohort(
 )
 ```
 
-
 ## Let's get started!
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
@@ -289,7 +395,7 @@ cdm$temperature <- measurementCohort(
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   Get the necessary packages
+- Get the necessary packages
 
 . . .
 
@@ -307,7 +413,7 @@ library(dplyr)
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   We will use the Eunomia synthetic dataset for the practicals 
+- We will use the Eunomia synthetic dataset for the practicals
 
 . . .
 
@@ -324,7 +430,7 @@ downloadEunomiaData()
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   Connect to Eunomia and create the cdm object
+- Connect to Eunomia and create the cdm object
 
 . . .
 
@@ -352,11 +458,17 @@ cdm
 ::: {style="margin-bottom: 10px;"}
 :::
 
-  - How many records does it have? And how many subjects?
+- How many records does it have? And how many subjects?
 
 . . .
 
-## Results {visibility="hidden"} 
+::: {style="margin-bottom: 30px;"}
+:::
+
+*Move to the next slide to see the results.*
+
+## Results
+
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -378,6 +490,7 @@ summariseCohortCount(cdm$aspirin) |> tableCohortCount()
 
 
 ## Solution {visibility="hidden"} 
+
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -406,13 +519,13 @@ cdm$aspirin <- conceptCohort(cdm = cdm,
 - On demographics
 
   - `requireDemographics()`
-
+  
   - `requireAge()`
-
+  
   - `requireSex()`
-
+  
   - `requirePriorObservation()`
-
+  
   - `requireFutureObservation()`
 
 ::: {style="margin-bottom: 10px;"}
@@ -421,7 +534,7 @@ cdm$aspirin <- conceptCohort(cdm = cdm,
 - On cohort entries
 
   - `requireIsFirstEntry()`
-
+  
   - `requireIsLastEntry()`
 :::
 
@@ -435,12 +548,12 @@ cdm$aspirin <- conceptCohort(cdm = cdm,
 
 - Require presence or absence based on other cohorts, tables and concepts
 
-  - `requireCohortIntersectFlag()`
-
-  - `requireConceptIntersectFlag()`
-
-  - `requireTableIntersectFlag()`
-
+  - `requireCohortIntersect()`
+  
+  - `requireConceptIntersect()`
+  
+  - `requireTableIntersect()`
+  
   - `requireDeathFlag()`
 :::
 :::
@@ -476,11 +589,11 @@ cdm$aspirin <- conceptCohort(cdm = cdm,
 - We can apply different inclusion and exclusion criteria using CohortConstructor's functions in a pipe-line fashion. For instance, in what follows we require
 
   - only first record per person
-
+  
   - subjects 18 years old or more at cohort start date
-
+  
   - only females
-
+  
   - more than 180 days of prior observation at cohort start date
 
 . . .
@@ -544,17 +657,16 @@ summary(cdm$medications) |>
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Require no history of GI bleed
+- Require no more than 1 event of GI bleed in the past
 
 . . .
 
 ```{r}
 cdm$medications_no_gi_bleed <- cdm$medications %>%
-  requireConceptIntersectFlag(conceptSet = list("gi_bleed" = 192671), 
-                              indexDate = "cohort_start_date", 
-                              window = c(-Inf, 0), 
-                              negate = TRUE,
-                              name = "medications_no_gi_bleed") 
+  requireConceptIntersect(conceptSet = list("gi_bleed" = 192671), 
+                          intersections = c(0, 1),
+                          window = c(-Inf, 0), 
+                          name = "medications_no_gi_bleed") 
 ```
 
 ## Requirement functions - Example {.incremental:FALSE}
@@ -600,17 +712,32 @@ summary(cdm$medications) |>
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   **Purpose:** Specifies the name for the new cohort table in the database.
+- **Purpose:** Specifies the name for the new cohort table in the database.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   **Default Behavior:** If not provided, the function uses the input cohort’s name.
+- **Default Behavior:** If not provided, the function uses the input cohort’s name.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   **Warning:** Omitting the name argument will overwrite the existing cohort table.
+- **Warning:** Omitting the name argument will overwrite the existing cohort table.
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+. . .
+
+```{r, eval=FALSE}
+# Example: overwrite cohort
+cdm$cohort1 <- cdm$cohort1 %>%
+  requireDeathFlag()
+
+# Example: create new cohort table
+cdm$cohort2 <- cdm$cohort1 %>%
+  requireDeathFlag(name = "cohort2")
+```
 
 ## Your turn
 
@@ -624,19 +751,53 @@ summary(cdm$medications) |>
 ::: {style="margin-bottom: 5px;"}
 :::
 
-  - Include only the **last** drug exposure for each subject.
+- Include only the **last** drug exposure for each subject.
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
-  - Include exposures that **start between** January 1, 1960, and December 31, 1979.
+- Include exposures that **start between** January 1, 1960, and December 31, 1979.
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
-  - **Exclude** individuals with an amoxicillin exposure in the 7 days prior to the aspirin exposure.
+- **Exclude** individuals with an amoxicillin exposure in the 7 days prior to the aspirin exposure.
 
 ::: {style="margin-bottom: 25px;"}
+:::
+
+. . .
+
+::: {style="margin-bottom: 30px;"}
+:::
+
+*Move to the next slide to see the results.*
+
+## Results
+
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+Attrition of the *aspirin_last* cohort.
+
+
+```{r, echo=FALSE}
+amoxicillin_codes <- getDrugIngredientCodes(cdm, "amoxicillin")
+cdm$aspirin_last <- cdm$aspirin |>
+  requireIsLastEntry(name = "aspirin_last") |>
+  requireInDateRange(dateRange = as.Date(c("1960-01-01", "1979-12-31"))) |>
+  requireConceptIntersect(
+    conceptSet = amoxicillin_codes,
+    window = list(c(-7,-1)),
+    intersections = 0
+  )
+summary(cdm$aspirin_last) |> tableCohortAttrition()
+```
+
+::: {style="margin-bottom: 30px;"}
 :::
 
 . . .
@@ -654,40 +815,19 @@ summary(cdm$medications) |>
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Find in the package website which function limits cohort entries to the first or last to get the last drug exposure of a subject.
+- Find in the package website which function limits cohort entries to the first or last to get the last drug exposure of a subject.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Find in the package website which function impose date requirements on cohort dates.
+- Find in the package website which function impose date requirements on cohort dates.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   Use CodelistGenerator to find amoxicillin codes, and then use the relevant requirement function to impose the absence of those concepts in the pertinent time-window.
-
-## Results {visibility="hidden"} 
-
-![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
-
-::: {style="margin-bottom: 25px;"}
-:::
-
-Attrition of the *aspirin_last* cohort.
+- Use CodelistGenerator to find amoxicillin codes, and then use the relevant requirement function to impose the absence of those concepts in the pertinent time-window.
 
 
-```{r, echo=FALSE}
-amoxicillin_codes <- getDrugIngredientCodes(cdm, "amoxicillin")
-cdm$aspirin_last <- cdm$aspirin |>
-  requireIsLastEntry(name = "aspirin_last") |>
-  requireInDateRange(dateRange = as.Date(c("1960-01-01", "1979-12-31"))) |>
-  requireConceptIntersectFlag(
-    conceptSet = amoxicillin_codes,
-    window = list(c(-7,-1)),
-    negate = TRUE
-  )
-summary(cdm$aspirin_last) |> tableCohortAttrition()
-```
 
 ## Solution {visibility="hidden"} 
 
@@ -706,15 +846,14 @@ cdm$aspirin_last <- cdm$aspirin |>
   # Only those record starting in the desired time period
   requireInDateRange(dateRange = as.Date(c("1960-01-01", "1979-12-31"))) |>
   # Exclude amoxicilin exposures in the previos 7 days
-  requireConceptIntersectFlag(
+  requireConceptIntersect(
     conceptSet = amoxicillin_codes,
     window = list(c(-7,-1)),
-    negate = TRUE
+    intersections = 0
   )
 ```
 
-
-# Update cohort start and end dates 
+# Update cohort start and end dates
 
 ## Functions to update cohort start and end dates
 
@@ -728,11 +867,11 @@ cdm$aspirin_last <- cdm$aspirin |>
 - Cohort exit
 
   - `exitAtObservationEnd()`
-
+  
   - `exitAtDeath()`
-
+  
   - `exitAtFirstDate()`
-
+  
   - `exitAtLastDate()`
 
 ::: {style="margin-bottom: 10px;"}
@@ -741,7 +880,7 @@ cdm$aspirin_last <- cdm$aspirin |>
 - Cohort entry
 
   - `entryAtFirstDate()`
-
+  
   - `entryAtLastDate()`
 :::
 
@@ -749,7 +888,7 @@ cdm$aspirin_last <- cdm$aspirin |>
 - Trim start and end dates
 
   - `trimDemographics()`
-
+  
   - `trimToDateRange()`
 :::
 :::
@@ -761,7 +900,7 @@ cdm$aspirin_last <- cdm$aspirin |>
 ::: {style="margin-bottom: 15px;"}
 :::
 
--   We can set the end date to the end of the subject's observation period
+- We can set the end date to the end of the subject's observation period
 
 . . .
 
@@ -779,9 +918,9 @@ cdm$medications
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   We can also trim start and end dates to match demographic requirements
+- We can also trim start and end dates to match demographic requirements
 
--   i.e. cohort dates can be trimmed so the subject contributes time while he is 20 to 40 years old, and has a prior observation of 365 days
+- i.e. cohort dates can be trimmed so the subject contributes time while he is 20 to 40 years old, and has a prior observation of 365 days
 
 . . .
 
@@ -839,11 +978,11 @@ summary(cdm$medications) |>
 
 . . .
 
-**1) Create a new cohort named *aspirin_death* that **
+**1) Create a new cohort named *aspirin_death* that**
 
-  - Includes only subjects who have a record of death.
-  
-  - Subjects exit the cohort on their date of death.
+- Includes only subjects who have a record of death.
+
+- Subjects exit the cohort on their date of death.
 
 ::: {style="margin-bottom: 10px;"}
 :::
@@ -853,7 +992,7 @@ summary(cdm$medications) |>
 **2) Create a second cohort called *aspirin_30days* which**
 
 - Includes subjects for the **first 30 days** of taking aspirin, or until the end of their drug exposure if it is shorter than 30 days.
-  
+
   - Determine the number of subjects who leave after 30 days and the number who leave before 30 days.
 
 ::: {style="margin-bottom: 20px;"}
@@ -861,37 +1000,14 @@ summary(cdm$medications) |>
 
 . . .
 
-*Move forward in the presentation to get some tips on how to resolve the exercise*
-
-. . .
-
-*Or don't, and try to resolve it with the content seen so far! :)*
-
-## Tips
-
-![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
-
-::: {style="margin-bottom: 10px;"}
+::: {style="margin-bottom: 30px;"}
 :::
 
-**1) Death cohort**
+*Move to the next slide to see the results.*
 
--   Use the function that allows to update the cohort end date to the date of death. Adjust the function's arguments to restrict the cohort to individuals who have a death event.
 
-::: {style="margin-bottom: 10px;"}
-:::
+## Results
 
-. . .
-
-**2) 30 Days Aspirin cohort**
-
-- Create a new column by adding 30 days to the cohort start date.
-
-- !! Warning: When adding dates in SQL tables (e.g., OMOP CDM cohorts), use the `dateadd` function from CDMConnector.
-
-- Use the appropriate function to update the cohort end date to be either the new date column or the previous cohort end date, whichever comes first.
-
-## Results {visibility="hidden"} 
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -916,7 +1032,6 @@ summariseCohortCount(cdm$aspirin_death) |> tableCohortCount()
 
 **30 Days Aspirin cohort:** exit reason counts.
 
-
 ```{r, echo=FALSE}
 cdm$aspirin_30days |>
   group_by(exit_reason) |>
@@ -924,6 +1039,42 @@ cdm$aspirin_30days |>
   collect() |>
   visOmopResults::gtTable()
 ```
+
+::: {style="margin-bottom: 30px;"}
+:::
+
+. . .
+
+*Move forward in the presentation to get some tips on how to resolve the exercise*
+
+. . .
+
+*Or don't, and try to resolve it with the content seen so far! :)*
+
+## Tips
+
+![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+**1) Death cohort**
+
+- Use the function that allows to update the cohort end date to the date of death. Adjust the function's arguments to restrict the cohort to individuals who have a death event.
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+. . .
+
+**2) 30 Days Aspirin cohort**
+
+- Create a new column by adding 30 days to the cohort start date.
+
+  - !! Warning: When adding dates in SQL tables (e.g., OMOP CDM cohorts), use the `dateadd` function from CDMConnector.
+
+- Use the appropriate function to update the cohort end date to be either the new date column or the previous cohort end date, whichever comes first.
+
 
 ## Solution {visibility="hidden"} 
 
@@ -945,7 +1096,6 @@ cdm$aspirin_death <- cdm$aspirin_last |>
 
 **30 Days Aspirin cohort**
 
-
 ```{r, eval=FALSE}
 cdm$aspirin_30days <- cdm$aspirin_last %>% 
   # add 30 days to cohort start date
@@ -960,7 +1110,6 @@ cdm$aspirin_30days |>
   tally(name = "counts")
 ```
 
-
 # Cohort manipulation
 
 ## Functions for cohort manipulations
@@ -970,37 +1119,37 @@ cdm$aspirin_30days |>
 ::: {style="margin-bottom: 25px;"}
 :::
 
--   `collapseCohorts()`
+- `collapseCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `intersectCohorts()`
+- `intersectCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `matchCohorts()`
+- `matchCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `stratifyCohorts()`
+- `stratifyCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `subsetCohorts()`
+- `subsetCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `unionCohorts()`
+- `unionCohorts()`
 
 ::: {style="margin-bottom: 5px;"}
 :::
 
--   `yearCohorts()`
+- `yearCohorts()`
 
 ## Cohort manipulation functions - Example
 
@@ -1009,7 +1158,7 @@ cdm$aspirin_30days |>
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   We can generate a new cohort that contains people who had an exposure to both diclofenac and acetaminophen at the same time using `intersectCohorts()`.
+- We can generate a new cohort that contains people who had an exposure to both diclofenac and acetaminophen at the same time using `intersectCohorts()`.
 
 . . .
 
@@ -1032,9 +1181,9 @@ settings(cdm$intersection)
 ::: {style="margin-bottom: 25px;"}
 :::
 
--   The `matchCohort` functions generates a new cohort by matching on age and sex from a target cohort.
+- The `matchCohort` functions generates a new cohort by matching on age and sex from a target cohort.
 
--   For example, to compare individuals who take diclofenac to the general population, we can create a matched cohort as follows:
+- For example, to compare individuals who take diclofenac to the general population, we can create a matched cohort as follows:
 
 . . .
 
@@ -1063,7 +1212,7 @@ cohortCount(cdm$diclofenac_match)
 
 . . .
 
--   Attrition for the matched cohort
+- Attrition for the matched cohort
 
 . . .
 
@@ -1082,14 +1231,21 @@ summary(cdm$diclofenac_match) |>
 
 **Starting from the concept-based aspirin cohort...**
 
--   \[**Collapse asipirin exposures**: Overwrite your concept-based "aspirin" cohort by merging any aspirin exposures for the same subject that occur within 7 days of each other.\] --\> **CC new release needed**
+- **Collapse aspirin exposures**: Overwrite your concept-based "aspirin" cohort by merging any aspirin exposures for the same subject that occur within 7 days of each other.
 
 ::: {style="margin-bottom: 10px;"}
 :::
 
--   **Create yearly cohorts**: From your collapsed cohort, create five separate cohorts. Each cohort should include records for one specific year from the following list: 1965, 1967, 1968, 1969, and 1970.
+- **Create yearly cohorts**: From your collapsed cohort, create five separate cohorts. Each cohort should include records for one specific year from the following list: 1965, 1967, 1968, 1969, and 1970.
 
-## Results {visibility="hidden"} 
+. . .
+
+::: {style="margin-bottom: 30px;"}
+:::
+
+*Move to the next slide to see the results.*
+
+## Results
 
 ![](logoCC.png){.absolute right="70px" top="0px" width="70" height="70"} ![](logoHDS.png){.absolute right="0px" top="0px" width="70" height="70"}
 
@@ -1101,7 +1257,7 @@ Counts for each of the cohort years
 
 ```{r, echo=FALSE}
 cdm$aspirin <- cdm$aspirin |>
-  # collapseCohorts(gap = 7) |>
+  collapseCohorts(gap = 7) |>
   yearCohorts(years = 1965:1970)
 
 summariseCohortCount(cdm$aspirin) |> tableCohortCount()
@@ -1116,7 +1272,7 @@ summariseCohortCount(cdm$aspirin) |> tableCohortCount()
 
 ```{r, eval=FALSE}
 cdm$aspirin <- cdm$aspirin |>
-  # collapseCohorts(gap = 7) |>
+  collapseCohorts(gap = 7) |>
   yearCohorts(years = 1965:1970)
 ```
 
