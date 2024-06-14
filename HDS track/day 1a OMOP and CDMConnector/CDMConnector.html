@@ -538,7 +538,7 @@ Download completed!</code></pre>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">db</span>, <span class="st">"person"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
    person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id ethnicity_concept_id
        &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;                &lt;int&gt;
  1         6              8532          1963             12           31 1963-12-31 00:00:00            8516                    0
@@ -564,7 +564,7 @@ Download completed!</code></pre>
 <span><span class="va">person_db</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
    person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id ethnicity_concept_id
        &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;                &lt;int&gt;
  1         6              8532          1963             12           31 1963-12-31 00:00:00            8516                    0
@@ -590,7 +590,7 @@ Download completed!</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
       n
   &lt;dbl&gt;
 1  2694</code></pre>
@@ -665,7 +665,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">observation_period</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 5]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
 1                     6         6 1963-12-31                    2007-02-06                                44814724
@@ -678,7 +678,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">[[</span><span class="st">"observation_period"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 5]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
 1                     6         6 1963-12-31                    2007-02-06                                44814724
@@ -706,12 +706,12 @@ drug_strength</code></pre>
  2      2333    50
  3      1478    47
  4      2985    45
- 5      3708    44
- 6      1746    44
+ 5      1746    44
+ 6      3708    44
  7      4297    43
- 8      4613    42
- 9      3695    42
-10      2731    41
+ 8      3695    42
+ 9      4613    42
+10      1626    41
 # ℹ 2,684 more rows</code></pre>
 </div>
 </div>
@@ -811,7 +811,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
+[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
 [31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
 [36] "vocabulary"           </code></pre>
 </div>
@@ -830,7 +830,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "my_saved_table"        "note"                  "note_nlp"              "observation"          
-[26] "observation_period"    "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence" 
+[26] "observation_period"    "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence" 
 [31] "provider"              "relationship"          "source_to_concept_map" "specimen"              "visit_detail"         
 [36] "visit_occurrence"      "vocabulary"           </code></pre>
 </div>
@@ -863,7 +863,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_saved_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_saved_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
    person_id condition_start_date
        &lt;int&gt; &lt;date&gt;              
  1       263 2015-10-02          
@@ -922,7 +922,7 @@ drug_strength</code></pre>
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
+[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
 [31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
 [36] "vocabulary"           </code></pre>
 </div>
@@ -964,7 +964,7 @@ drug_strength</code></pre>
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
+[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
 [31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
 [36] "vocabulary"           </code></pre>
 </div>
@@ -1006,14 +1006,14 @@ drug_strength</code></pre>
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "my_test_table"         "note"                  "note_nlp"              "observation"          
-[26] "observation_period"    "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence" 
+[26] "observation_period"    "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence" 
 [31] "provider"              "relationship"          "source_to_concept_map" "specimen"              "visit_detail"         
 [36] "visit_occurrence"      "vocabulary"           </code></pre>
 </div>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_test_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_test_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
    speed  dist
    &lt;dbl&gt; &lt;dbl&gt;
  1     4     2
@@ -1102,7 +1102,7 @@ drug_strength</code></pre>
 [13] "domain"                  "dose_era"                "drug_era"                "drug_exposure"          
 [17] "drug_strength"           "fact_relationship"       "location"                "measurement"            
 [21] "metadata"                "my_prefix_my_test_table" "note"                    "note_nlp"               
-[25] "observation"             "observation_period"      "og_001_1718352950"       "payer_plan_period"      
+[25] "observation"             "observation_period"      "og_001_1718357281"       "payer_plan_period"      
 [29] "person"                  "procedure_occurrence"    "provider"                "relationship"           
 [33] "source_to_concept_map"   "specimen"                "visit_detail"            "visit_occurrence"       
 [37] "vocabulary"             </code></pre>
@@ -1110,7 +1110,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_test_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_prefix_my_test_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYfU4FN\file6eb017ac10fd.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
    speed  dist
    &lt;dbl&gt; &lt;dbl&gt;
  1     4     2
@@ -1138,7 +1138,7 @@ drug_strength</code></pre>
 [13] "domain"                  "dose_era"                "drug_era"                "drug_exposure"          
 [17] "drug_strength"           "fact_relationship"       "location"                "measurement"            
 [21] "metadata"                "my_prefix_my_test_table" "note"                    "note_nlp"               
-[25] "observation"             "observation_period"      "og_001_1718352950"       "payer_plan_period"      
+[25] "observation"             "observation_period"      "og_001_1718357281"       "payer_plan_period"      
 [29] "person"                  "procedure_occurrence"    "provider"                "relationship"           
 [33] "source_to_concept_map"   "specimen"                "visit_detail"            "visit_occurrence"       
 [37] "vocabulary"             </code></pre>
@@ -1181,7 +1181,7 @@ drug_strength</code></pre>
 [11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
 [16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
 [21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718352950"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
+[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
 [31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
 [36] "vocabulary"           </code></pre>
 </div>
@@ -1241,54 +1241,22 @@ drug_strength</code></pre>
 <p>Omop names are reserved words, e.g.&nbsp;we can not assign a table that is not the person table to <code>cdm$person</code>.</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">person</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"person"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">person</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"person"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>Error in `newOmopTable()` at OMOPGenerics/R/classCdmReference.R:557:6:
+! gender_concept_id, year_of_birth, race_concept_id and ethnicity_concept_id are not present in table person</code></pre>
+</div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"my_id"</span> <span class="op">=</span> <span class="st">"person_id"</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"drug_exposure"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"my_id"</span> <span class="op">=</span> <span class="st">"person_id"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"drug_exposure"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `db_compute()`:
-! Can't copy query to table drug_exposure.
-Caused by error in `db_save_query.DBIConnection()`:
-! Can't save query to table drug_exposure.
-ℹ Using SQL: CREATE TEMPORARY TABLE drug_exposure AS SELECT drug_exposure_id, person_id AS my_id, drug_concept_id,
-  drug_exposure_start_date, drug_exposure_start_datetime, drug_exposure_end_date, drug_exposure_end_datetime, verbatim_end_date,
-  drug_type_concept_id, stop_reason, refills, quantity, days_supply, sig, route_concept_id, lot_number, provider_id,
-  visit_occurrence_id, visit_detail_id, drug_source_value, drug_source_concept_id, route_source_value, dose_unit_source_value
-  FROM main.drug_exposure
-Caused by error:
-! rapi_prepare: Failed to prepare query CREATE TEMPORARY TABLE 
-drug_exposure AS
-SELECT
-  drug_exposure_id,
-  person_id AS my_id,
-  drug_concept_id,
-  drug_exposure_start_date,
-  drug_exposure_start_datetime,
-  drug_exposure_end_date,
-  drug_exposure_end_datetime,
-  verbatim_end_date,
-  drug_type_concept_id,
-  stop_reason,
-  refills,
-  quantity,
-  days_supply,
-  sig,
-  route_concept_id,
-  lot_number,
-  provider_id,
-  visit_occurrence_id,
-  visit_detail_id,
-  drug_source_value,
-  drug_source_concept_id,
-  route_source_value,
-  dose_unit_source_value
-FROM main.drug_exposure
-Error: Catalog Error: Table with name drug_exposure does not exist!
-Did you mean "drug_era"?
-LINE 27: FROM main.drug_exposure
-              ^</code></pre>
+<pre><code>Error in `newOmopTable()` at OMOPGenerics/R/classCdmReference.R:557:6:
+! person_id is not present in table drug_exposure</code></pre>
 </div>
 </div>
 <div class="footer footer-default">

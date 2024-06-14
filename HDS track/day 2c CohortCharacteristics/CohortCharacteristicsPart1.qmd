@@ -19,4 +19,23 @@ execute:
 editor: visual
 ---
 
+## CohortCharacteristics
+
+
+
+
 ## Introduction
+
+```{r}
+library(CDMConnector)
+library(dplyr)
+library(tidyr)
+library(DBI)
+
+db <- DBI::dbConnect(duckdb::duckdb(),  dbdir = eunomia_dir())
+cdm <- cdm_from_con(con = db, cdm_schema = "main", write_schema = "main")
+```
+
+```{r, message=TRUE}
+cdm
+```

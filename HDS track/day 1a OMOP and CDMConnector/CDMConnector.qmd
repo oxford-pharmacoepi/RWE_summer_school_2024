@@ -533,11 +533,14 @@ Omop names are reserved words, e.g. we can not assign a table that is not the pe
 . . .
 
 ```{r, error = TRUE}
-cdm$person <- cdm$drug_exposure |> compute(name = "person")
+cdm$person <- cdm$drug_exposure |> 
+  compute(name = "person", temporary = FALSE)
 ```
 
 . . .
 
 ```{r, error = TRUE}
-cdm$drug_exposure <- cdm$drug_exposure |> rename("my_id" = "person_id") |> compute(name = "drug_exposure")
+cdm$drug_exposure <- cdm$drug_exposure |> 
+  rename("my_id" = "person_id") |> 
+  compute(name = "drug_exposure", temporary = FALSE)
 ```
