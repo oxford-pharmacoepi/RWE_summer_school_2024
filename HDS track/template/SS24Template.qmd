@@ -1,0 +1,117 @@
+---
+pagetitle: "CohortConstructor"
+format:
+  revealjs: 
+    theme: [simple, styleSS24.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+    footer: "Oxford Summer School 2024"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output-width: 100%
+editor: visual
+---
+
+```{r, echo=FALSE}
+options(width = 130)
+```
+
+# PackageName {.title-slide}
+
+::: {style="margin-top: 25px;"}
+:::
+
+
+very brief description
+
+::: title-slide-logos
+<img src="images/hexticker.png" alt="Logo 1" class="logo"/> &ensp;<img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
+:::
+
+## Introduction
+
+![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
+
+-   PakcageName package is designed to ...
+
+::: {style="margin-bottom: 10px;"}
+:::
+
+-   ...
+
+# Change topic
+
+## New slide
+
+![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](images/hexticker.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**PackageName**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Thank you for your attention!**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**CRAN**](https://cran.r-project.org/package=CohortConstructor){style="color: #3a6ea5; text-decoration: underline;"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Manual**](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Website**](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::
