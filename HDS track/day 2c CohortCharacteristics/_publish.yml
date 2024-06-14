@@ -1,0 +1,4 @@
+- source: CohortCharacteristicsPart1.qmd
+  quarto-pub:
+    - id: 13f6a9fe-80d4-4d31-8428-e701a9f9eefb
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/cohortcharacteristics-part1'
