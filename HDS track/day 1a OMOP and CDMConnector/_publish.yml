@@ -1,0 +1,4 @@
+- source: CDMConnector.qmd
+  quarto-pub:
+    - id: c4b6540c-c058-449c-b822-26a8d5c39edc
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/omop-and-cdmconnector'

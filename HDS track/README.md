@@ -1,6 +1,9 @@
 ## HDS Afternoon Practicals
 
+https://dpa-pde-oxford.quarto.pub/welcome/
+
 ### day 1a OMOP and CDMConnector
+https://dpa-pde-oxford.quarto.pub/omop-and-cdmconnector/
 
 ### day 1b Bespoke programming
 
@@ -12,11 +15,11 @@ https://dpa-pde-oxford.quarto.pub/codelistgenerator/
 ### day 2b CohortConstructor
 https://dpa-pde-oxford.quarto.pub/cohortconstructorss24-students/
 
-### day 2c CohortCharacteristics
+### day 2c CohortCharacteristics Part 1
 
 ### day 3a PatientProfiles
 
-### day 3b CohortCharacteristics
+### day 3b CohortCharacteristics Part 2
 
 ### day 3c IncidencePrevalence
 https://dpa-pde-oxford.quarto.pub/incidenceprevalence/
