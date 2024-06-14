@@ -7,6 +7,8 @@ https://dpa-pde-oxford.quarto.pub/omop-and-cdmconnector/
 
 ### day 1b Bespoke programming
 
+https://dpa-pde-oxford.quarto.pub/bespoke-code/
+
 ### day 1c OMOPSketch and database characterisation
 
 ### day 2a CodelistGenerator

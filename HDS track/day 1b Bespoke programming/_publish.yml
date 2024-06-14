@@ -1,0 +1,4 @@
+- source: BespokeCodePresentation.qmd
+  quarto-pub:
+    - id: 644aa15b-175a-4b05-b4b9-4e787e86aeb7
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/bespoke-code'

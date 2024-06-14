@@ -1,0 +1,6 @@
+BespokeCodePresentation_files/
+*.zip
+*.duckdb
+
+
+/.quarto/
