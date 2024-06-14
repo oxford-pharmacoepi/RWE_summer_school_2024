@@ -1,0 +1,6 @@
+CohortCharacteristicsPart1_files/
+*.zip
+*.duckdb
+
+
+/.quarto/

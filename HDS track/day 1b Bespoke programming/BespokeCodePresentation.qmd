@@ -1,0 +1,731 @@
+---
+title: "Bespoke code"
+subtitle: "Writing R code for OMOP CDM"
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## Introduction
+
+![](R_logo.png){.center}
+
+-   R is a user friendly language
+
+-   It can be used for most of the statistical analyses that we need to perform: HR, RR, PS, SMD, LR, ...
+
+-   We have simple commands to manage tables and data (tidyverse).
+
+-   We have a memory problem, for example AURUM database is 6,600 GB!! condition_occurrence alone is 500 GB. We can not fit all this tables in the RAM memory.
+
+## Introduction
+
+![](sql_logo.png){.center}
+
+-   SQL it is a much more complicated language (or least less user friendly)
+
+-   It is simple to manage big data using its commands.
+
+-   It does not have any statistical support to compute things like: HR, RR, PS, SMD, LR, ...
+
+-   The memory problem is solved as it works in the "database space" and the data in in the hard drive and not in the RAM memory.
+
+## dplyr and dbplyr
+
+-   [dplyr](https://dplyr.tidyverse.org/) and [dbplyr](https://dbplyr.tidyverse.org/) are packages that allow us to manipulate data in local and in the database side.
+
+. . .
+
+**Advantages**:
+
+-   They are R packages (user friendly)
+
+-   You can combine with other R packages (statistical analysis)
+
+-   It works using SQL (we do not have to write it) so the memory issue is solved
+
+. . .
+
+**Warnings**:
+
+-   Not all functions can be translated
+
+-   Not always the easiest and efficient translation
+
+## Let's get started (connect to Eunomia)
+
+**STEP 1** Download Eunomia
+
+```{r, eval = FALSE}
+library(CDMConnector)
+library(here)
+downloadEunomiaData(pathToData = here(), overwrite = TRUE)
+```
+
+. . .
+
+<br/>
+
+**STEP 2** Set the R environ
+
+```{r, eval = FALSE}
+# open the r_environ file:
+usethis::edit_r_environ()
+# write:
+# EUNOMIA_DATA_FOLDER = "......"
+```
+
+. . .
+
+<br/>
+
+**STEP 3** Restart R command/ctrl + shift + F10
+
+## Let's get started (connect to Eunomia)
+
+```{r}
+library(DBI)
+library(duckdb)
+library(CDMConnector)
+library(dplyr)
+library(dbplyr)
+
+db <- dbConnect(duckdb(), dbdir = eunomia_dir())
+cdm <- cdmFromCon(con = db, cdmSchema = "main",writeSchema = "main")
+cdm
+```
+
+## Pipe operator
+
+. . .
+
+`%>%` or `|>` operator is used to chain operators one after the other:
+
+```{r, echo = TRUE, eval=FALSE}
+functionY(functionX(cdm$person))
+```
+
+. . .
+
+is equivalent to:
+
+```{r, echo = TRUE, eval=FALSE}
+cdm$person %>% 
+  functionX() %>% 
+  functonY()
+
+cdm$person |> 
+  functionX() |>
+  functionY()
+```
+
+## tally() and count()
+
+. . .
+
+[tally](https://dplyr.tidyverse.org/reference/count.html) and [count](https://dplyr.tidyverse.org/reference/count.html) are used to count the number of rows.
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |> 
+  tally()
+```
+
+. . .
+
+```{r}
+cdm$person |> 
+  count()
+```
+
+## group_by
+
+. . .
+
+[group_by](https://dplyr.tidyverse.org/reference/group_by.html) is used to create groups in the data (functions then are applied into this groups)
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |> 
+  group_by(year_of_birth) |> 
+  tally()
+```
+
+. . .
+
+or you can use [add_tally()](https://dplyr.tidyverse.org/reference/count.html) if you want to include the tally for each group as a new column in your orginial dataset. Try below yourself.
+
+```{r, echo = FALSE, eval=FALSE}
+cdm$person |> 
+  group_by(year_of_birth) |> 
+  add_tally()
+```
+
+. . .
+
+Remember to [ungroup()](https://dplyr.tidyverse.org/reference/group_by.html) the data set when you finish to eliminate the groups as the groupings can sometime cause error with other operation
+
+## arrange
+
+. . .
+
+[arrange](https://dplyr.tidyverse.org/reference/arrange.html) is used to arrange data
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |> 
+  group_by(year_of_birth) |> 
+  tally()  |> 
+  collect() |>
+  arrange(n)
+```
+
+## desc
+
+. . .
+
+[desc](https://dplyr.tidyverse.org/reference/desc.html) is used to arrange data in descending order
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |> 
+  group_by(year_of_birth) |> 
+  tally() |> 
+  collect() |> 
+  arrange(desc(n))
+```
+
+## Your turn
+
+. . .
+
+-   Can you identify which is the most repeated drug_concept_id code in the drug exposure table?
+
+. . .
+
+```{r, echo=FALSE}
+cdm$drug_exposure |>
+  group_by(drug_concept_id) |>
+  tally() |> 
+  collect() |>
+  arrange(desc(n))
+```
+
+. . .
+
+```{r, eval=FALSE}
+cdm$drug_exposure |>
+  group_by(drug_concept_id) |>
+  tally() |> 
+  collect() |>
+  arrange(desc(n))
+```
+
+## rename()
+
+. . .
+
+[rename](https://dplyr.tidyverse.org/reference/rename.html) is used to change the name of a column.
+
+. . .
+
+```{r}
+cdm$condition_occurrence |> 
+  glimpse()
+```
+
+. . .
+
+```{r}
+cdm$condition_occurrence |> 
+  rename("concept_id"="condition_concept_id") |>
+  glimpse()
+```
+
+## select()
+
+. . .
+
+[select](https://dplyr.tidyverse.org/reference/select.html) function is used to obtain only the desired columns that we are interested.
+
+. . .
+
+```{r}
+cdm$condition_occurrence |> 
+  select("condition_concept_id")
+```
+
+. . .
+
+```{r}
+cdm$condition_occurrence |> 
+  select("concept_id" = "condition_concept_id")
+```
+
+## distinct()
+
+. . .
+
+[distinct](https://dplyr.tidyverse.org/reference/distinct.html) is used to ensure that all the rows are different.
+
+. . .
+
+```{r, echo = TRUE}
+cdm$condition_occurrence |> 
+  select("condition_concept_id") |> 
+  distinct()
+```
+
+## Your turn
+
+-   Can you identify how many different persons present each of the condition_concept_id in condition_occurrence?
+
+    -   Identify distinct pairs of person_id and condition_concept_id
+
+    -   Count how many times each condition_concept_id appears
+
+. . .
+
+```{r, echo = FALSE}
+cdm$condition_occurrence |> 
+  select("person_id","condition_concept_id") |>
+  distinct() |> 
+  group_by(condition_concept_id) |>
+  tally() |>
+  rename("number_persons" = "n") |> 
+  collect() |>
+  arrange(desc(number_persons))
+```
+
+## Your turn
+
+Can you identify how many different persons present each of the condition_concept_id in condition_occurrence?
+
+```{r}
+cdm$condition_occurrence |> 
+  select("person_id","condition_concept_id") |>
+  distinct() |> 
+  group_by(condition_concept_id) |>
+  tally() |>
+  rename("number_persons" = "n") |> 
+  collect() |>
+  arrange(desc(number_persons))
+```
+
+## What is going on: show_query()
+
+-   What dbplyr package is doing is to translate our R commands to SQL.
+
+-   They are executed in the "database side" and we see the output.
+
+-   With this command we can see which are the sql commands that are being executed
+
+-   Let's use [show_query](https://dplyr.tidyverse.org/reference/explain.html) to see the sql commands.
+
+## show_query()
+
+. . .
+
+```{r, echo = TRUE, eval = FALSE}
+cdm$condition_occurrence |> 
+  select("person_id","condition_concept_id") |>
+  distinct() |> 
+  group_by(condition_concept_id) |>
+  tally() |>
+  rename("number_persons" = "n") |>
+  arrange(desc(number_persons)) |> 
+  show_query()
+```
+
+. . .
+
+```{r, echo = FALSE, eval = TRUE}
+cdm$condition_occurrence |> 
+  select("person_id","condition_concept_id") |>
+  distinct() |> 
+  group_by(condition_concept_id) |>
+  tally() |>
+  rename("number_persons" = "n") |>
+  arrange(desc(number_persons)) |> 
+  show_query()
+```
+
+## summarise()
+
+. . .
+
+[summarise](https://dplyr.tidyverse.org/reference/summarise.html) is used to summarize the data. It will have one row for each group.
+
+. . .
+
+```{r, echo = TRUE}
+cdm$condition_occurrence |> 
+  group_by(condition_concept_id) |>
+  summarise(
+    number_counts_counts = n()
+  )
+```
+
+## summarise()
+
+```{r, echo = TRUE}
+cdm$condition_occurrence |> 
+  group_by(condition_concept_id) |>
+  summarise(
+    number_counts_counts = n(),
+    number_distinct_people  = n_distinct(person_id)
+  )
+```
+
+## summarise()
+
+```{r, echo = TRUE}
+cdm$condition_occurrence |> 
+  group_by(condition_concept_id) |>
+  summarise(
+    number_counts_counts = n(),
+    number_distinct_people  = n_distinct(person_id),
+    median_time = as.Date(median(condition_start_date)),
+    first_occurrence = min(condition_start_date)
+  )
+```
+
+## mutate()
+
+. . .
+
+[mutate](https://dplyr.tidyverse.org/reference/mutate.html) is used to create new variables (columns) in the database. They can be completely new variables or variables computed from the previous ones.
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |> 
+  mutate(age = 2022 - year_of_birth) |>
+  select(person_id,age)
+```
+
+## filter()
+
+. . .
+
+[filter](https://dplyr.tidyverse.org/reference/filter.html) function is used to subset a data frame, retaining all rows that satisfy your conditions condition.
+
+. . .
+
+```{r, echo = TRUE}
+cdm$person |>
+  mutate(age = 2022 - year_of_birth) |>
+  select(person_id, age) |>
+  filter(age == 55)
+```
+
+## Your turn
+
+-   Which is the individuals that has more condition_occurrence records?
+
+. . .
+
+```{r}
+cdm$condition_occurrence |>
+  group_by(person_id) |>
+  summarise(number_records = n()) |>
+  ungroup() |> # that is not necessary
+  filter(number_records == max(number_records))
+```
+
+## Join tables
+
+-   Different ways to join: right_join, left_join, inner_join and full_join.
+-   Different ways to filter subsets: semi_join and anti_join.
+-   Different ways to concatenate two tables: union and union_all.
+
+. . .
+
+Always specify the argument *by = ""* if we don't want a message specifying which are the variables used for the join. Vy default: common variables.
+
+## Join tables
+
+. . .
+
+We are going to work with this tables:
+
+```{r}
+table1 <- tibble(xxx = c(1,2,3,4,5,6), person_id = c(1,2,2,3,9,2))
+table1
+```
+
+. . .
+
+```{r}
+table2 <- tibble(person_id = c(1,2,5), names = c("Ed", "Mimi", "Marti"))
+table2
+```
+
+## right_join()
+
+. . .
+
+[right_join](https://dplyr.tidyverse.org/reference/mutate-joins.html) includes all rows from second table.
+
+. . .
+
+```{r, echo = TRUE,message=TRUE}
+table1 |> right_join(table2)
+```
+
+. . .
+
+```{r}
+table1 |> right_join(table2, by = "person_id")
+```
+
+## left_join()
+
+. . .
+
+[left_join](https://dplyr.tidyverse.org/reference/mutate-joins.html) includes all rows from first table.
+
+. . .
+
+```{r, echo = TRUE}
+table1 |> left_join(table2)
+```
+
+## inner_join()
+
+. . .
+
+[inner_join](https://dplyr.tidyverse.org/reference/mutate-joins.html) includes only rows included in both tables.
+
+. . .
+
+```{r, echo = TRUE}
+table1 |> inner_join(table2)
+```
+
+## full_join()
+
+. . .
+
+[full_join](https://dplyr.tidyverse.org/reference/mutate-joins.html) includes all the rows from both tables.
+
+. . .
+
+```{r, echo = TRUE}
+table1 |> full_join(table2)
+```
+
+## anti_join()
+
+. . .
+
+[anti_join](https://dplyr.tidyverse.org/reference/filter-joins.html) eliminates from the first table the rows contained in the second one.
+
+. . .
+
+```{r, echo = TRUE}
+table1 |> anti_join(table2)
+```
+
+## semi_join()
+
+. . .
+
+[semi_join](https://dplyr.tidyverse.org/reference/filter-joins.html) only keeps from the first table the rows contained in the second one.
+
+. . .
+
+```{r, echo = TRUE}
+table1 |> semi_join(table2)
+```
+
+## union_all() and union()
+
+. . .
+
+[union_all](https://dplyr.tidyverse.org/reference/setops.html) function is used to unite the rows from first table and second one.
+
+. . .
+
+[union](https://generics.r-lib.org/reference/setops.html) duplicates are eliminated
+
+. . .
+
+```{r, echo = TRUE}
+table3 <- tibble(person_id = c(3,2), names = c("Mike","Mimi"))
+table4 <- tibble(person_id = c(1,2,5), names = c("Ed","Mimi","Marti"))
+```
+
+. . .
+
+```{r}
+table3 |> 
+  union_all(table4)
+```
+
+. . .
+
+```{r}
+table3 |> 
+  union(table4)
+```
+
+## Your turn
+
+-   Which are the individuals with more and less records in measurement table?
+
+    -   obtain counts from measurement 
+
+    -   join measurement to person table
+
+    -   sum all
+
+    -   filter
+
+## Your turn
+
+. . .
+
+```{r}
+x <- cdm$person |>
+  left_join(
+    cdm$measurement |>
+      group_by(person_id) |>
+      summarise(number_measurements = n()),
+    by = "person_id"
+  ) |>
+  mutate(number_measurements = if_else(is.na(number_measurements), 0, number_measurements))
+```
+
+. . .
+
+```{r}
+x |> 
+  filter(number_measurements == max(number_measurements)) |>
+  pull("person_id")
+```
+
+. . .
+
+```{r}
+x |> 
+  filter(number_measurements == min(number_measurements)) |>
+  pull("person_id")
+```
+
+## Your turn
+
+-   Can you calculate the age at the conditions take place?
+
+    -   Calculate birth date in person table
+
+    -   Join to condition occurrence
+
+    -   Compute time difference
+
+. . .
+
+```{r}
+cdm$condition_occurrence |>
+  select("person_id", "condition_concept_id", "condition_start_date") |>
+  left_join(
+    cdm$person |>
+      select(person_id, birth_datetime) |>
+      mutate(birth_datetime = as.Date(birth_datetime)),
+    by = "person_id"
+  ) |>
+  mutate(age = floor((condition_start_date - birth_datetime)/365.25)) |>
+  select(-"birth_datetime")
+```
+
+## Your turn
+
+-   Which is the ingredient with more records?
+
+    -   found ingredients (concept_class_id == "Ingredient" in cdm$concept)
+
+    -   find descendants of all ingredients (see cdm$concept_acenstor)
+
+    -   inner join with drug_exposure
+
+    -   count
+
+## Your turn
+
+```{r}
+cdm$concept |>
+  filter(concept_class_id == "Ingredient") |>
+  select("ingredient_concept_id" = "concept_id", "ingredient_name" = "concept_name") |>
+  inner_join(
+    cdm$concept_ancestor |>
+      select(
+        "ingredient_concept_id" = "ancestor_concept_id",
+        "drug_concept_id" = "descendant_concept_id"
+      ),
+    by = "ingredient_concept_id"
+  ) |>
+  inner_join(cdm$drug_exposure, by = "drug_concept_id") |>
+  group_by(ingredient_concept_id, ingredient_name) |>
+  summarise(number_records = n(), .groups = "drop") |> 
+  filter(number_records == max(number_records))
+```
+
+## compute, collect & pull
+
+-   [compute](https://dplyr.tidyverse.org/reference/compute.html) is used to force the computation of a set of commands, if compute is not used our variable only contains the set of commands and not the result. It creates a temporal table in the database.
+-   [collect](https://dplyr.tidyverse.org/reference/collect.html) is used to move one data set to our R environment.
+-   [pull](https://dplyr.tidyverse.org/reference/pull.html) is used to obtain an array of the table (moving the data set to our environment, if necessary).
+
+## compute()
+
+```{r, echo = TRUE}
+table5 <- cdm$person |> 
+  inner_join(cdm$observation_period)
+table5
+```
+
+. . .
+
+```{r}
+table6 <- cdm$person |> 
+  inner_join(cdm$observation_period) |> 
+  compute()
+table6
+```
+
+## collect()
+
+```{r, echo = TRUE}
+table5 |> collect()
+```
+
+## pull()
+
+```{r, echo = TRUE}
+table5 |> pull("person_id")
+table6 |> pull("person_id")
+```
+
+## Code optimization
+
+-   Not to execute computations in the database side that can be executed in the R side.
+-   Use always compute(), collect() or pull() at the end of each block of code.
+-   Use existent and optimized functions when they exist.
+-   Avoid changing between DB side to R side and R side to DB side if it is not necessary.

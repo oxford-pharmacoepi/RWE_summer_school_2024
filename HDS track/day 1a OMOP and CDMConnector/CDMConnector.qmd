@@ -105,7 +105,6 @@ Database connections from R can be made using the [DBI package](https://dbi.r-db
 options(width = 130)
 ```
 
-
 ```{r}
 library(DBI)
 ```
@@ -416,8 +415,6 @@ cdm
 dbListTables(db)
 ```
 
-\*Please note this function will be renamed to **dropSourceTable**
-
 ## Insert a table
 
 Let's say we have a local tibble and we want to insert it in the cdm:
@@ -514,17 +511,18 @@ cdm$my_custom_name <- cdm$person |> compute()
 If it is a permanent table we can only assign it to the same name:
 
 error:
+
 ```{r, error = TRUE}
 cdm$my_custom_name <- cdm$person |> compute(name = "not_my_custom_name", temporary = FALSE)
 ```
 
-. . . 
+. . .
 
 no error:
+
 ```{r}
 cdm$my_custom_name <- cdm$person |> compute(name = "my_custom_name", temporary = FALSE)
 ```
-
 
 ## Consistency rules
 
@@ -543,4 +541,3 @@ cdm$person <- cdm$drug_exposure |> compute(name = "person")
 ```{r, error = TRUE}
 cdm$drug_exposure <- cdm$drug_exposure |> rename("my_id" = "person_id") |> compute(name = "drug_exposure")
 ```
-
