@@ -1,0 +1,22 @@
+---
+title: "CohortCharacteristics"
+subtitle: "Part 1: Counts, Attrition, Overlap, Timing"
+format:
+  revealjs: 
+    theme: [simple, custom_1.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## Introduction
