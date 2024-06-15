@@ -48,4 +48,4 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 *.zip
-SS24Template_files/libs/*
+DrugUtilisation_files/libs/*
