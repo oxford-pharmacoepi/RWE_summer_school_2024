@@ -391,10 +391,10 @@
     <div class="slides">
 
 
-<section class="slide level2"><div class="cell">
+<section><section id="drugutilisation" class="title-slide slide level1 center"><h1>DrugUtilisation</h1>
+<div class="cell">
 
 </div>
-</section><section><section id="drugutilisation" class="title-slide slide level1 center"><h1>DrugUtilisation</h1>
 <div style="margin-top: 25px;">
 
 </div>
@@ -403,12 +403,11 @@
 <p><img src="images/hexticker.png" alt="Logo 1" class="logo"><img src="images/logoHDS.png" alt="Logo 2" class="logo"></p>
 </div>
 </section><section id="introduction" class="slide level2"><h2>Introduction</h2>
-<p><img data-src="images/hexticker.png" class="absolute" style="top: 0px; right: 70px; height: 70px; "><img data-src="images/logoHDS.png" class="absolute" style="top: 0px; right: 0px; height: 70px; "></p>
 <p>Drug utilisation studies (DUS) were defined by the World Health Organization as studying the marketing, distribution, prescription, and use of medicinal products in a society, with special emphasis on the resulting medical and socioeconomic consequences (WHO, 2003).</p>
 <div class="fragment">
 <p>This package aims to standardise and provide the tools to conduct Drug Utilisation studies as of the Darwin-EU Catalogue of Standard Analytics.</p>
 <div class="quarto-figure quarto-figure-center">
-<figure><p><img data-src="https://www.benzifoundation.org/wp-content/uploads/2023/09/eu-darwin-1.png"></p>
+<figure><p><img data-src="https://www.darwin-eu.org/templates/rt_horizon/custom/images/darwin-eu-logo.png" style="width:45.0%"></p>
 </figure>
 </div>
 </div>
@@ -429,82 +428,22 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://here.r-lib.org/">here</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/downloadEunomiaData.html">downloadEunomiaData</a></span><span class="op">(</span>pathToData <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Download completed!</code></pre>
-</div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Sys.setenv.html">Sys.setenv</a></span><span class="op">(</span><span class="st">"EUNOMIA_DATA_FOLDER"</span> <span class="op">=</span> <span class="fu"><a href="https://here.r-lib.org//reference/here.html">here</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># downloadEunomiaData(pathToData = here(), overwrite = TRUE)</span></span>
+<span><span class="co"># Sys.setenv("EUNOMIA_DATA_FOLDER" = here())</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span><span class="fu"><a href="https://r.duckdb.org/reference/duckdb.html">duckdb</a></span><span class="op">(</span><span class="op">)</span>, dbdir <span class="op">=</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/eunomiaDir.html">eunomia_dir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/cdm_from_con.html">cdmFromCon</a></span><span class="op">(</span>con <span class="op">=</span> <span class="va">db</span>, cdmSchema <span class="op">=</span> <span class="st">"main"</span>, writeSchema <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="the-cdm-object" class="slide level2"><h2>The cdm object</h2>
-<ul>
-<li class="fragment"><a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a></li>
-</ul>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• cohort tables: -</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• achilles tables: -</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• other tables: -</code></pre>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">person</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;main.person&gt; [?? x 18]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
-   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id ethnicity_concept_id
-       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;                &lt;int&gt;
- 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516                    0
- 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527                    0
- 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527                    0
- 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527                    0
- 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516                    0
- 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527                    0
- 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527                    0
- 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527                    0
- 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527                    0
-10       111              8532          1975              5            2 1975-05-02 00:00:00            8527                    0
-# ℹ more rows
-# ℹ 10 more variables: location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;, person_source_value &lt;chr&gt;,
-#   gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;, race_source_concept_id &lt;int&gt;,
-#   ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
-</div>
-</div>
-</div>
 </section><section id="fix-eunomia-problems-with-drugs" class="slide level2"><h2>Fix eunomia problems with drugs</h2>
 <p>Add a drug_strength table:</p>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/darwin-eu-dev/DrugUtilisation/main/extras/mock_drug_strength.csv"</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"https://raw.githubusercontent.com/darwin-eu-dev/DrugUtilisation/main/extras/mock_drug_strength.csv"</span><span class="op">)</span></span>
 <span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/insertTable.html">insertTable</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, name <span class="op">=</span> <span class="st">"drug_strength"</span>, table <span class="op">=</span> <span class="va">x</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p>Fix quantity:</p>
 <div class="cell">
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>quantity <span class="op">=</span> <span class="va">days_supply</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"drug_exposure"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -520,7 +459,7 @@ drug_strength</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">codelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>concept1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, concept2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">codelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>concept1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, concept2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">codelist</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$concept1
@@ -533,7 +472,7 @@ $concept2
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">codelist</span> <span class="op">|&gt;</span> <span class="fu">omopgenerics</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/newCodelist.html">newCodelist</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">codelist</span> <span class="op">|&gt;</span> <span class="fu">omopgenerics</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/newCodelist.html">newCodelist</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 - concept1 (4 codes)
@@ -545,7 +484,7 @@ $concept2
 <p>For this example we are going to use all records of <code>acteaminophen</code>:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
 <span><span class="va">codelist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span><span class="va">cdm</span>, <span class="st">"acetaminophen"</span><span class="op">)</span></span>
 <span><span class="va">codelist</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -558,7 +497,7 @@ $concept2
 <p>Once we have our conceptSet we can create a simple cohort:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/">DrugUtilisation</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/">DrugUtilisation</a></span><span class="op">)</span></span>
 <span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/generateDrugUtilisationCohortSet.html">generateDrugUtilisationCohortSet</a></span><span class="op">(</span></span>
 <span>  cdm <span class="op">=</span> <span class="va">cdm</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"dus_cohort"</span>,</span>
@@ -571,7 +510,7 @@ $concept2
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -598,22 +537,22 @@ drug_strength</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;main.dus_cohort&gt; [?? x 4]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+<pre><code># Source:   SQL [?? x 4]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;         
- 1                    1         95 1973-11-04        1973-11-11     
- 2                    1        123 1962-07-15        1962-07-15     
- 3                    1        245 2005-10-30        2005-11-20     
- 4                    1        276 2011-08-10        2011-08-24     
- 5                    1        331 1998-05-31        1998-06-07     
- 6                    1        399 1968-03-30        1968-04-29     
- 7                    1        404 2011-11-10        2011-11-17     
- 8                    1        605 1961-03-22        1961-04-05     
- 9                    1        759 1973-12-23        1974-01-06     
-10                    1        851 1982-05-27        1982-06-10     
+ 1                    1         32 1998-10-02        1998-10-09     
+ 2                    1         97 2015-03-23        2015-04-06     
+ 3                    1        163 1975-04-26        1975-07-26     
+ 4                    1        183 1983-01-26        1983-02-09     
+ 5                    1        338 1995-06-01        1995-06-15     
+ 6                    1        351 1985-10-18        1985-11-01     
+ 7                    1        351 2017-11-17        2017-12-01     
+ 8                    1        364 1988-05-05        1988-05-12     
+ 9                    1        440 1983-09-18        1983-09-25     
+10                    1        479 1989-05-11        1989-05-25     
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -621,7 +560,7 @@ drug_strength</code></pre>
 </section><section id="generate-a-drug-cohort-3" class="slide level2"><h2>Generate a drug cohort</h2>
 <p>We can check some metadata of the cohort:</p>
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 11
   cohort_definition_id cohort_name   duration_range_min duration_range_max impute_duration gap_era prior_use_washout
@@ -632,7 +571,7 @@ drug_strength</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   cohort_definition_id number_records number_subjects
@@ -643,7 +582,7 @@ drug_strength</code></pre>
 </div>
 </section><section id="generate-a-drug-cohort-4" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 7
   cohort_definition_id number_records number_subjects reason_id reason                    excluded_records excluded_subjects
@@ -653,7 +592,7 @@ drug_strength</code></pre>
 </div>
 </section><section id="generate-a-drug-cohort-5" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_cohort</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 13
   result_id cdm_name      group_name group_level strata_name strata_level variable_name variable_level estimate_name estimate_type
@@ -670,7 +609,7 @@ drug_strength</code></pre>
 </section><section id="generate-a-drug-cohort-6" class="slide level2"><h2>Generate a drug cohort</h2>
 <p>Let’s explore the parameters:</p>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateDrugUtilisationCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateDrugUtilisationCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><img data-src="arguments.png"></p>
@@ -688,7 +627,7 @@ drug_strength</code></pre>
 <img data-src="step5_darwin.png" class="r-stretch quarto-figure-center"></section><section id="generate-a-drug-cohort-12" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/generateDrugUtilisationCohortSet.html">generateDrugUtilisationCohortSet</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/generateDrugUtilisationCohortSet.html">generateDrugUtilisationCohortSet</a></span><span class="op">(</span></span>
 <span>  cdm <span class="op">=</span> <span class="va">cdm</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"dus_new_user"</span>,</span>
 <span>  conceptSet <span class="op">=</span> <span class="va">codelist</span>,</span>
@@ -703,7 +642,7 @@ drug_strength</code></pre>
 </section><section id="generate-a-drug-cohort-13" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/settings.html">settings</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 11
@@ -724,7 +663,7 @@ $ limit                   &lt;chr&gt; "first"</code></pre>
 </section><section id="generate-a-drug-cohort-14" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/cohortCount.html">cohortCount</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
 Columns: 3
@@ -737,7 +676,7 @@ $ number_subjects      &lt;int&gt; 1979</code></pre>
 </section><section id="generate-a-drug-cohort-15" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 7
@@ -755,19 +694,19 @@ $ excluded_subjects    &lt;int&gt; 0, 0, 0, 5, 695, 0, 0</code></pre>
 </section><section id="generate-a-drug-cohort-16" class="slide level2"><h2>Generate a drug cohort</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-38868aa44f8caa87922d" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-38868aa44f8caa87922d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,908\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 13,860\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 2,679\nN records = 12,907\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 2,674\nN records = 12,533\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 1,979\nN records = 3,332\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 1,979\nN records = 3,332\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 1,979\nN records = 1,979\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 48\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,6.4!\"] \n  \"9\" [label = \"join exposures separated by 30 or\nless days\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 0\nN records = 953\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,5.2!\"] \n  \"11\" [label = \"require prior use washout of 365\ndays\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 5\nN records = 374\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,4!\"] \n  \"13\" [label = \"require at least 365 prior\nobservation\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 695\nN records = 9201\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,2.8!\"] \n  \"15\" [label = \"restrict cohort_start_date on or\nafter 2000-01-01\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,1.6!\"] \n  \"17\" [label = \"restrict cohort_end_date on or before\n2019-12-31\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 1353\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,0.4!\"] \n  \"19\" [label = \"restric to first\nrecord\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-4fa0c2e86fc5753b2f03" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-4fa0c2e86fc5753b2f03">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,679\nN records = 13,908\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,7.1!\"] \n  \"2\" [label = \"N subjects = 2,679\nN records = 13,860\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,5.8!\"] \n  \"3\" [label = \"N subjects = 2,679\nN records = 12,907\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,4.6!\"] \n  \"4\" [label = \"N subjects = 2,674\nN records = 12,533\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,3.4!\"] \n  \"5\" [label = \"N subjects = 1,979\nN records = 3,332\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,2.2!\"] \n  \"6\" [label = \"N subjects = 1,979\nN records = 3,332\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,1!\"] \n  \"7\" [label = \"Final events\nN subjects = 1,979\nN records = 1,979\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,-0.3!\"] \n  \"8\" [label = \"N subjects = 0\nN records = 48\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,6.4!\"] \n  \"9\" [label = \"join exposures separated by 30 or\nless days\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,6.4!\"] \n  \"10\" [label = \"N subjects = 0\nN records = 953\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,5.2!\"] \n  \"11\" [label = \"require prior use washout of 365\ndays\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,5.2!\"] \n  \"12\" [label = \"N subjects = 5\nN records = 374\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,4!\"] \n  \"13\" [label = \"require at least 365 prior\nobservation\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,4!\"] \n  \"14\" [label = \"N subjects = 695\nN records = 9201\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,2.8!\"] \n  \"15\" [label = \"restrict cohort_start_date on or\nafter 2000-01-01\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,2.8!\"] \n  \"16\" [label = \"N subjects = 0\nN records = 0\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,1.6!\"] \n  \"17\" [label = \"restrict cohort_end_date on or before\n2019-12-31\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,1.6!\"] \n  \"18\" [label = \"N subjects = 0\nN records = 1353\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,0.4!\"] \n  \"19\" [label = \"restric to first\nrecord\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"2.25\", fillcolor = \"#FFFFFF\", pos = \"1,0.4!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"4\"->\"5\" [color = \"black\"] \n\"5\"->\"6\" [color = \"black\"] \n\"6\"->\"7\" [color = \"black\"] \n\"9\"->\"8\" [color = \"black\"] \n\"11\"->\"10\" [color = \"black\"] \n\"13\"->\"12\" [color = \"black\"] \n\"15\"->\"14\" [color = \"black\"] \n\"17\"->\"16\" [color = \"black\"] \n\"19\"->\"18\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="some-helpers" class="slide level2"><h2>Some helpers</h2>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateIngredientCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateIngredientCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateAtcCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="op">?</span><span class="va">generateAtcCohortSet</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </section><section id="dealing-with-daily-dose" class="slide level2"><h2>Dealing with daily dose</h2>
@@ -778,7 +717,7 @@ $ excluded_subjects    &lt;int&gt; 0, 0, 0, 5, 695, 0, 0</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patternsWithFormula</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">patternsWithFormula</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 41 × 9
    pattern_id amount amount_unit        numerator numerator_unit          denominator denominator_unit  formula_name       formula
@@ -831,13 +770,13 @@ $ excluded_subjects    &lt;int&gt; 0, 0, 0, 5, 695, 0, 0</code></pre>
 <p>We can add daily dose to drug_exposure like this:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDailyDose.html">addDailyDose</a></span><span class="op">(</span>ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 25
-Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
 $ drug_exposure_id             &lt;int&gt; 47027, 10459, 10524, 9646, 9653, 31813, 13969, 60871, 14061, 60753, 6923, 47028, 10525, 340…
 $ person_id                    &lt;int&gt; 3895, 871, 877, 806, 806, 2636, 1169, 5063, 1175, 5051, 582, 3896, 877, 2815, 1746, 2230, 2…
 $ drug_concept_id              &lt;int&gt; 40162522, 1127078, 1127433, 1127078, 40229134, 1127433, 1127433, 1127433, 40231925, 1127433…
@@ -873,7 +812,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p>To see the coverage of an specific ingredient you can compute it as:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/dailyDoseCoverage.html">dailyDoseCoverage</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/dailyDoseCoverage.html">dailyDoseCoverage</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"result_id"</span>, <span class="st">"cdm_name"</span>, <span class="st">"group_name"</span>, <span class="st">"group_level"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -949,7 +888,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 </section><section id="characterise-drug-use" class="slide level2"><h2>Characterise drug use</h2>
 <p>We have a function to add columns related to drugUse:</p>
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span></span>
 <span>    ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span>,</span>
 <span>    duration <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -957,20 +896,20 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <span>    dose <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;og_010_1718464337&gt; [?? x 6]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+<pre><code># Source:   table&lt;og_010_1718472667&gt; [?? x 6]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date number_exposures number_eras
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;                     &lt;dbl&gt;       &lt;dbl&gt;
- 1                    1         19 2003-07-16        2003-07-16                     1           1
- 2                    1         66 2000-09-27        2000-10-04                     1           1
- 3                    1        140 2015-11-09        2015-11-23                     1           1
- 4                    1        149 2011-09-15        2011-09-29                     1           1
- 5                    1        209 2003-01-21        2003-01-21                     1           1
- 6                    1        299 2011-11-27        2011-12-04                     1           1
- 7                    1        318 2004-07-05        2004-07-19                     1           1
- 8                    1        335 2005-12-15        2005-12-22                     1           1
- 9                    1        340 2001-05-03        2001-05-03                     1           1
-10                    1        348 2003-11-29        2003-12-06                     1           1
+ 1                    1          3 2010-08-27        2010-10-26                     1           1
+ 2                    1         38 2000-01-01        2000-01-07                     1           1
+ 3                    1         82 2004-04-05        2004-04-19                     1           1
+ 4                    1         94 2015-11-30        2015-12-14                     1           1
+ 5                    1        152 2000-10-23        2000-11-22                     1           1
+ 6                    1        304 2003-09-03        2003-09-10                     1           1
+ 7                    1        311 2008-01-04        2008-01-18                     1           1
+ 8                    1        339 2008-12-13        2008-12-27                     1           1
+ 9                    1        370 2002-10-12        2002-11-02                     1           1
+10                    1        488 2002-04-01        2002-04-15                     1           1
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -979,7 +918,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p><code>duartion = TRUE</code> adds duration and impute_duration_percentage fields</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span></span>
 <span>    ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span>,</span>
 <span>    duration <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -989,19 +928,19 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"number_exposures"</span>, <span class="st">"number_eras"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 6]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date duration impute_duration_percentage
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;             &lt;dbl&gt;                      &lt;dbl&gt;
- 1                    1         19 2003-07-16        2003-07-16             1                          0
- 2                    1         66 2000-09-27        2000-10-04             8                          0
- 3                    1        140 2015-11-09        2015-11-23            15                          0
- 4                    1        149 2011-09-15        2011-09-29            15                          0
- 5                    1        209 2003-01-21        2003-01-21             1                          0
- 6                    1        299 2011-11-27        2011-12-04             8                          0
- 7                    1        318 2004-07-05        2004-07-19            15                          0
- 8                    1        335 2005-12-15        2005-12-22             8                          0
- 9                    1        340 2001-05-03        2001-05-03             1                          0
-10                    1        348 2003-11-29        2003-12-06             8                          0
+ 1                    1          3 2010-08-27        2010-10-26            61                          0
+ 2                    1         38 2000-01-01        2000-01-07             7                          0
+ 3                    1         82 2004-04-05        2004-04-19            15                          0
+ 4                    1         94 2015-11-30        2015-12-14            15                          0
+ 5                    1        152 2000-10-23        2000-11-22            31                          0
+ 6                    1        304 2003-09-03        2003-09-10             8                          0
+ 7                    1        311 2008-01-04        2008-01-18            15                          0
+ 8                    1        339 2008-12-13        2008-12-27            15                          0
+ 9                    1        370 2002-10-12        2002-11-02            22                          0
+10                    1        488 2002-04-01        2002-04-15            15                          0
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -1010,7 +949,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p><code>quantity = TRUE</code> adds initial_quantity and cumulative_quantity fields</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span></span>
 <span>    ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span>,</span>
 <span>    duration <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -1020,19 +959,19 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"number_exposures"</span>, <span class="st">"number_eras"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 6]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date cumulative_quantity initial_quantity
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;                        &lt;dbl&gt;            &lt;dbl&gt;
- 1                    1         19 2003-07-16        2003-07-16                        0                0
- 2                    1         66 2000-09-27        2000-10-04                        7                7
- 3                    1        140 2015-11-09        2015-11-23                       14               14
- 4                    1        149 2011-09-15        2011-09-29                       14               14
- 5                    1        209 2003-01-21        2003-01-21                        0                0
- 6                    1        299 2011-11-27        2011-12-04                        7                7
- 7                    1        318 2004-07-05        2004-07-19                       14               14
- 8                    1        335 2005-12-15        2005-12-22                        7                7
- 9                    1        340 2001-05-03        2001-05-03                        0                0
-10                    1        348 2003-11-29        2003-12-06                        7                7
+ 1                    1          3 2010-08-27        2010-10-26                       60               60
+ 2                    1         38 2000-01-01        2000-01-07                       14               14
+ 3                    1         82 2004-04-05        2004-04-19                       14               14
+ 4                    1         94 2015-11-30        2015-12-14                       14               14
+ 5                    1        152 2000-10-23        2000-11-22                       30               30
+ 6                    1        304 2003-09-03        2003-09-10                        7                7
+ 7                    1        311 2008-01-04        2008-01-18                       14               14
+ 8                    1        339 2008-12-13        2008-12-27                       14               14
+ 9                    1        370 2002-10-12        2002-11-02                       21               21
+10                    1        488 2002-04-01        2002-04-15                       14               14
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -1041,7 +980,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p><code>dose = TRUE</code> adds impute_daily_dose_percentage, initial_daily_dose and cumulative_dose fields</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span></span>
 <span>    ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span>,</span>
 <span>    duration <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -1051,19 +990,19 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"number_exposures"</span>, <span class="st">"number_eras"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 7]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date impute_daily_dose_percentage initial_daily_dose_milligram
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;                                 &lt;dbl&gt;                        &lt;dbl&gt;
- 1                    1         19 2003-07-16        2003-07-16                               100                         NA  
- 2                    1         66 2000-09-27        2000-10-04                                 0                        284. 
- 3                    1        140 2015-11-09        2015-11-23                                 0                        303. 
- 4                    1        149 2011-09-15        2011-09-29                                 0                        303. 
- 5                    1        209 2003-01-21        2003-01-21                               100                         NA  
- 6                    1        299 2011-11-27        2011-12-04                                 0                        284. 
- 7                    1        318 2004-07-05        2004-07-19                                 0                         20.3
- 8                    1        335 2005-12-15        2005-12-22                                 0                        284. 
- 9                    1        340 2001-05-03        2001-05-03                               100                         NA  
-10                    1        348 2003-11-29        2003-12-06                                 0                        284. 
+ 1                    1          3 2010-08-27        2010-10-26                                 0                        320. 
+ 2                    1         38 2000-01-01        2000-01-07                                 0                        303. 
+ 3                    1         82 2004-04-05        2004-04-19                                 0                        303. 
+ 4                    1         94 2015-11-30        2015-12-14                                 0                        303. 
+ 5                    1        152 2000-10-23        2000-11-22                                 0                        315. 
+ 6                    1        304 2003-09-03        2003-09-10                                 0                         19.0
+ 7                    1        311 2008-01-04        2008-01-18                                 0                        303. 
+ 8                    1        339 2008-12-13        2008-12-27                                 0                        303. 
+ 9                    1        370 2002-10-12        2002-11-02                                 0                        310. 
+10                    1        488 2002-04-01        2002-04-15                                 0                         20.3
 # ℹ more rows
 # ℹ 1 more variable: cumulative_dose_milligram &lt;dbl&gt;</code></pre>
 </div>
@@ -1076,27 +1015,27 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 
 <img data-src="overlpaMode.png" class="r-stretch"></section><section id="characterise-drug-use-6" class="slide level2"><h2>Characterise drug use</h2>
 <div class="cell">
-<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span></span>
 <span>    ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span>,</span>
 <span>    eraJoinMode <span class="op">=</span> <span class="st">"zero"</span>,</span>
 <span>    sameIndexMode <span class="op">=</span> <span class="st">"sum"</span></span>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;og_024_1718464364&gt; [?? x 13]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+<pre><code># Source:   table&lt;og_024_1718472694&gt; [?? x 13]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date duration number_exposures cumulative_quantity
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;             &lt;dbl&gt;            &lt;dbl&gt;               &lt;dbl&gt;
- 1                    1         19 2003-07-16        2003-07-16             1                1                   0
- 2                    1         66 2000-09-27        2000-10-04             8                1                   7
- 3                    1        140 2015-11-09        2015-11-23            15                1                  14
- 4                    1        149 2011-09-15        2011-09-29            15                1                  14
- 5                    1        209 2003-01-21        2003-01-21             1                1                   0
- 6                    1        299 2011-11-27        2011-12-04             8                1                   7
- 7                    1        318 2004-07-05        2004-07-19            15                1                  14
- 8                    1        335 2005-12-15        2005-12-22             8                1                   7
- 9                    1        340 2001-05-03        2001-05-03             1                1                   0
-10                    1        348 2003-11-29        2003-12-06             8                1                   7
+ 1                    1          3 2010-08-27        2010-10-26            61                1                  60
+ 2                    1         38 2000-01-01        2000-01-07             7                1                  14
+ 3                    1         82 2004-04-05        2004-04-19            15                1                  14
+ 4                    1         94 2015-11-30        2015-12-14            15                1                  14
+ 5                    1        152 2000-10-23        2000-11-22            31                1                  30
+ 6                    1        304 2003-09-03        2003-09-10             8                1                   7
+ 7                    1        311 2008-01-04        2008-01-18            15                1                  14
+ 8                    1        339 2008-12-13        2008-12-27            15                1                  14
+ 9                    1        370 2002-10-12        2002-11-02            22                1                  21
+10                    1        488 2002-04-01        2002-04-15            15                1                  14
 # ℹ more rows
 # ℹ 6 more variables: initial_quantity &lt;dbl&gt;, impute_duration_percentage &lt;dbl&gt;, number_eras &lt;dbl&gt;,
 #   impute_daily_dose_percentage &lt;dbl&gt;, initial_daily_dose_milligram &lt;dbl&gt;, cumulative_dose_milligram &lt;dbl&gt;</code></pre>
@@ -1106,7 +1045,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p>We can summarise all this information grouped by cohorts in a summarisedResult object:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDrugUse.html">addDrugUse</a></span><span class="op">(</span>ingredientConceptId <span class="op">=</span> <span class="fl">1125315</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/summariseDrugUse.html">summariseDrugUse</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="st">"strata_name"</span>, <span class="op">-</span><span class="st">"strata_level"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -1224,7 +1163,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <p>First we need to instantiate some indication cohorts, in this case we are going to explore <code>sinusitis</code> and <code>bronchitis</code>:</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/generateConceptCohortSet.html">generateConceptCohortSet</a></span><span class="op">(</span></span>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CDMConnector/reference/generateConceptCohortSet.html">generateConceptCohortSet</a></span><span class="op">(</span></span>
 <span>  cdm <span class="op">=</span> <span class="va">cdm</span>,</span>
 <span>  conceptSet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>sinusitis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4294548</span>, <span class="fl">40481087</span>, <span class="fl">257012</span><span class="op">)</span>, bronchitis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">258780</span>, <span class="fl">260139</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  name <span class="op">=</span> <span class="st">"indications"</span>,</span>
@@ -1248,7 +1187,7 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 
 <img data-src="gapIndication.png" class="r-stretch"></section><section id="indication-2" class="slide level2"><h2>Indication</h2>
 <div class="cell">
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/addIndication.html">addIndication</a></span><span class="op">(</span></span>
 <span>    indicationCohortName <span class="op">=</span> <span class="st">"indications"</span>,</span>
 <span>    unknownIndicationTable <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"condition_occurrence"</span><span class="op">)</span>,</span>
@@ -1258,21 +1197,21 @@ $ unit                         &lt;chr&gt; "milligram", "milligram", "milligram"
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 16
-Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
+Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
 $ cohort_definition_id          &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ subject_id                    &lt;int&gt; 102, 140, 149, 299, 318, 335, 340, 348, 369, 412, 439, 580, 673, 675, 752, 883, 1128, 1149…
-$ cohort_start_date             &lt;date&gt; 2010-03-10, 2015-11-09, 2011-09-15, 2011-11-27, 2004-07-05, 2005-12-15, 2001-05-03, 2003-…
-$ cohort_end_date               &lt;date&gt; 2010-03-24, 2015-11-23, 2011-09-29, 2011-12-04, 2004-07-19, 2005-12-22, 2001-05-03, 2003-…
-$ indication_gap_0_bronchitis   &lt;dbl&gt; 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, …
+$ subject_id                    &lt;int&gt; 3, 38, 82, 94, 105, 152, 185, 311, 370, 461, 488, 499, 665, 722, 761, 931, 974, 994, 1058,…
+$ cohort_start_date             &lt;date&gt; 2010-08-27, 2000-01-01, 2004-04-05, 2015-11-30, 2005-11-11, 2000-10-23, 2015-02-21, 2008-…
+$ cohort_end_date               &lt;date&gt; 2010-10-26, 2000-01-07, 2004-04-19, 2015-12-14, 2005-11-11, 2000-11-22, 2015-03-28, 2008-…
+$ indication_gap_0_bronchitis   &lt;dbl&gt; 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, …
 $ indication_gap_0_sinusitis    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ indication_gap_0_none         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ indication_gap_0_unknown      &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, …
-$ indication_gap_30_sinusitis   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ indication_gap_30_bronchitis  &lt;dbl&gt; 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, …
+$ indication_gap_0_none         &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ indication_gap_0_unknown      &lt;dbl&gt; 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, …
+$ indication_gap_30_sinusitis   &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+$ indication_gap_30_bronchitis  &lt;dbl&gt; 0, 1, 1, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, …
 $ indication_gap_30_none        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
-$ indication_gap_30_unknown     &lt;dbl&gt; 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, …
+$ indication_gap_30_unknown     &lt;dbl&gt; 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, …
+$ indication_gap_inf_bronchitis &lt;dbl&gt; 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
 $ indication_gap_inf_sinusitis  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
-$ indication_gap_inf_bronchitis &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
 $ indication_gap_inf_none       &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
 $ indication_gap_inf_unknown    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …</code></pre>
 </div>
@@ -1280,30 +1219,30 @@ $ indication_gap_inf_unknown    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 </section><section id="indication-3" class="slide level2"><h2>Indication</h2>
 <p>We can join the indications if we need later to stratify by them:</p>
 <div class="cell">
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/indicationToStrata.html">indicationToStrata</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 7]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpkbBLxJ\file749c765a5141.duckdb]
-   cohort_definition_id subject_id cohort_start_date cohort_end_date indication_gap_0 indication_gap_30 indication_gap_inf      
-                  &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;          &lt;chr&gt;            &lt;chr&gt;             &lt;chr&gt;                   
- 1                    1        102 2010-03-10        2010-03-24      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 2                    1        140 2015-11-09        2015-11-23      Unknown          Unknown           Sinusitis and Bronchitis
- 3                    1        149 2011-09-15        2011-09-29      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 4                    1        299 2011-11-27        2011-12-04      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 5                    1        318 2004-07-05        2004-07-19      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 6                    1        335 2005-12-15        2005-12-22      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 7                    1        340 2001-05-03        2001-05-03      Unknown          Unknown           Sinusitis and Bronchitis
- 8                    1        348 2003-11-29        2003-12-06      Bronchitis       Bronchitis        Sinusitis and Bronchitis
- 9                    1        369 2009-03-22        2009-03-29      Bronchitis       Bronchitis        Sinusitis and Bronchitis
-10                    1        412 2004-02-18        2004-03-03      Bronchitis       Bronchitis        Sinusitis and Bronchitis
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpszDm0P\file4f5477b940da.duckdb]
+   cohort_definition_id subject_id cohort_start_date cohort_end_date indication_gap_0 indication_gap_30        indication_gap_inf 
+                  &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;          &lt;chr&gt;            &lt;chr&gt;                    &lt;chr&gt;              
+ 1                    1          3 2010-08-27        2010-10-26      Unknown          Unknown                  Bronchitis and Sin…
+ 2                    1         38 2000-01-01        2000-01-07      None             Bronchitis               Bronchitis and Sin…
+ 3                    1         82 2004-04-05        2004-04-19      Bronchitis       Bronchitis               Bronchitis and Sin…
+ 4                    1         94 2015-11-30        2015-12-14      Bronchitis       Bronchitis               Bronchitis and Sin…
+ 5                    1        105 2005-11-11        2005-11-11      Unknown          Unknown                  Sinusitis          
+ 6                    1        152 2000-10-23        2000-11-22      Unknown          Unknown                  Bronchitis and Sin…
+ 7                    1        185 2015-02-21        2015-03-28      Unknown          Unknown                  Bronchitis and Sin…
+ 8                    1        311 2008-01-04        2008-01-18      Bronchitis       Sinusitis and Bronchitis Bronchitis and Sin…
+ 9                    1        370 2002-10-12        2002-11-02      Unknown          Unknown                  Sinusitis          
+10                    1        461 2011-03-11        2011-03-18      Bronchitis       Bronchitis               Bronchitis and Sin…
 # ℹ more rows</code></pre>
 </div>
 </div>
 </section><section id="indication-4" class="slide level2"><h2>Indication</h2>
 <p>Summarise indication into a summarisedResult object:</p>
 <div class="cell">
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/summariseIndication.html">summariseIndication</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"variable_name"</span>, <span class="st">"variable_level"</span>, <span class="st">"estimate_name"</span>, <span class="st">"estimate_value"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1329,10 +1268,10 @@ $ indication_gap_inf_unknown    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 16 Indication during prior 30 days None           percentage    &lt;NA&gt;            
 17 Indication during prior 30 days Unknown        count         580             
 18 Indication during prior 30 days Unknown        percentage    29.3077311773623
-19 Indication any time prior       Sinusitis      count         1958            
-20 Indication any time prior       Sinusitis      percentage    98.9388580090955
-21 Indication any time prior       Bronchitis     count         1902            
-22 Indication any time prior       Bronchitis     percentage    96.1091460333502
+19 Indication any time prior       Bronchitis     count         1902            
+20 Indication any time prior       Bronchitis     percentage    96.1091460333502
+21 Indication any time prior       Sinusitis      count         1958            
+22 Indication any time prior       Sinusitis      percentage    98.9388580090955
 23 Indication any time prior       None           count         0               
 24 Indication any time prior       None           percentage    0               
 25 Indication any time prior       Unknown        count         &lt;NA&gt;            
@@ -1343,7 +1282,7 @@ $ indication_gap_inf_unknown    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
 <p>You can summarise other treatments after a certain cohort, for example we have our cohort of <code>acetaminophen</code>, which are the treatments that are used.</p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 - ondansetron (2 codes)
@@ -1362,7 +1301,7 @@ along with 81 more codelists</code></pre>
 </div>
 </section><section id="alternative-treatments-1" class="slide level2"><h2>Alternative treatments</h2>
 <div class="cell">
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op">|&gt;</span></span>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">dus_new_user</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/DrugUtilisation/reference/summariseTreatmentFromConceptSet.html">summariseTreatmentFromConceptSet</a></span><span class="op">(</span></span>
 <span>    treatmentConceptSet <span class="op">=</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span>, </span>
 <span>    window <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">90</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">91</span>, <span class="fl">180</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">181</span>, <span class="fl">270</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">271</span>, <span class="fl">360</span><span class="op">)</span><span class="op">)</span></span>
@@ -1388,7 +1327,7 @@ along with 81 more codelists</code></pre>
 </div>
 </section><section id="alternative-treatments-2" class="slide level2"><h2>Alternative treatments</h2>
 <div class="cell">
-<div class="sourceCode" id="cb79"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="va">xx</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">estimate_name</span> <span class="op">==</span> <span class="st">"percentage"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>estimate_value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">estimate_value</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -1404,12 +1343,12 @@ along with 81 more codelists</code></pre>
 </div>
 </section><section id="alternative-treatments-3" class="slide level2"><h2>Alternative treatments</h2>
 
-<img data-src="DrugUtilisation_files/figure-revealjs/unnamed-chunk-41-1.png" width="960" class="r-stretch"></section><section id="treatment-discontinuation" class="slide level2"><h2>Treatment discontinuation</h2>
+<img data-src="DrugUtilisation_files/figure-revealjs/unnamed-chunk-39-1.png" width="960" class="r-stretch"></section><section id="treatment-discontinuation" class="slide level2"><h2>Treatment discontinuation</h2>
 <p>We are working on a treatment discontinuation where we use the CohortSurvival package that we will see later.</p>
 <div class="fragment">
 <div class="cell">
 <div class="cell-output-display">
-<p><img data-src="DrugUtilisation_files/figure-revealjs/unnamed-chunk-42-1.png" width="960"></p>
+<p><img data-src="DrugUtilisation_files/figure-revealjs/unnamed-chunk-40-1.png" width="960"></p>
 </div>
 </div>
 </div>

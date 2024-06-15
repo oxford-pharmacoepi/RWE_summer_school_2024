@@ -80,6 +80,14 @@ $font-family-sans-serif: 'Roboto Slab', serif;
   height: 500px;
 }
 
+.reveal {
+  background-image: url(/images/logoHDS.png), url(/images/hexticker.png);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 90px, 90px;
+  background-position-x: 94%, 90%;
+  background-position-y: 30px, 30px;
+}
+
 .reveal p, li {
   font-weight: 100;
 }

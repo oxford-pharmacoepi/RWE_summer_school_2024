@@ -38,7 +38,6 @@ Conduct Drug Utilisation Studies using the OMOP Common Data Model
 
 ## Introduction
 
-![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
 
 Drug utilisation studies (DUS) were defined by the World Health Organization as studying the marketing, distribution, prescription, and use of medicinal products in a society, with special emphasis on the resulting medical and socioeconomic consequences (WHO, 2003).
 
@@ -46,7 +45,7 @@ Drug utilisation studies (DUS) were defined by the World Health Organization as 
 
 This package aims to standardise and provide the tools to conduct Drug Utilisation studies as of the Darwin-EU Catalogue of Standard Analytics.
 
-![](https://www.benzifoundation.org/wp-content/uploads/2023/09/eu-darwin-1.png){fig-align="center"}
+![](https://www.darwin-eu.org/templates/rt_horizon/custom/images/darwin-eu-logo.png){fig-align="center" width=45%}
 
 ## Functionalities
 
@@ -73,27 +72,11 @@ library(CDMConnector)
 library(dplyr)
 library(here)
 
-downloadEunomiaData(pathToData = here(), overwrite = TRUE)
-Sys.setenv("EUNOMIA_DATA_FOLDER" = here())
+# downloadEunomiaData(pathToData = here(), overwrite = TRUE)
+# Sys.setenv("EUNOMIA_DATA_FOLDER" = here())
 
 db <- dbConnect(duckdb(), dbdir = eunomia_dir())
 cdm <- cdmFromCon(con = db, cdmSchema = "main", writeSchema = "main")
-```
-
-## The cdm object
-
--   [CDMConnector](https://darwin-eu.github.io/CDMConnector/)
-
-. . .
-
-```{r, message=TRUE, echo = TRUE, eval = TRUE}
-cdm
-```
-
-. . .
-
-```{r}
-cdm$person
 ```
 
 ## Fix eunomia problems with drugs
@@ -265,7 +248,7 @@ cdm <- generateDrugUtilisationCohortSet(
 . . .
 
 ```{r}
-settings(cdm$dus_new_user) %>% glimpse()
+settings(cdm$dus_new_user) |> glimpse()
 ```
 
 ## Generate a drug cohort
@@ -273,7 +256,7 @@ settings(cdm$dus_new_user) %>% glimpse()
 . . .
 
 ```{r}
-cohortCount(cdm$dus_new_user) %>% glimpse()
+cohortCount(cdm$dus_new_user) |> glimpse()
 ```
 
 ## Generate a drug cohort
@@ -287,7 +270,7 @@ attrition(cdm$dus_new_user) |>
 
 ## Generate a drug cohort
 
-```{r, echo = FALSE}
+```{r}
 library(CohortCharacteristics)
 cdm$dus_new_user |>
   summariseCohortAttrition() |>
@@ -302,11 +285,35 @@ cdm$dus_new_user |>
 ?generateIngredientCohortSet
 ```
 
+<br>
+
 . . .
 
 ```{r, eval = FALSE}
 ?generateAtcCohortSet
 ```
+
+## Your turn
+
+Can you use the generateIngredientCohortSet to create an amoxicillin new users cohort with a gapEra of 30 days, with at least a prior observation of 365 days and no prior use of the drug in the last 365 days.
+
+## Your turn
+
+```{r, echo = FALSE}
+cdm <- generateIngredientCohortSet(
+  cdm = cdm, 
+  name = "my_cohort", 
+  ingredient = "amoxicillin",
+  gapEra = 30, 
+  priorUseWashout = 365, 
+  priorObservation = 365
+)
+cdm$my_cohort |>
+  summariseCohortAttrition() |>
+  suppress() |>
+  plotCohortAttrition()
+```
+
 
 ## Dealing with daily dose
 
@@ -314,12 +321,12 @@ cdm$dus_new_user |>
 
 This function works if:
 
--   The relation between the `drug_concept_id` and `ingredient_concept_id`, can be established though `drug_strength` table by one of the 126 identified valid patterns. And if they have a formula assigned. Currently 17 patterns have a formula assigned you can check them here:
+-   The relation between the `drug_concept_id` and `ingredient_concept_id`, can be established though `drug_strength` table by one of the 126 identified valid patterns. And if they have a formula assigned. Currently 41 patterns have a formula assigned you can check them here:
 
 . . .
 
 ```{r}
-patternsWithFormula %>% print(n = Inf)
+patternsWithFormula |> print(n = Inf)
 ```
 
 ## daily dose
@@ -329,8 +336,8 @@ We can add daily dose to drug_exposure like this:
 . . .
 
 ```{r}
-cdm$drug_exposure %>%
-  addDailyDose(ingredientConceptId = 1125315) %>%
+cdm$drug_exposure |>
+  addDailyDose(ingredientConceptId = 1125315) |>
   glimpse()
 ```
 
@@ -345,8 +352,8 @@ To see the coverage of an specific ingredient you can compute it as:
 . . .
 
 ```{r}
-dailyDoseCoverage(cdm = cdm, ingredientConceptId = 1125315) %>%
-  select(-c("result_id", "cdm_name", "group_name", "group_level")) %>%
+dailyDoseCoverage(cdm = cdm, ingredientConceptId = 1125315) |>
+  select(-c("result_id", "cdm_name", "group_name", "group_level")) |>
   print(n = Inf)
 ```
 
@@ -357,7 +364,7 @@ dailyDoseCoverage(cdm = cdm, ingredientConceptId = 1125315) %>%
 We have a function to add columns related to drugUse:
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   addDrugUse(
     ingredientConceptId = 1125315,
     duration = FALSE,
@@ -375,13 +382,13 @@ cdm$dus_new_user %>%
 . . .
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   addDrugUse(
     ingredientConceptId = 1125315,
     duration = TRUE,
     quantity = FALSE,
     dose = FALSE
-  ) %>%
+  ) |>
   select(-c("number_exposures", "number_eras"))
 ```
 
@@ -392,13 +399,13 @@ cdm$dus_new_user %>%
 . . .
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   addDrugUse(
     ingredientConceptId = 1125315,
     duration = FALSE,
     quantity = TRUE,
     dose = FALSE
-  ) %>%
+  ) |>
   select(-c("number_exposures", "number_eras"))
 ```
 
@@ -409,13 +416,13 @@ cdm$dus_new_user %>%
 . . .
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   addDrugUse(
     ingredientConceptId = 1125315,
     duration = FALSE,
     quantity = FALSE,
     dose = TRUE
-  ) %>%
+  ) |>
   select(-c("number_exposures", "number_eras"))
 ```
 
@@ -432,7 +439,7 @@ We can make some decisions to solve how we threat gaps (not exposed periods):
 ## Characterise drug use
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   addDrugUse(
     ingredientConceptId = 1125315,
     eraJoinMode = "zero",
@@ -447,12 +454,40 @@ We can summarise all this information grouped by cohorts in a summarisedResult o
 . . .
 
 ```{r}
-cdm$dus_new_user %>%
-  addDrugUse(ingredientConceptId = 1125315) %>%
-  summariseDrugUse() %>%
-  select(-"strata_name", -"strata_level") %>%
+cdm$dus_new_user |>
+  addDrugUse(ingredientConceptId = 1125315) |>
+  summariseDrugUse() |>
+  select(-"strata_name", -"strata_level") |>
   print(n = Inf)
 ```
+
+## Your turn
+
+Get the mean and median duration and initial daily dose for our amoxicillin cohort:
+
+- addDrugUse to the amoxicillin cohort (we have to find the ingredientConceptId for amoxicillin!!)
+
+- summarise the Drug 
+
+- filter to find the information that we need
+
+## Your turn
+
+```{r}
+ingredientConceptId <- cdm$concept |>
+  filter(concept_class_id == "Ingredient") |>
+  filter(concept_name == "Amoxicillin") |>
+  pull(concept_id)
+result <- cdm$my_cohort |> 
+  addDrugUse(ingredientConceptId = ingredientConceptId) |>
+  summariseDrugUse()
+result |>
+  filter(
+    variable_name %in% c("duration", "initial_daily_dose_milligram"),
+    estimate_name %in% c("mean", "median")
+  )
+```
+
 
 ## Indication
 
@@ -468,8 +503,8 @@ cdm <- generateConceptCohortSet(
   limit = "all",
   end = 0
 )
-settings(cdm$indications) %>%
-  select("cohort_definition_id", "cohort_name") %>%
+settings(cdm$indications) |>
+  select("cohort_definition_id", "cohort_name") |>
   inner_join(cohortCount(cdm$indications), by = "cohort_definition_id")
 ```
 
@@ -482,7 +517,7 @@ We have to define a gap (period before index date) that we are interested to ass
 ## Indication
 
 ```{r}
-cdm$dus_new_user <- cdm$dus_new_user %>%
+cdm$dus_new_user <- cdm$dus_new_user |>
   addIndication(
     indicationCohortName = "indications",
     unknownIndicationTable = c("condition_occurrence"),
@@ -496,7 +531,7 @@ glimpse(cdm$dus_new_user)
 We can join the indications if we need later to stratify by them:
 
 ```{r}
-cdm$dus_new_user %>%
+cdm$dus_new_user |>
   indicationToStrata()
 ```
 
@@ -505,8 +540,8 @@ cdm$dus_new_user %>%
 Summarise indication into a summarisedResult object:
 
 ```{r}
-cdm$dus_new_user %>%
-  summariseIndication() %>%
+cdm$dus_new_user |>
+  summariseIndication() |>
   select("variable_name", "variable_level", "estimate_name", "estimate_value") |>
   print(n = Inf)
 ```
