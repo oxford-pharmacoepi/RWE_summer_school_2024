@@ -1,5 +1,5 @@
 ---
-pagetitle: "CohortConstructor"
+pagetitle: "DrugUtilisation"
 format:
   revealjs: 
     theme: [simple, styleSS24.scss]
@@ -25,25 +25,22 @@ editor: visual
 options(width = 130)
 ```
 
-# PackageName {.title-slide}
+# DrugUtilisation {.title-slide}
 
 ::: {style="margin-top: 25px;"}
 :::
 
-very brief description
+Conduct Drug Utilisation Studies using the OMOP Common Data Model
 
 ::: title-slide-logos
-<img src="images/hexticker.png" alt="Logo 1" class="logo"/>  <img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
+<img src="images/hexticker.png" alt="Logo 1" class="logo"/> <img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
 :::
 
 ## Introduction
 
 ![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
 
--   PakcageName package is designed to ...
-
-::: {style="margin-bottom: 10px;"}
-:::
+-   DrugUtilisation package is designed to ...
 
 -   ...
 
