@@ -12,6 +12,7 @@ https://dpa-pde-oxford.quarto.pub/omop-and-cdmconnector/
 https://dpa-pde-oxford.quarto.pub/bespoke-code/
 
 ### OMOPSketch and database characterisation
+https://dpa-pde-oxford.quarto.pub/omopsketch/
 
 ## Day 2
 
