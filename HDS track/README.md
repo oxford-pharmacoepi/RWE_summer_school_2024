@@ -1,5 +1,7 @@
 # HDS Afternoon Practicals
 
+Posit Cloud: https://posit.cloud/spaces/524634/join?access_code=uYaiAFj6khXWEGzGV-_fxfZQM0gYtO6V3-TAiLcK
+
 ## Day 1
 
 ### Welcome
@@ -13,6 +15,9 @@ https://dpa-pde-oxford.quarto.pub/bespoke-code/
 
 ### OMOPSketch and database characterisation
 https://dpa-pde-oxford.quarto.pub/omopsketch/
+
+### General practical
+https://dpa-pde-oxford.quarto.pub/generalpractical/
 
 ## Day 2
 
