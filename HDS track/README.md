@@ -14,6 +14,9 @@ https://dpa-pde-oxford.quarto.pub/bespoke-code/
 ### OMOPSketch and database characterisation
 https://dpa-pde-oxford.quarto.pub/omopsketch/
 
+### General practical
+https://dpa-pde-oxford.quarto.pub/generalpractical/
+
 ## Day 2
 
 ### CodelistGenerator
