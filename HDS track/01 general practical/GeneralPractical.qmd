@@ -47,7 +47,7 @@ con <- DBI::dbConnect(duckdb::duckdb(dbdir = eunomia_dir(
   dataset_name = "synthea-heart-10k")))
 ```
 
-Option 2: Use your own data If you have your own data mapped to the OMOP CDM you can try with that.
+Option 2: Use your own data if you have your own data mapped to the OMOP CDM you can try with that.
 
 ```{r, eval=FALSE}
 # to create a cdm with a random sample of 10,000 people 
