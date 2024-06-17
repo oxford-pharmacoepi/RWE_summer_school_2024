@@ -1,0 +1,492 @@
+---
+title: "CohortCharacteristics"
+subtitle: "summariseCharacteristics and summariseLargeScaleCharacteristics"
+format:
+  revealjs: 
+    theme: [simple, custom.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## CohortCharacteristics
+
+![](https://github.com/darwin-eu-dev/CohortCharacteristics/blob/main/man/figures/logo.png?raw=true){fig-align="center"}
+
+## Let's get started
+
+```{r, echo = FALSE}
+options("width"=130)
+```
+
+```{r, echo = TRUE}
+library(duckdb)
+library(CDMConnector)
+library(PatientProfiles)
+library(dplyr)
+library(ggplot2)
+
+con <- dbConnect(duckdb(), eunomia_dir())
+cdm <- cdmFromCon(con = con, cdmSchema = "main", writeSchema = "main")
+cdm <- generateConceptCohortSet(
+  cdm = cdm,
+  name = "sinusitis",
+  conceptSet = list(
+    "bacterial_sinusitis" = 4294548, 
+    "viral_sinusitis" = 40481087, 
+    "chronic_sinusitis" = 257012, 
+    "any_sinusitis" = c(4294548, 40481087, 257012)
+  ), 
+  limit = "all", 
+  end = 0
+)
+cdm$new_sinusitis <- cdm$sinusitis |>
+  addSex() |>
+  filter(sex == "Female") |>
+  select(-"sex") |>
+  compute(name = "new_sinusitis", temporary = F) |>
+  recordCohortAttrition("Restrict to Females") |>
+  addAge() |>
+  filter(age < 18) |>
+  select(-"age") |>
+  compute(name = "new_sinusitis", temporary = F) |>
+  recordCohortAttrition("Restrict to under 18")
+
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "myocardial_infarction" = c(4329847),
+    "fracture" = c(4048695, 4142905, 4278672, 4237458, 4230399, 40480160, 4066995, 4059173, 4134304),
+    "allergy" = c(4084167, 40486433, 4280726, 4048171),
+    "infection" =  c(4116491, 433125, 4056621, 40481087, 4112343),
+    "pneumonia" = c(255848),
+    "asthma" = c(4051466, 317009)
+  ),
+  limit = "all",
+  end = 0,
+  name = "conditions"
+)
+
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "antineoplastic_and_immunomodulating_agents" = c(1118088, 1118084, 40224132, 19010482, 40224805, 19007333, 1500211, 1305058, 1503184, 19134077, 1549786),
+    "musculoskeletal_system" = c(1118088, 1557272, 40162359, 1124300, 1115008, 40173590, 1118084, 42707627, 19019273, 19019979, 19078461, 19003953, 1112807, 1115171, 1177480),
+    "antiinfectives_for_systemic_use" = c(19129655, 1728416, 920293, 19074841, 920300, 920334, 19074843, 19075001, 19073183, 19073188, 1713671, 1729720, 19006318, 1778162, 46275444, 1717327, 1738521, 1741122, 1759842, 1713332, 1746114, 1768849, 46233710, 19133873, 46233988, 19133905),
+    "nervous_system" = c(708298, 701322, 723013, 1129625, 1110410, 753626, 1124957, 1102527, 1125315, 782043, 791967, 1119510, 19078219, 757627, 40220386, 740275, 40223774, 1154029, 1127078, 1127433, 40222846, 19057271, 40223768, 45892894, 705944, 715997, 19078924, 19076374, 19077572, 40229134, 19059056, 19016749, 40236446, 19074679, 742185, 40231925, 1112807, 35605858, 40162522, 782047, 19039298, 19059528, 836654, 836659, 19115351, 19023398, 19002770, 19123231, 19133768, 40165015),
+    "dermatologicals" = c(1129625, 1149380, 1124300, 836654, 1595799, 975125, 19008572),
+    "respiratory_system" = c(1129625, 1149196, 1149380, 1150770, 1150836, 1153428, 1107830, 1110410, 738818, 1124957, 40169216, 1125443, 1119510, 1137529, 1154615, 1154343, 40223821, 19019979, 19112599, 40223834, 43012036, 40229134, 19029476, 19078461, 40232448, 1177480, 1192710, 1343916, 1150771, 1150837, 1107882, 975125, 1174888, 40169281, 40228214, 40228230, 19125062)
+  ),
+  limit = "all",
+  end = "event_end_date",
+  name = "medications"
+)
+```
+
+## Workflow
+
+We have three types of functions:
+
+-   **summarise**: these functions produce an standardised output to summarise a cohort. This standard output is called `summarised_result`.
+
+-   **plot**: these functions produce plots (currently, only ggplot, but working to implement plotly) from a `summarised_result` object.
+
+-   **table**: these functions produce tables (gt and flextable) from a `summarised_result` object.
+
+. . .
+
+## Contents
+
+
+-   [summariseCharacteristics](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCharacteristics.html)
+
+-   [summariseLargeScaleCharacteristics](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseLargeScaleCharacteristics.html)
+
+-   Each function has an associated `table` and `plot` function
+
+## Website
+
+Cohort characteristics is on cran:
+
+. . .
+
+```{r, eval = FALSE}
+install.packages("CohortCharacteristics")
+```
+
+. . .
+
+You can also install the development version from our github repo:
+
+. . .
+
+```{r, eval = FALSE}
+remotes::install_github("darwin-eu-dev/CohortCharacteristics")
+```
+
+. . .
+
+The documentation and vignettes of the packages can be found in our page: <https://darwin-eu-dev.github.io/CohortCharacteristics/>
+
+
+## summariseCharacteristics
+
+. . .
+
+```{r, echo = T, eval = F}
+library(CohortCharacteristics)
+
+cdm$new_sinusitis |>
+  addAge(ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18))) |>
+  summariseCharacteristics(
+    strata = list("age_group"),
+    demographics = TRUE,
+    ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18)),
+    tableIntersectCount = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", window = c(-365, 0)
+      )
+    ),
+    cohortIntersectFlag = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", window = c(-365, 0)
+      )
+    )
+  )
+```
+
+## summariseCharacteristics
+
+```{r, echo = F, eval = T}
+library(CohortCharacteristics)
+
+cdm$new_sinusitis |>
+  addAge(ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18))) |>
+  summariseCharacteristics(
+    strata = list("age_group"),
+    demographics = TRUE,
+    ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18)),
+    tableIntersectCount = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", window = c(-365, 0)
+      )
+    ),
+    cohortIntersectFlag = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", window = c(-365, 0)
+      )
+    )
+  ) |>
+  glimpse()
+```
+
+## tableCharacteristics
+
+```{r, echo = F, eval = T}
+result <- cdm$new_sinusitis |>
+  addAge(ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18))) |>
+  summariseCharacteristics(
+    strata = list("age_group"),
+    demographics = TRUE,
+    ageGroup = list(c(0, 4), c(5, 9), c(10, 14), c(15, 18)),
+    tableIntersectCount = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", window = c(-365, 0)
+      )
+    ),
+    cohortIntersectFlag = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", window = c(-365, 0)
+      )
+    )
+  )
+```
+
+```{r}
+result |>
+  tableCharacteristics(header = "strata", groupColumn = "cohort_name")
+```
+
+## tableCharacteristics
+
+```{r, eval = F}
+result |>
+  filter(group_level == "any_sinusitis") |>
+  tableCharacteristics(
+    header = c("strata"),
+    formatEstimateName = c(
+      "N(%)" = "<count> (<percentage>%)",
+      "N" = "<count>",
+      "median [IQR]" = "<median> [<q25> - <q75>]"
+    ),
+    excludeColumns = c(
+      "cdm_name", "result_id", "estimate_type", "additional_name", "additional_level", "cohort_name"
+    ),
+    .options = list(keepNotFormatted = FALSE)
+  )
+```
+
+## tableCharacteristics
+
+```{r, eval = T, echo = F}
+result |>
+  filter(group_level == "any_sinusitis") |>
+  tableCharacteristics(
+    header = c("strata"),
+    formatEstimateName = c(
+      "N(%)" = "<count> (<percentage>%)",
+      "N" = "<count>",
+      "median [IQR]" = "<median> [<q25> - <q75>]"
+    ),
+    excludeColumns = c(
+      "cdm_name", "result_id", "estimate_type", "additional_name", "additional_level", "cohort_name"
+    ),
+    .options = list(keepNotFormatted = FALSE)
+  )
+```
+
+## export gt tables
+
+[gt](https://gt.rstudio.com/) tables can easily be exported to word:
+
+```{r, eval=T, echo = F}
+myTable <- result |>
+  filter(group_level == "any_sinusitis") |>
+  tableCharacteristics(
+    header = c("strata"),
+    formatEstimateName = c(
+      "N(%)" = "<count> (<percentage>%)",
+      "N" = "<count>",
+      "median [IQR]" = "<median> [<q25> - <q75>]"
+    ),
+    excludeColumns = c(
+      "cdm_name", "result_id", "estimate_type", "additional_name", "additional_level", "cohort_name"
+    ),
+    .options = list(keepNotFormatted = FALSE)
+  )
+```
+
+```{r, eval = F, echo = T}
+myTable |> gt::gtsave("table.docx")
+```
+
+
+## plotCharacteristics
+
+```{r}
+result |>
+  filter(variable_name == "Age" & strata_level == "overall") |>
+  plotCharacteristics(plotStyle = "boxplot", colour = "group_level")
+```
+
+## plotCharacteristics
+
+```{r}
+result |>
+  filter(
+    variable_name == "Conditions any time prior" & 
+      strata_level == "overall" &
+      estimate_name == "percentage"
+  ) |>
+  plotCharacteristics(x = "group_level", colour = "group_level", facet = "variable_level")
+```
+
+## Your turn
+
+Can you summarise the characteristics for conditions cohort and include the % of subjects that took the medications in the medications cohort after record of the conditions? Also create a gt table?
+
+
+## Solution
+
+```{r}
+
+results <- cdm$conditions |> 
+    summariseCharacteristics(
+    demographics = TRUE,
+    cohortIntersectFlag = list("Medications anytime after" = list(
+        targetCohortTable = "medications", window = c(1, Inf)
+      )
+    ))
+  
+print(results)
+```
+
+## Plot solution
+
+```{r}
+
+result |>
+tableCharacteristics(header = "strata", groupColumn = "cohort_name")
+
+```
+
+## summariseLargeScaleCharacterisation
+
+```{r}
+result <- cdm$sinusitis |>
+  summariseLargeScaleCharacteristics(
+    window = list(c(-Inf, -1), c(1, Inf)),
+    eventInWindow = "condition_occurrence",
+    #episodeInWindow = "drug_exposure",
+    minimumFrequency = 0.05
+  )
+result |> glimpse()
+```
+
+## tableLargeScaleCharacteristics
+
+```{r}
+tableLargeScaleCharacteristics(result, topConcepts = 10)
+```
+
+## plotLargeScaleCharacteristics
+
+```{r, eval = F}
+result |>
+  plotLargeScaleCharacteristics(
+    facet = "variable_level",
+    colorVars= c("group_level")
+  ) +
+  ylab("") +
+  xlab("Percentage") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.title = element_blank())
+```
+
+## plotLargeScaleCharacteristics
+
+```{r, echo = F}
+result |>
+  plotLargeScaleCharacteristics(
+    facet = "variable_level",
+    colorVars= c("group_level")
+  ) +
+  ylab("") +
+  xlab("Percentage") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.title = element_blank())
+```
+
+## plotComparedLargeScaleCharacteristics
+
+```{r}
+p <- result |>
+  filter(group_level == "any_sinusitis") |>
+  plotComparedLargeScaleCharacteristics(
+    referenceVariableLevel = "-inf to -1"
+  ) +
+  theme(legend.position = "none") 
+p |>
+  plotly::ggplotly()
+```
+
+## Your turn
+
+Can you do a large scale characterisation for the patients in sinusitis table with drug exposures, with time window any time prior record of sinusitis? Also plot the results?
+
+
+## solution
+
+```{r}
+result <- cdm$sinusitis |>
+  summariseLargeScaleCharacteristics(
+    window = c(-Inf, -1),
+    episodeInWindow = "drug_exposure",
+    minimumFrequency = 0.05
+  )
+```
+
+## plot solution
+
+```{r}
+result |>
+  plotLargeScaleCharacteristics(
+    facet = "variable_level",
+    colorVars= c("group_level")
+  ) +
+  ylab("") +
+  xlab("Percentage") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.title = element_blank())
+```
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](images/hexsticker2.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**CohortCharacteristics**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**The end**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**CRAN**](https://cran.r-project.org/web/packages/CohortCharacteristics){style="color: #3a6ea5; text-decoration: underline;"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Manual**](https://cran.r-project.org/web/packages/CohortCharacteristics/CohortCharacteristics.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://github.com/darwin-eu-dev/CohortCharacteristics){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Website**](https://darwin-eu-dev.github.io/CohortCharacteristics/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::

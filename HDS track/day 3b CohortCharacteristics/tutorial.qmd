@@ -1,0 +1,1326 @@
+---
+title: "PatientProfiles tutorial"
+format:
+  revealjs: 
+    theme: [simple, custom.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+execute:
+  echo: true
+  eval: true
+editor: visual
+---
+
+## PatientProfiles
+
+![](https://github.com/darwin-eu-dev/PatientProfiles/blob/main/man/figures/logo.png?raw=true){fig-align="center"}
+
+## Scope
+
+### PatientProfiles (developer focus)
+
+- To add characteristics to tables.
+
+- To identify intersections with cohorts, concepts and omop tables.
+
+- Summarise data in `summarised_result` format
+
+### CohortCharacteristics (user focus)
+
+- Summarise cohorts:
+
+  - Charcateristics
+  
+  - Large scale characteristics
+  
+  - Cohort overlap
+  
+  - Cohort timing
+
+- Create visualisations (tables and figures).
+
+## Contents
+
+- [addDemographics](https://darwin-eu-dev.github.io/PatientProfiles/reference/addDemographics.html)
+
+- [addCohortIntersect](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersect.html)
+
+- [addConceptIntersect](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersect.html)
+
+- [addTableIntersect](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersect.html)
+
+- [summariseResult](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseResult.html)
+
+```{r, echo = FALSE}
+library(DBI)
+library(duckdb)
+library(CDMConnector)
+library(PatientProfiles)
+library(dplyr)
+
+con <- dbConnect(duckdb(), eunomia_dir())
+cdm <- cdmFromCon(con = con, cdmSchema = "main", writeSchema = "main")
+cdm <- generateConceptCohortSet(
+  cdm = cdm,
+  conceptSet = list("viral_pharyngitis" = 4112343),
+  name = "my_cohort"
+)
+options("width"=130)
+```
+
+## addSex()
+
+. . .
+
+To create a new column with the sex of the individual. The original table must contain `person_id` or `subject_id`:
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$my_cohort |>
+  addSex(
+    sexName = "sex", # name of the new column (default = "sex")
+    missingSexValue = "None" # label for missing gender_concept_id (default = "None")
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addSex(
+    sexName = "sex", # name of the new column (default = "sex")
+    missingSexValue = "None" # label for missing gender_concept_id (default = "None")
+  )
+```
+
+
+## addAge()
+
+. . .
+
+To create a new column with the age of the individual. The original table must contain `person_id` or `subject_id`:
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addAge(
+    indexDate = "cohort_start_date", # date to compute age (default = "cohort_start_date") 
+    ageName = "age", # name of the age column (default = "age") 
+    ageDefaultMonth = 1, # Month for individuals with missing month (default = 1) 
+    ageDefaultDay = 1, # Day for individuals with missing day (default = 1)
+    ageImposeMonth = F, # Whether to impose default month to all individuals (default = F) 
+    ageImposeDay = F # Whether to impose default day to all individuals (default = F)
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addAge(
+    indexDate = "cohort_start_date", # date to compute age (default = "cohort_start_date") 
+    ageName = "age", # name of the age column (default = "age") 
+    ageDefaultMonth = 1, # Month for individuals with missing month (default = 1) 
+    ageDefaultDay = 1, # Day for individuals with missing day (default = 1)
+    ageImposeMonth = F, # Whether to impose default month to all individuals (default = F) 
+    ageImposeDay = F # Whether to impose default day to all individuals (default = F)
+  )
+```
+
+## addAge()
+
+. . .
+
+You can also add an age group:
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$drug_exposure |>
+  addAge(
+    indexDate = "drug_exposure_start_date",
+    ageGroup = list(c(0, 39), c(40, Inf))
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = F}
+cdm$drug_exposure |>
+  addAge(
+    indexDate = "drug_exposure_start_date",
+    ageGroup = list(c(0, 39), c(40, Inf))
+  ) |>
+  glimpse()
+```
+
+## addAge()
+
+You can personalise labels:
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$my_cohort |>
+  addAge(
+    ageGroup = list(
+      "age_group" = list("<40" = c(0, 39), ">=40" = c(40, Inf)),
+      "category" = list("kids" = c(0, 17), "adults" = c(18, Inf))
+    )
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addAge(
+    ageGroup = list(
+      "age_group" = list("<40" = c(0, 39), ">=40" = c(40, Inf)),
+      "category" = list("kids" = c(0, 17), "adults" = c(18, Inf))
+    )
+  )
+```
+
+## addPriorObservation()
+
+## addPriorObservation()
+
+```{r, echo = F}
+library(ggplot2)
+library(ggforce)
+library(dplyr)
+s <- 0.25
+r <- 0.5
+dates <- list(
+  c(2000, 2006.12),
+  c(2008.25, 2010),
+  c(2002.05, 2010),
+  c(2000, 2010),
+  c(2002.48, 2004.75),
+  c(2000, 2003.69),
+  c(2004.78, 2007.84),
+  c(2008.33, 2009.54)
+)
+individuals <- c(1, 1, 2, 3, 4, 5, 5, 4)
+getTibble <- function(dates, individuals) {
+  lapply(seq_along(dates), function(k) {
+    dplyr::tibble(
+      observation_period = c(
+        dates[[k]][1], dates[[k]][2], dates[[k]][2], dates[[k]][1]
+      ),
+      individuals = individuals[k] + c(-s, -s, +s, +s)
+    )
+  }) |>
+    dplyr::bind_rows(.id = "id")
+}
+plotIndividuals <- function(tib, s, r) {
+  
+}
+tib <- getTibble(dates, individuals)
+xl <- seq(2000, 2010, by = 2)
+p <- ggplot(data = tib, aes(x = observation_period, y = individuals, group = id)) +
+  geom_shape(radius = unit(r, 'cm')) +
+  geom_vline(aes(xintercept = 2005), color = "gray") +
+  scale_x_continuous(
+    name ="Observation period (year)",
+    breaks = xl,
+    labels = xl
+  ) +
+  theme(legend.position = "none")
+p
+```
+
+## addPriorObservation()
+
+```{r, echo = F}
+prior <- tibble(individual = 1:5, date = 2005) |>
+  union_all(tibble(individual = 1:5, date = c(2000, 2002.05, 2000, NA, 2004.78)))
+p +
+  geom_line(
+    data = prior, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="first", type = "closed"),
+    inherit.aes = F
+  )
+```
+
+## addPriorObservation()
+
+```{r, echo = F}
+p +
+  geom_line(
+    data = prior, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="first", type = "closed"),
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("1826", "1077", "1826", "NA", "44")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+
+## addPriorObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$my_cohort |>
+  addPriorObservation()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addPriorObservation()
+```
+
+## addPriorObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$condition_occurrence |>
+  addPriorObservation(
+    indexDate = "condition_start_date", 
+    priorObservationName = "start_observation", # name of the column
+    priorObservationType = "date" # default = "days"
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$condition_occurrence |>
+  addPriorObservation(
+    indexDate = "condition_start_date", 
+    priorObservationName = "start_observation", # name of the column
+    priorObservationType = "date" # default = "days"
+  ) |>
+  select("person_id", starts_with("condition"), "start_observation")
+```
+
+## addFutureObservation()
+
+## addFutureObservation()
+
+```{r, echo = F}
+p
+```
+
+## addFutureObservation()
+
+```{r, echo = F}
+future <- tibble(individual = 1:5, date = 2005) |>
+  union_all(tibble(individual = 1:5, date = c(2006.12, 2010, 2010, NA, 2007.84)))
+p +
+  geom_line(
+    data = future, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="last", type = "closed"),
+    inherit.aes = F
+  )
+```
+
+## addFutureObservation()
+
+```{r, echo = F}
+p +
+  geom_line(
+    data = future, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="last", type = "closed"),
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("409", "1826", "1826", "NA", "1036")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+## addFutureObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$my_cohort |>
+  addFutureObservation()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addFutureObservation()
+```
+
+## addInObservation()
+
+## addInObservation()
+
+```{r, echo = F}
+p
+```
+
+## addInObservation()
+
+```{r, echo = F}
+inobs <- tibble(individual = c(1:3, 5), date = 2005)
+p +
+  geom_point(
+    data = inobs, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    inherit.aes = F
+  )
+```
+
+## addInObservation()
+
+```{r, echo = F}
+p +
+  geom_point(
+    data = inobs, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("1", "1", "1", "0", "1")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+## addInObservation()
+
+. . .
+
+```{r, echo=TRUE, eval = F}
+cdm$condition_occurrence |>
+  addInObservation(indexDate = "condition_start_date") |>
+  filter(in_observation == 0) |>
+  select("condition_concept_id", "person_id", "condition_start_date", "in_observation")
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$condition_occurrence |>
+  addInObservation(indexDate = "condition_start_date") |>
+  filter(in_observation == 0) |>
+  select("condition_concept_id", "person_id", "condition_start_date", "in_observation")
+```
+
+## addInObservation() window
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addInObservation(
+    window = list("20yr" = c(7300, 7665), "40yr" = c(14600, 14965), "60yr" = c(21900, 22265)),
+    completeInterval = T, 
+    nameStyle = "obs_{window_name}"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addInObservation(
+    window = list("20yr" = c(7300, 7665), "40yr" = c(14600, 14965), "60yr" = c(21900, 22265)),
+    completeInterval = T, 
+    nameStyle = "obs_{window_name}"
+  )
+```
+
+## addDateOfBirth()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addDateOfBirth()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addDateOfBirth()
+```
+
+## addDemographics()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addDemographics()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addDemographics()
+```
+
+## addDemographics()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addDemographics(
+    age = TRUE,
+    ageGroup = list("kids" = c(0, 17), "adults" = c(18, Inf)),
+    sex = FALSE,
+    priorObservation = TRUE,
+    priorObservationName = "observation_start",
+    priorObservationType = "date",
+    futureObservation = TRUE,
+    futureObservationName = "observation_end",
+    futureObservationType = "date"
+  )
+```
+
+. . .
+
+```{r, echo = F}
+cdm$my_cohort |>
+  addDemographics(
+    age = TRUE,
+    ageGroup = list("kid" = c(0, 17), "adult" = c(18, Inf)),
+    sex = FALSE,
+    priorObservation = TRUE,
+    priorObservationName = "observation_start",
+    priorObservationType = "date",
+    futureObservation = TRUE,
+    futureObservationName = "observation_end",
+    futureObservationType = "date"
+  )
+```
+
+## add intersections overview
+
+### origin table
+
+- `indexDate` Column that indicates the "origin" date.
+
+- `window` Window list to specify the interest interval from the `indexDate`.
+
+- `censorDate` Column that indicates the "end" of followup.
+
+## add intersections overview
+
+### target
+
+- Cohort: `targetCohortTable` + `targetCohortId` + (`targetStartDate`)
+
+- Concept: `conceptSet` + (`targetStartDate`)
+
+- Table: `tableName` + (`targetStartDate`)
+
+## add intersections overview
+
+### Estimate
+
+- `flag`: NA, 0, 1 (extra argument: `targetEndDate`)
+
+- `count`: NA/integer (extra argument: `targetEndDate`)
+
+- `date`: NA/date (extra argument: `order`)
+
+- `days`: NA/integer (extra argument: `order`)
+
+## 12 functions
+
+:::: {.columns}
+
+::: {.column width="45%"}
+
+- [addCohortIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectFlag.html)
+
+- [addCohortIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectCount.html)
+
+- [addConceptIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectFlag.html)
+
+- [addConceptIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectCount.html)
+
+- [addTableIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectFlag.html)
+
+- [addTableIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectCount.html)
+
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+- [addCohortIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectDays.html)
+
+- [addCohortIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectDate.html)
+
+- [addConceptIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectDays.html)
+
+- [addConceptIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectDate.html)
+
+- [addTableIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectDays.html)
+
+- [addTableIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectDate.html)
+:::
+
+::::
+
+## addCohortIntersectFlag
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addCohortIntersectFlag(
+    targetCohortTable = "drugs", 
+    window = list(c(1, 180), c(181, 365))
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+library(DrugUtilisation)
+cdm <- generateIngredientCohortSet(cdm = cdm, name = "drugs", ingredient = c("Amoxicillin", "Aspirin"))
+cdm$my_cohort |>
+  addCohortIntersectFlag(
+    targetCohortTable = "drugs", 
+    window = list(c(1, 180), c(181, 365))
+  )
+```
+
+
+## addTableIntersectCount
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addTableIntersectCount(
+    tableName = "drug_exposure",
+    window = c(0, 365), 
+    targetEndDate = NULL,
+    nameStyle = "number_prescriptions"
+  )
+```
+
+. . . 
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addTableIntersectCount(
+    tableName = "drug_exposure",
+    window = c(0, 365), 
+    targetEndDate = NULL,
+    nameStyle = "number_prescriptions"
+  )
+```
+
+## addCohortIntersectDate
+
+```{r, echo = F, eval = T}
+cdm$outcome <- cdm$drugs |>
+  compute(name = "outcome", temporary = F) |>
+  newCohortTable(
+    cohortSetRef = settings(cdm$drugs) |> 
+      mutate(cohort_name = c("vaccine", "covid")), 
+    cohortAttritionRef = NULL
+  )
+```
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addCohortIntersectDate(
+    targetCohortTable = "outcome",
+    window = c(0, Inf),
+    censor = "cohort_end_date",
+    nameStyle = "next_{cohort_name}"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addCohortIntersectDate(
+    targetCohortTable = "outcome",
+    window = c(0, Inf),
+    censor = "cohort_end_date",
+    nameStyle = "next_{cohort_name}"
+  )
+```
+
+## addConceptIntersectDays
+
+```{r, echo = F, eval = T}
+library(CodelistGenerator)
+```
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addConceptIntersectDays(
+    conceptSet = getDrugIngredientCodes(cdm = cdm),
+    window = c(0, 365),
+    nameStyle = "next_{concept_name}"
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addConceptIntersectDays(
+    conceptSet = getDrugIngredientCodes(cdm = cdm),
+    window = c(0, 365),
+    nameStyle = "next_{concept_name}"
+  ) |>
+  glimpse()
+```
+
+## Analysis example
+
+. . .
+
+```{r, echo = TRUE, eval = FALSE}
+x <- cdm$covid_cohort |>
+  addDemographics() |>
+  mutate(future_observation = if_else(future_observation > 180, 180, future_observation)) |>
+  mutate(cohort_end_date = as.Date(!!dateadd("cohort_start_date", "future_observation"))) |>
+  addCohortIntersectDays(
+    targetCohortTable = outcomeCohort,
+    window = list(c(1, Inf)),
+    censorDate = "cohort_end_date",
+    nameStyle = "{cohort_name}"
+  ) |>
+  addCohortIntersectFlag(
+    targetCohortTable = outcomeCohort,
+    window = list(c(-180, 0)),
+    nameStyle = "washout_{cohort_name}"
+  ) |>
+  addCohortIntersectFlag(
+    targetCohortTable = conditionsCohort,
+    window = list("short" = c(-30, -1), "mid" = c(-365, -1), "any" = c(-Inf, -1)),
+    nameStyle = "{window_name}_{cohort_name}"
+  ) |>
+  addCohortIntersectFlag(
+    targetCohortTable = medicationsCohort,
+    targetCohortId = getId(cdm[[medicationsCohort]], c("glucocorticoids", "antithromb")),
+    window = list("shortmed" = c(-30, -1), "midmed" = c(-183, -1)),
+    nameStyle = "{window_name}_{cohort_name}"
+  ) |>
+  mutate(across(
+    cohortSet(cdm[[outcomeCohort]])$cohort_name,
+    ~ if_else(!is.na(.x), 1, 0),
+    .names = "status_{.col}"
+  )) |>
+  mutate(across(
+    cohortSet(cdm[[outcomeCohort]])$cohort_name,
+    ~ if_else(!is.na(.x), .x, future_observation),
+    .names = "time_{.col}"
+  )) |>
+  collect()
+
+```
+
+. . .
+
+-> Apply outcome model
+
+## Summarise data
+
+. . .
+
+```{r, echo = T, eval = T}
+x <- cdm$my_cohort |>
+  addConceptIntersectFlag(
+    conceptSet = list("ibuprofen" = c(19019979, 19078461, 1177480)), 
+    window = c(-Inf, 0), 
+    nameStyle = "prior_ibuprofen"
+  ) |>
+  addTableIntersectCount(
+    window = c(-Inf, Inf),
+    tableName = "condition_occurrence", 
+    nameStyle = "number_conditions"
+  ) |>
+  addDemographics()
+```
+
+## Summarise data
+
+```{r}
+x
+```
+
+## Summarise data
+
+. . .
+
+```{r, echo = T, eval = F}
+x |>
+  group_by(sex, prior_ibuprofen) |>
+  summarise(
+    mean_conditions = mean(number_conditions),
+    mean_age = mean(age),
+    mean_followup = mean(future_observation),
+    .groups = "drop"
+  ) |>
+  collect()
+```
+
+. . . 
+
+```{r, echo = F, eval = T}
+x |>
+  group_by(sex, prior_ibuprofen) |>
+  summarise(
+    mean_conditions = mean(number_conditions),
+    mean_age = mean(age),
+    mean_followup = mean(future_observation),
+    .groups = "drop"
+  ) |>
+  collect()
+```
+
+## Summarise data
+
+. . .
+
+```{r, echo = T, eval = F}
+summariseResult(
+  table = x, # table to summarise 
+  strata = list("sex", c("sex", "prior_ibuprofen")), # strata
+  includeOverallStrata = TRUE,
+  variables = list(
+    c("number_conditions", "age", "future_observation"),
+    c("sex")
+  ), 
+  estimates = list(
+    c("median", "q25", "q75"),
+    c("count", "percentage")
+  )
+)
+```
+
+## Summarise data
+
+```{r, echo = F, eval = T}
+summariseResult(
+  table = x, # table to summarise 
+  strata = list("sex", c("sex", "prior_ibuprofen")), # strata
+  includeOverallStrata = TRUE,
+  variables = list(
+    c("number_conditions", "age", "future_observation"),
+    c("sex")
+  ), 
+  estimates = list(
+    c("median", "q25", "q75"),
+    c("count", "percentage")
+  )
+) |>
+  mutate(package_version = "0.7.0")
+```
+
+## Overview
+
+- Used internally in other packages (DrugUtilisation, CohortSurvival, ...)
+
+- Used in **complex** study
+
+- **Not needed for Off The Shelf Studies**
+
+## CohortCharacteristics
+
+## Contents
+
+- [summariseCharacteristics](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCharacteristics.html)
+
+- [summariseLargeScaleCharacteristics](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseLargeScaleCharacteristics.html)
+
+- [summariseCohortOverlap](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCohortOverlap.html)
+
+- [summariseCohortTiming](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCohortTiming.html)
+
+- Each function has an associated `table` and `plot` function
+
+## summariseCharacteristics
+
+```{r, echo = F, eval = T}
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "myocardial_infarction" = c(4329847),
+    "fracture" = c(4048695, 4142905, 4278672, 4237458, 4230399, 40480160, 4066995, 4059173, 4134304),
+    "allergy" = c(4084167, 40486433, 4280726, 4048171),
+    "infection" =  c(4116491, 433125, 4056621, 40481087, 4112343),
+    "pneumonia" = c(255848),
+    "asthma" = c(4051466, 317009)
+  ),
+  name = "conditions"
+)
+
+cdm <- generateDrugUtilisationCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "antineoplastic_and_immunomodulating_agents" = c(1118088, 1118084, 40224132, 19010482, 40224805, 19007333, 1500211, 1305058, 1503184, 19134077, 1549786),
+    "musculoskeletal_system" = c(1118088, 1557272, 40162359, 1124300, 1115008, 40173590, 1118084, 42707627, 19019273, 19019979, 19078461, 19003953, 1112807, 1115171, 1177480),
+    "antiinfectives_for_systemic_use" = c(19129655, 1728416, 920293, 19074841, 920300, 920334, 19074843, 19075001, 19073183, 19073188, 1713671, 1729720, 19006318, 1778162, 46275444, 1717327, 1738521, 1741122, 1759842, 1713332, 1746114, 1768849, 46233710, 19133873, 46233988, 19133905),
+    "nervous_system" = c(708298, 701322, 723013, 1129625, 1110410, 753626, 1124957, 1102527, 1125315, 782043, 791967, 1119510, 19078219, 757627, 40220386, 740275, 40223774, 1154029, 1127078, 1127433, 40222846, 19057271, 40223768, 45892894, 705944, 715997, 19078924, 19076374, 19077572, 40229134, 19059056, 19016749, 40236446, 19074679, 742185, 40231925, 1112807, 35605858, 40162522, 782047, 19039298, 19059528, 836654, 836659, 19115351, 19023398, 19002770, 19123231, 19133768, 40165015),
+    "dermatologicals" = c(1129625, 1149380, 1124300, 836654, 1595799, 975125, 19008572),
+    "respiratory_system" = c(1129625, 1149196, 1149380, 1150770, 1150836, 1153428, 1107830, 1110410, 738818, 1124957, 40169216, 1125443, 1119510, 1137529, 1154615, 1154343, 40223821, 19019979, 19112599, 40223834, 43012036, 40229134, 19029476, 19078461, 40232448, 1177480, 1192710, 1343916, 1150771, 1150837, 1107882, 975125, 1174888, 40169281, 40228214, 40228230, 19125062)
+  ),
+  name = "medications"
+)
+```
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$my_cohort |>
+  addSex() |>
+  summariseCharacteristics(
+    strata = "sex",
+    demographics = TRUE,
+    ageGroup = list(c(0, 19), c(20, 39), c(40, 59), c(60, 79), c(80, Inf)),
+    tableIntersect = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", value = "count", window = c(-365, 0)
+      )
+    ),
+    cohortIntersect = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", value = "flag", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", value = "flag", window = c(-365, 0)
+      )
+    ),
+    conceptIntersect = list() 
+  )
+```
+
+## summariseCharacteristics
+
+```{r, echo = F, eval = T}
+cdm$my_cohort |>
+  addSex() |>
+  summariseCharacteristics(
+    strata = "sex",
+    demographics = TRUE,
+    ageGroup = list(c(0, 19), c(20, 39), c(40, 59), c(60, 79), c(80, Inf)),
+    tableIntersect = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", value = "count", window = c(-365, 0)
+      )
+    ),
+    cohortIntersect = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", value = "flag", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", value = "flag", window = c(-365, 0)
+      )
+    ),
+    conceptIntersect = list() 
+  ) |>
+  glimpse()
+```
+
+## tableCharacteristics
+
+```{r, echo = F, eval = T}
+result <- cdm$my_cohort |>
+  addSex() |>
+  summariseCharacteristics(
+    strata = "sex",
+    demographics = TRUE,
+    ageGroup = list(c(0, 19), c(20, 39), c(40, 59), c(60, 79), c(80, Inf)),
+    tableIntersect = list(
+      "Number of visits prior year" = list(
+        tableName = "visit_occurrence", value = "count", window = c(-365, 0)
+      )
+    ),
+    cohortIntersect = list(
+      "Conditions any time prior" = list(
+        targetCohortTable = "conditions", value = "flag", window = c(-Inf, 0)
+      ),
+      "Medications prior year" = list(
+        targetCohortTable = "medications", value = "flag", window = c(-365, 0)
+      )
+    ),
+    conceptIntersect = list() 
+  )
+```
+
+```{r}
+result |>
+  tableCharacteristics()
+```
+
+
+## tableCharacteristics
+
+```{r, eval = F}
+result |>
+  tableCharacteristics(
+    header = c("strata"),
+    formatEstimateName = c(
+      "N(%)" = "<count> (<percentage>%)", 
+      "median [IQR]" = "<median> [<q25> - <q75>]"
+    ), 
+    excludeColumns = c(
+      "cdm_name", "result_id", "result_type", "package_name", "package_version", 
+      "estimate_type", "additional_name", "additional_level", "cohort_name"
+    ),
+    .options = list(keepNotFormatted = FALSE)
+  )
+```
+
+## tableCharacteristics
+
+```{r, eval = T, echo = F}
+result |>
+  tableCharacteristics(
+    header = c("strata"),
+    formatEstimateName = c(
+      "N(%)" = "<count> (<percentage>%)", 
+      "median [IQR]" = "<median> [<q25> - <q75>]"
+    ), 
+    excludeColumns = c(
+      "cdm_name", "result_id", "result_type", "package_name", "package_version", 
+      "estimate_type", "additional_name", "additional_level", "cohort_name"
+    ),
+    .options = list(keepNotFormatted = FALSE)
+  )
+```
+
+## tableDemographics
+
+```{r, echo = F}
+tableDemographics(
+  result,
+  header = "strata",
+  formatEstimateName = c(
+    "N(%)" = "<count> (<percentage>%)", 
+    "median [IQR]" = "<median> [<q25> - <q75>]"
+  ), 
+  excludeColumns = c(
+    "cdm_name", "result_id", "result_type", "package_name", "package_version", 
+    "estimate_type", "additional_name", "additional_level", "cohort_name"
+  ), 
+  .options = list(keepNotFormatted = F)
+)
+```
+
+## plotDemographics
+
+```{r, echo = F}
+plotDemographics(result, facetVars = "strata_level")
+```
+
+## tableCohortIntersect
+
+```{r, echo = FALSE}
+tableCohortIntersect(
+  result,
+  header = "strata",
+  formatEstimateName = c(
+    "N(%)" = "<count> (<percentage>%)", 
+    "median [IQR]" = "<median> [<q25> - <q75>]"
+  ), 
+  excludeColumns = c(
+    "cdm_name", "result_id", "result_type", "package_name", "package_version", 
+    "estimate_type", "additional_name", "additional_level", "cohort_name"
+  ), 
+  .options = list(keepNotFormatted = F)
+)
+```
+
+
+## plotCohortIntersect
+
+```{r, echo = F}
+library(ggplot2)
+p <- result |>
+  filter(strata_level == "overall" | is.na(strata_level)) |>
+  plotCohortIntersect(
+    xAxis = "estimate_value",
+    yAxis = "variable_level",
+    plotStyle = "barplot",
+    facetVars = c("strata_level"),
+    colorVars = c("variable_name", "variable_level")
+  )
+p + 
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+## summariseLargeScaleCharacterisation
+
+```{r}
+result <- cdm$my_cohort |>
+  summariseLargeScaleCharacteristics(
+    window = list(c(-365, -1), c(0, 0), c(1, 365)),
+    eventInWindow = "condition_occurrence",
+    episodeInWindow = "drug_exposure"
+  )
+result |> glimpse()
+```
+
+
+## tableLargeScaleCharacteristics
+
+```{r}
+tableLargeScaleCharacteristics(result)
+```
+
+
+## plotLargeScaleCharacteristics
+
+```{r, eval = F}
+lsc <- cdm$my_cohort %>%
+  addSex() |>
+  summariseLargeScaleCharacteristics(
+    strata = list("sex"),
+    window = c(-Inf,0),
+    eventInWindow ="condition_occurrence"
+  )
+plotLargeScaleCharacteristics(
+    data =  lsc |> 
+      filter(estimate_name == "percentage"), 
+    colorVars= c("strata_level")
+  ) + 
+  ylab("") +
+  xlab("Percentage") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.title = element_blank())
+```
+
+## plotLargeScaleCharacteristics
+
+```{r, echo = F}
+lsc <- cdm$my_cohort %>%
+  addSex() |>
+  summariseLargeScaleCharacteristics(
+    strata = list("sex"),
+    window = c(-Inf,0),
+    eventInWindow ="condition_occurrence"
+  )
+plotLargeScaleCharacteristics(
+    data =  lsc |> 
+      filter(estimate_name == "percentage"), 
+    colorVars= c("strata_level")
+  ) + 
+  ylab("") +
+  xlab("Percentage") +
+  theme_minimal() +
+  theme(legend.position = "top", legend.title = element_blank())
+```
+
+## summariseCohortOverlap
+
+```{r}
+cdm <- generateConceptCohortSet(
+  cdm = cdm,
+  conceptSet = list(
+    "bacterial_sinusitis" = 4294548,
+    "viral_sinusitis" = 40481087,
+    "chronic_sinusitis" = 257012,
+    "any_sinusitis" = c(4294548, 40481087, 257012)
+  ),
+  name = "sinusitis"
+)
+```
+
+## summariseCohortOverlap
+
+```{r}
+result <- summariseCohortOverlap(cdm$sinusitis)
+result |>
+  glimpse()
+```
+
+## tableCohortOverlap
+
+```{r}
+tableCohortOverlap(result)
+```
+
+
+## plotCohortOverlap
+
+```{r}
+plotCohortOverlap(result)
+```
+
+## summariseCohortTiming
+
+. . .
+
+```{r}
+cdm <- generateIngredientCohortSet(
+  cdm = cdm, name = "meds", ingredient = c("acetaminophen", "morphine", "warfarin")
+)
+```
+
+## summariseCohortTiming
+
+. . .
+
+```{r, eval = F}
+meds_timing <- cdm$meds |> 
+  summariseCohortTiming(restrictToFirstEntry = TRUE)
+meds_timing |> 
+  glimpse()
+```
+
+. . .
+
+```{r, eval = T, echo = F}
+meds_timing <- cdm$meds |> 
+  summariseCohortTiming(restrictToFirstEntry = TRUE)
+meds_timing |> 
+  glimpse()
+```
+
+## tableCohortTiming
+
+. . .
+
+```{r, eval = F}
+tableCohortTiming(
+  meds_timing, 
+  .options = list(decimals = c(numeric = 0)), 
+  excludeColumns = c("cdm_name", "result_id", "result_type", "package_name", "package_version", "estimate_type")
+)
+```
+
+. . .
+
+```{r, echo = F}
+tableCohortTiming(
+  meds_timing, 
+  .options = list(decimals = c(numeric = 0)), 
+  excludeColumns = c("cdm_name", "result_id", "result_type", "package_name", "package_version", "estimate_type")
+)
+```
+
+## plotCohortTiming
+
+. . .
+
+```{r, eval = F}
+plotCohortTiming(meds_timing, facetBy = "cdm_name") + 
+  theme_bw() +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+. . .
+
+```{r, echo = F}
+plotCohortTiming(meds_timing, facetBy = "cdm_name") + 
+  theme_bw() +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+## plotCohortTiming
+
+. . .
+
+```{r, eval = F}
+meds_timing <- cdm$meds |> 
+  summariseCohortTiming(restrictToFirstEntry = TRUE, density = TRUE)
+plotCohortTiming(meds_timing, type = "density")
+```
+
+. . .
+
+```{r, echo = F}
+meds_timing <- cdm$meds |> 
+  summariseCohortTiming(restrictToFirstEntry = TRUE, density = TRUE)
+plotCohortTiming(meds_timing, type = "density")
+```
+
+
+## Overview
+
+- Provide the functionalities to characterise cohorts:
+
+  - Table one
+  
+  - Large scale characteristics
+  
+  - Cohort overlap
+  
+  - Cohort timing
+
+- Produces standard tables in gt, flextable or tibble format.
+
+- Produces standard plot visualisations based on ggplot2 package.
+
+- It is designed for users in **Off The Shelf Studies**.
+
+## Roadmap
+
+- [https://darwin-eu-dev.github.io/PatientProfiles/](https://darwin-eu-dev.github.io/PatientProfiles/)
+
+- split into the two packages
+
+- PatientProfiles to 1.0.0 (stable, it has already not changed in the last 6 months)
+
+- CohortCharacteristics to 1.0.0 (close, we need users opinions for an stable release)
+
+## Usage
+
+![](pp_usage.png)
+
+## Thanks
+
+::: {layout-ncol=3}
+![](https://www.ndorms.ox.ac.uk/team/yuchen-guo/@@haiku.profiles.portrait/93fc61674bc741f3a8d18a44ebf1e246/@@images/image/w1140?9386ce4a-70a2-45c4-9446-776946a75ef1){width=3.5in}
+
+![](https://www.ndorms.ox.ac.uk/team/kim-lopez-guell/@@haiku.profiles.portrait/1f6345dce5934625a5785db65233eb33/@@images/image/w1140?e65afe46-35cd-481f-bcee-58aca850deb9){width=3.5in}
+
+![](https://i1.rgstatic.net/ii/profile.image/1105601895628800-1640607441134_Q512/Nuria-Mercade-Besora.jpg){width=3.5in}
+
+![](https://www.ndorms.ox.ac.uk/team/marti-catala-sabate/@@haiku.profiles.portrait/9bb5a30b6c384dcfa014de76a46854e7/@@images/image/w1140?40d6740c-7ab8-4404-9660-e12feb880a14){width=3.5in}
+
+![](https://www.ndorms.ox.ac.uk/team/edward-burn/@@haiku.profiles.portrait/8fbaee61a0be4f4dbc4f7cd361fefc36/@@images/image/w1140?6b22433b-220c-4461-9072-23c432f03d18){width=3.5in}
+
+![](https://www.ndorms.ox.ac.uk/team/mike-du/@@haiku.profiles.portrait/440d77a80c0e4febbea6996b8bfb4ea7/@@images/image/w1140?767030c9-1949-4b9a-8e9f-e5ee27cf3f69){width=3.5in}
+:::

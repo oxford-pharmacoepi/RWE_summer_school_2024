@@ -1,0 +1,1188 @@
+---
+title: "PatientProfiles"
+author: "A package for adding patient level characteristics to OMOP CDM tables."
+format:
+  revealjs: 
+    theme: [simple, styleSS24.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+    footer: "Oxford Summer School 2024"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output-width: 100%
+editor: visual
+---
+
+## PatientProfiles
+
+![](https://github.com/darwin-eu-dev/PatientProfiles/blob/main/man/figures/logo.png?raw=true){fig-align="center"}
+
+```{r, echo=FALSE}
+options("width"=130)
+```
+
+
+
+
+## Let's get started
+
+[Posit cloud](https://posit.cloud/spaces/511957/join?access_code=dD2iGaxdb1_cmAIZkrfrSc3AZGGMRXAbYaK921lv)
+
+## Let's get started
+
+. . .
+
+The following packages are needed:
+
+. . .
+
+```{r, eval = FALSE}
+install.packages(c("CDMConnector", "duckdb", "PatientProfiles", "here"))
+```
+
+. . .
+
+To conduct this tutorial we need to have eunomia data set.
+
+. . .
+
+```{r}
+library(CDMConnector)
+library(duckdb)
+library(PatientProfiles)
+library(dplyr)
+
+Sys.setenv("EUNOMIA_DATA_FOLDER" = here::here())
+downloadEunomiaData()
+```
+
+## Let's get started
+
+. . .
+
+Create our cdm object:
+
+. . .
+
+```{r, message=T}
+con <- dbConnect(duckdb(), eunomia_dir())
+con
+```
+
+. . .
+
+```{r, message=T}
+cdm <- cdmFromCon(con = con, cdmSchema = "main", writeSchema = "main")
+cdm
+```
+
+## Create our first cohort
+
+We are going to create a cohort of sinusitis:
+
+. . .
+
+```{r}
+cdm <- generateConceptCohortSet(
+  cdm = cdm,
+  name = "sinusitis",
+  conceptSet = list(
+    "bacterial_sinusitis" = 4294548, 
+    "viral_sinusitis" = 40481087, 
+    "chronic_sinusitis" = 257012, 
+    "any_sinusitis" = c(4294548, 40481087, 257012)
+  ), 
+  limit = "all", 
+  end = 0
+)
+```
+
+. . .
+
+```{r, message=T}
+cdm
+```
+
+## Create our first cohort
+
+```{r}
+cdm$sinusitis
+```
+
+## Create our first cohort
+
+```{r}
+settings(cdm$sinusitis)
+```
+
+## Create our first cohort
+
+```{r}
+cohortCount(cdm$sinusitis)
+```
+
+## Create our first cohort
+
+```{r}
+attrition(cdm$sinusitis)
+```
+
+## Introduction
+
+-   To add characteristics to tables (sex, age, prior observation, future observation, birth date, ...)
+
+-   To identify intersections with cohorts, concepts and omop tables.
+
+-   To summarise tables and put it in to summarseResults format.
+
+
+
+## addAge()
+
+```{r, eval = FALSE}
+cdm$sinusitis |> 
+  addAge()
+```
+
+. . .
+
+```{r, echo = FALSE}
+cdm$sinusitis |> 
+  addAge()
+```
+
+## addAge()
+
+```{r, eval = FALSE}
+cdm$sinusitis |> 
+  addAge(
+    indexDate = "cohort_start_date", 
+    ageName = "age", 
+    ageDefaultMonth = 1, 
+    ageDefaultDay = 1, 
+    ageImposeMonth = FALSE, 
+    ageImposeDay = FALSE, 
+    missingAgeGroupValue = "None"
+  )
+```
+
+## addAge()
+
+```{r}
+cdm$condition_occurrence |>
+  addAge(indexDate = "condition_end_date") |>
+  glimpse()
+```
+
+## add also age groups
+
+```{r}
+cdm$sinusitis |>
+  addAge(ageGroup = list(c(0, 19), c(20, Inf)))
+```
+
+## add also age groups
+
+```{r}
+cdm$sinusitis |>
+  addAge(ageGroup = list(
+    "analysis" = list("child" = c(0, 17), "adult" = c(18, Inf)),
+    "age_group" = list(c(0, 19), c(20, 39), c(40, 59), c(60, 79), c(80, Inf))
+  ))
+```
+
+## addSex()
+
+```{r, eval = FALSE}
+cdm$sinusitis |>
+  addSex()
+```
+
+. . .
+
+```{r, echo = FALSE}
+cdm$sinusitis |>
+  addSex()
+```
+
+## addSex()
+
+```{r}
+cdm$sinusitis |>
+  addSex(
+    sexName = "gender", 
+    missingSexValue = "Missing"
+  )
+```
+
+## addSex()
+
+```{r}
+cdm$drug_exposure |> 
+  addSex() |>
+  glimpse()
+```
+
+## Your turn
+
+For each cohort in the sinusitis table, can you find out have many subject are age 18 or older and are male?
+
+## Solution
+
+
+```{r}
+cdm$sinusitis |> addSex() |> addAge() |> filter(age >= 18 & sex == "Male") |> 
+  group_by(cohort_definition_id) |> summarise(count = n())
+```
+## addPriorObservation()
+
+```{r, echo = F}
+library(ggplot2)
+library(ggforce)
+library(dplyr)
+s <- 0.25
+r <- 0.5
+dates <- list(
+  c(2000, 2006.12),
+  c(2008.25, 2010),
+  c(2002.05, 2010),
+  c(2000, 2010),
+  c(2002.48, 2004.75),
+  c(2000, 2003.69),
+  c(2004.78, 2007.84),
+  c(2008.33, 2009.54)
+)
+individuals <- c(1, 1, 2, 3, 4, 5, 5, 4)
+getTibble <- function(dates, individuals) {
+  lapply(seq_along(dates), function(k) {
+    dplyr::tibble(
+      observation_period = c(
+        dates[[k]][1], dates[[k]][2], dates[[k]][2], dates[[k]][1]
+      ),
+      individuals = individuals[k] + c(-s, -s, +s, +s)
+    )
+  }) |>
+    dplyr::bind_rows(.id = "id")
+}
+plotIndividuals <- function(tib, s, r) {
+  
+}
+tib <- getTibble(dates, individuals)
+xl <- seq(2000, 2010, by = 2)
+p <- ggplot(data = tib, aes(x = observation_period, y = individuals, group = id)) +
+  geom_shape(radius = unit(r, 'cm')) +
+  geom_vline(aes(xintercept = 2005), color = "gray") +
+  scale_x_continuous(
+    name ="Observation period (year)",
+    breaks = xl,
+    labels = xl
+  ) +
+  theme(legend.position = "none")
+p
+```
+
+## addPriorObservation()
+
+```{r, echo = F}
+prior <- tibble(individual = 1:5, date = 2005) |>
+  union_all(tibble(individual = 1:5, date = c(2000, 2002.05, 2000, NA, 2004.78)))
+p +
+  geom_line(
+    data = prior, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="first", type = "closed"),
+    inherit.aes = F
+  )
+```
+
+## addPriorObservation()
+
+```{r, echo = F}
+p +
+  geom_line(
+    data = prior, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="first", type = "closed"),
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("1826", "1077", "1826", "NA", "44")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+## addPriorObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$sinusitis |>
+  addPriorObservation()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addPriorObservation()
+```
+
+## addPriorObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$condition_occurrence |>
+  addPriorObservation(
+    indexDate = "condition_start_date", 
+    priorObservationName = "start_observation", # name of the column
+    priorObservationType = "date" # default = "days"
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$condition_occurrence |>
+  addPriorObservation(
+    indexDate = "condition_start_date", 
+    priorObservationName = "start_observation", # name of the column
+    priorObservationType = "date" # default = "days"
+  ) |>
+  glimpse()
+```
+
+## addFutureObservation()
+
+## addFutureObservation()
+
+```{r, echo = F}
+p
+```
+
+## addFutureObservation()
+
+```{r, echo = F}
+future <- tibble(individual = 1:5, date = 2005) |>
+  union_all(tibble(individual = 1:5, date = c(2006.12, 2010, 2010, NA, 2007.84)))
+p +
+  geom_line(
+    data = future, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="last", type = "closed"),
+    inherit.aes = F
+  )
+```
+
+## addFutureObservation()
+
+```{r, echo = F}
+p +
+  geom_line(
+    data = future, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    arrow = arrow(length=unit(0.3,"cm"), ends="last", type = "closed"),
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("409", "1826", "1826", "NA", "1036")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+## addFutureObservation()
+
+. . .
+
+```{r, echo = TRUE, eval = F}
+cdm$sinusitis |>
+  addFutureObservation()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addFutureObservation()
+```
+
+## addInObservation()
+
+## addInObservation()
+
+```{r, echo = F}
+p
+```
+
+## addInObservation()
+
+```{r, echo = F}
+inobs <- tibble(individual = c(1:3, 5), date = 2005)
+p +
+  geom_point(
+    data = inobs, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    inherit.aes = F
+  )
+```
+
+## addInObservation()
+
+```{r, echo = F}
+p +
+  geom_point(
+    data = inobs, 
+    aes(x = date, y = individual, group = individual),
+    color = "white",
+    inherit.aes = F
+  ) +
+  geom_label(
+    data = tibble(x = 2005, y = 1:5, tex = c("1", "1", "1", "0", "1")), 
+    mapping = aes(x = x, y = y, label = tex, color = "white"), 
+    inherit.aes = F
+  )
+```
+
+## addInObservation()
+
+. . .
+
+```{r, echo=TRUE, eval = F}
+cdm$condition_occurrence |>
+  addInObservation(indexDate = "condition_start_date") |>
+  filter(in_observation == 0) |>
+  select("condition_concept_id", "person_id", "condition_start_date", "in_observation")
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$condition_occurrence |>
+  addInObservation(indexDate = "condition_start_date") |>
+  filter(in_observation == 0) |>
+  select("condition_concept_id", "person_id", "condition_start_date", "in_observation")
+```
+
+## addInObservation() window
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addInObservation(
+    indexDate = "cohort_start_date",
+    window = list("20yr" = c(7300, 7665), "40yr" = c(14600, 14965), "60yr" = c(21900, 22265)),
+    completeInterval = T, 
+    nameStyle = "obs_{window_name}"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addInObservation(
+    window = list("20yr" = c(7300, 7665), "40yr" = c(14600, 14965), "60yr" = c(21900, 22265)),
+    completeInterval = T, 
+    nameStyle = "obs_{window_name}"
+  )
+```
+
+## Your turn
+
+Can you find out number of record with prior observation greater than 365 days in condition occurrence table using condition_start_date as index date?
+
+## Solution
+
+
+```{r}
+cdm$condition_occurrence |> 
+  addPriorObservation(indexDate = "condition_start_date") |> 
+  filter(prior_observation > 365) |> 
+  summarise(count = n())
+```
+
+## addDateOfBirth()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addDateOfBirth()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addDateOfBirth()
+```
+
+## addDemographics()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addDemographics()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addDemographics()
+```
+
+## addDemographics()
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addDemographics(
+    age = TRUE,
+    ageGroup = list("child" = c(0, 17), "adults" = c(18, Inf)),
+    sex = FALSE,
+    priorObservation = TRUE,
+    priorObservationName = "observation_start",
+    priorObservationType = "date",
+    futureObservation = TRUE,
+    futureObservationName = "observation_end",
+    futureObservationType = "date"
+  )
+```
+
+. . .
+
+```{r, echo = F}
+cdm$sinusitis |>
+  addDemographics(
+    age = TRUE,
+    ageGroup = list("child" = c(0, 17), "adults" = c(18, Inf)),
+    sex = FALSE,
+    priorObservation = TRUE,
+    priorObservationName = "observation_start",
+    priorObservationType = "date",
+    futureObservation = TRUE,
+    futureObservationName = "observation_end",
+    futureObservationType = "date"
+  )
+```
+
+## record cohort attrition
+
+. . .
+
+```{r, eval = F}
+attrition(cdm$sinusitis)
+```
+
+. . .
+
+```{r, echo = F}
+attrition(cdm$sinusitis)
+```
+
+## record cohort attrition
+
+```{r}
+cdm$new_sinusitis <- cdm$sinusitis |>
+  addSex() |>
+  filter(sex == "Female") |>
+  select(-"sex") |>
+  compute(name = "new_sinusitis", temporary = F) |>
+  recordCohortAttrition("Restrict to Females")
+```
+
+. . .
+
+```{r}
+attrition(cdm$new_sinusitis)
+```
+
+## record cohort attrition
+
+```{r}
+cdm$new_sinusitis <- cdm$new_sinusitis |>
+  addAge() |>
+  filter(age < 18) |>
+  select(-"age") |>
+  compute(name = "new_sinusitis", temporary = F) |>
+  recordCohortAttrition("Restrict to under 18")
+```
+
+. . .
+
+```{r}
+attrition(cdm$new_sinusitis)
+```
+
+## cohortCount are also updated
+
+```{r}
+cohortCount(cdm$new_sinusitis)
+```
+
+## Your turn
+
+Can you create a new cohort starting with all bronchitis concept set (258780, 260139) records.
+
+Then restrict the records to ones with:
+
+1- Just Male
+
+2- 25 or above
+
+3- With at least 365 days of prior observation
+
+. . .
+
+```{r, echo = FALSE}
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  name = "bronchitis",
+  conceptSet = list(bronchitis = c(258780, 260139)), 
+  end = 0, 
+  limit = "all"
+)
+
+cdm$bronchitis <- cdm$bronchitis |>
+  addSex() |>
+  filter(sex == "Male") |>
+  select(-"sex") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("Just Male") |>
+  addAge() |>
+  filter(age >= 25) |>
+  select(-"age") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("25 or above") |>
+  addPriorObservation() |>
+  filter(prior_observation >= 365) |>
+  select(-"prior_observation") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("At least 365 days of prior observation")
+
+attrition(cdm$bronchitis)
+```
+
+## Solution
+
+. . .
+
+```{r}
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  name = "bronchitis",
+  conceptSet = list(bronchitis = c(258780, 260139)), 
+  end = 0, 
+  limit = "all"
+)
+
+cdm$bronchitis <- cdm$bronchitis |>
+  addSex() |>
+  filter(sex == "Male") |>
+  select(-"sex") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("Just Male") |>
+  addAge() |>
+  filter(age >= 25) |>
+  select(-"age") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("25 or above") |>
+  addPriorObservation() |>
+  filter(prior_observation >= 365) |>
+  select(-"prior_observation") |>
+  compute(name = "bronchitis", temporary = FALSE) |>
+  recordCohortAttrition("At least 365 days of prior observation")
+
+attrition(cdm$bronchitis)
+```
+
+## add intersections overview
+
+### origin table
+
+-   `indexDate` Column that indicates the "origin" date.
+
+-   `window` Window list to specify the interest interval from the `indexDate`.
+
+-   `censorDate` Column that indicates the "end" of followup.
+
+## add intersections overview
+
+### target
+
+-   Cohort: `targetCohortTable` + `targetCohortId` + (`targetStartDate`)
+
+-   Concept: `conceptSet` + (`targetStartDate`)
+
+-   Table: `tableName` + (`targetStartDate`)
+
+## add intersections overview
+
+### Estimate
+
+-   `flag`: NA, 0, 1 (extra argument: `targetEndDate`)
+
+-   `count`: NA/integer (extra argument: `targetEndDate`)
+
+-   `date`: NA/date (extra argument: `order`)
+
+-   `days`: NA/integer (extra argument: `order`)
+
+## 12 functions
+
+::: columns
+::: {.column width="45%"}
+-   [addCohortIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectFlag.html)
+
+-   [addCohortIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectCount.html)
+
+-   [addConceptIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectFlag.html)
+
+-   [addConceptIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectCount.html)
+
+-   [addTableIntersectFlag](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectFlag.html)
+
+-   [addTableIntersectCount](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectCount.html)
+:::
+
+::: {.column width="10%"}
+<!-- empty column to create gap -->
+:::
+
+::: {.column width="45%"}
+-   [addCohortIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectDays.html)
+
+-   [addCohortIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addCohortIntersectDate.html)
+
+-   [addConceptIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectDays.html)
+
+-   [addConceptIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addConceptIntersectDate.html)
+
+-   [addTableIntersectDays](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectDays.html)
+
+-   [addTableIntersectDate](https://darwin-eu-dev.github.io/PatientProfiles/reference/addTableIntersectDate.html)
+:::
+:::
+
+## Let's create some useful cohorts
+
+```{r, message=TRUE}
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "myocardial_infarction" = c(4329847),
+    "fracture" = c(4048695, 4142905, 4278672, 4237458, 4230399, 40480160, 4066995, 4059173, 4134304),
+    "allergy" = c(4084167, 40486433, 4280726, 4048171),
+    "infection" =  c(4116491, 433125, 4056621, 40481087, 4112343),
+    "pneumonia" = c(255848),
+    "asthma" = c(4051466, 317009)
+  ),
+  limit = "all",
+  end = 0,
+  name = "conditions"
+)
+
+cdm <- generateConceptCohortSet(
+  cdm = cdm, 
+  conceptSet = list(
+    "antineoplastic_and_immunomodulating_agents" = c(1118088, 1118084, 40224132, 19010482, 40224805, 19007333, 1500211, 1305058, 1503184, 19134077, 1549786),
+    "musculoskeletal_system" = c(1118088, 1557272, 40162359, 1124300, 1115008, 40173590, 1118084, 42707627, 19019273, 19019979, 19078461, 19003953, 1112807, 1115171, 1177480),
+    "antiinfectives_for_systemic_use" = c(19129655, 1728416, 920293, 19074841, 920300, 920334, 19074843, 19075001, 19073183, 19073188, 1713671, 1729720, 19006318, 1778162, 46275444, 1717327, 1738521, 1741122, 1759842, 1713332, 1746114, 1768849, 46233710, 19133873, 46233988, 19133905),
+    "nervous_system" = c(708298, 701322, 723013, 1129625, 1110410, 753626, 1124957, 1102527, 1125315, 782043, 791967, 1119510, 19078219, 757627, 40220386, 740275, 40223774, 1154029, 1127078, 1127433, 40222846, 19057271, 40223768, 45892894, 705944, 715997, 19078924, 19076374, 19077572, 40229134, 19059056, 19016749, 40236446, 19074679, 742185, 40231925, 1112807, 35605858, 40162522, 782047, 19039298, 19059528, 836654, 836659, 19115351, 19023398, 19002770, 19123231, 19133768, 40165015),
+    "dermatologicals" = c(1129625, 1149380, 1124300, 836654, 1595799, 975125, 19008572),
+    "respiratory_system" = c(1129625, 1149196, 1149380, 1150770, 1150836, 1153428, 1107830, 1110410, 738818, 1124957, 40169216, 1125443, 1119510, 1137529, 1154615, 1154343, 40223821, 19019979, 19112599, 40223834, 43012036, 40229134, 19029476, 19078461, 40232448, 1177480, 1192710, 1343916, 1150771, 1150837, 1107882, 975125, 1174888, 40169281, 40228214, 40228230, 19125062)
+  ),
+  limit = "all",
+  end = "event_end_date",
+  name = "medications"
+)
+
+cdm
+```
+
+## Let's create some useful cohorts
+
+```{r}
+settings(cdm$conditions) |>
+  select("cohort_definition_id", "cohort_name") |>
+  inner_join(cohortCount(cdm$conditions))
+```
+
+. . .
+
+```{r}
+settings(cdm$medications) |>
+  select("cohort_definition_id", "cohort_name") |>
+  inner_join(cohortCount(cdm$medications))
+```
+
+## addCohortIntersectFlag
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions", 
+    targetCohortId = 4,
+    window = c(1, 30), 
+    nameStyle = "following_infection"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions", 
+    targetCohortId = 4,
+    window = c(1, 30), 
+    nameStyle = "following_infection"
+  )
+```
+
+## addCohortIntersectFlag
+
+```{r}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions", 
+    targetCohortId = 4,
+    window = c(1, 30), 
+    nameStyle = "following_infection"
+  ) |>
+  group_by(cohort_definition_id, following_infection) |>
+  tally()
+```
+
+## addCohortIntersectFlag
+
+```{r, eval = FALSE}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions", 
+    targetCohortId = NULL, 
+    indexDate = "cohort_start_date", 
+    censorDate = "cohort_end_date", 
+    targetStartDate = "cohort_start_date", 
+    targetEndDate = "cohort_start_date", 
+    window = list("short" = c(0, 180), "long" = c(0, Inf)),
+    nameStyle = "{cohort_name}_{window_name}"
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = FALSE}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions", 
+    targetCohortId = NULL, 
+    indexDate = "cohort_start_date", 
+    censorDate = "cohort_end_date", 
+    targetStartDate = "cohort_start_date", 
+    targetEndDate = "cohort_start_date", 
+    window = list("short" = c(0, 180), "long" = c(0, Inf)),
+    nameStyle = "{cohort_name}_{window_name}"
+  ) |>
+  glimpse()
+```
+
+## addTableIntersectCount
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addTableIntersectCount(
+    tableName = "drug_exposure",
+    window = c(0, 365), 
+    targetEndDate = NULL,
+    nameStyle = "number_prescriptions"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addTableIntersectCount(
+    tableName = "drug_exposure",
+    window = c(0, 365), 
+    targetEndDate = NULL,
+    nameStyle = "number_prescriptions"
+  )
+```
+
+## addCohortIntersectDate
+
+. . .
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addCohortIntersectDate(
+    targetCohortTable = "conditions",
+    targetCohortId = 4,
+    window = c(0, Inf),
+    order = "first",
+    censor = NULL,
+    nameStyle = "next_{cohort_name}"
+  )
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addCohortIntersectDate(
+    targetCohortTable = "conditions",
+    targetCohortId = 4,
+    window = c(0, Inf),
+    order = "first",
+    censor = NULL,
+    nameStyle = "next_{cohort_name}"
+  )
+```
+
+## addConceptIntersectDays
+
+```{r, echo = T, eval = F}
+cdm$sinusitis |>
+  addConceptIntersectDays(
+    conceptSet = list(acetaminophen = c(1125315, 1127078, 1127433, 40229134, 40231925, 40162522, 19133768)),
+    window = c(0, Inf),
+    nameStyle = "next_{concept_name}"
+  ) |>
+  glimpse()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+cdm$sinusitis |>
+  addConceptIntersectDays(
+    conceptSet = list(acetaminophen = c(1125315, 1127078, 1127433, 40229134, 40231925, 40162522, 19133768)),
+    window = c(0, Inf),
+    nameStyle = "next_{concept_name}"
+  ) |>
+  glimpse()
+```
+
+## Your turn
+
+-   Can you get the mean count of the prescriptions (from drug exposure table) for patients with cohort_definition_id 2 in the sinusitis table?
+
+
+-   Can you get the mean prior history for each cohort definition in the sinusitis table that has an inflection (from conditions table) any time prior they had sinusitis?
+
+## Solution
+```{r}
+cdm$sinusitis |>
+  addTableIntersectCount(
+    tableName = "drug_exposure",
+    window = c(-Inf, Inf),
+    targetEndDate = NULL,
+    nameStyle = "number_prescriptions"
+  ) |> filter(cohort_definition_id == 2) |> summarise(mean_prescription = mean(number_prescriptions))
+
+```
+## Solution
+```{r}
+cdm$sinusitis |>
+  addCohortIntersectFlag(
+    targetCohortTable = "conditions",
+    targetCohortId = 4,
+    window = c(-Inf, -1),
+    nameStyle = "inflection"
+  ) |> addPriorObservation() |>
+  filter(inflection == 1) |>
+  group_by(cohort_definition_id) |> 
+  summarise(mean_prior_history = mean(prior_observation))
+
+```
+
+
+
+## Summarise data
+
+Often we might want to have some simple summary statistics for the cohort table. In PatientProfiles summariseResult can help you to summarise the table and produce some simple statistics for you.
+
+## Summarise data
+
+Lets add all the information you need the table you need summarizing.
+
+. . .
+
+```{r, echo = T, eval = T}
+x <- cdm$sinusitis |>
+  addConceptIntersectFlag(
+    conceptSet = list("ibuprofen" = c(19019979, 19078461, 1177480)), 
+    window = c(-Inf, 0), 
+    nameStyle = "prior_ibuprofen"
+  ) |>
+  addTableIntersectCount(
+    window = c(-Inf, Inf),
+    tableName = "condition_occurrence", 
+    nameStyle = "number_conditions"
+  ) |>
+  addDemographics()
+```
+
+## Summarise data
+
+```{r}
+x
+```
+
+## Summarise data
+
+. . .
+
+```{r, echo = T, eval = F}
+x |>
+  group_by(sex, prior_ibuprofen) |>
+  summarise(
+    mean_conditions = mean(number_conditions),
+    mean_age = mean(age),
+    mean_followup = mean(future_observation),
+    .groups = "drop"
+  ) |>
+  collect()
+```
+
+. . .
+
+```{r, echo = F, eval = T}
+x |>
+  group_by(sex, prior_ibuprofen) |>
+  summarise(
+    mean_conditions = mean(number_conditions),
+    mean_age = mean(age),
+    mean_followup = mean(future_observation),
+    .groups = "drop"
+  ) |>
+  collect()
+```
+
+## Summarise data
+
+In PatientProfile you can use summariseResults to summarise the table for you.
+
+. . .
+
+```{r, echo = T, eval = F}
+summariseResult(
+  table = x, # table to summarise 
+  strata = list("sex", c("sex", "prior_ibuprofen")), # strata
+  includeOverallStrata = TRUE,
+  variables = list(
+    c("number_conditions", "age", "future_observation"),
+    c("sex")
+  ), 
+  estimates = list(
+    c("median", "q25", "q75"),
+    c("count", "percentage")
+  )
+)
+```
+
+## Summarise data
+
+```{r, echo = F, eval = T}
+summariseResult(
+  table = x, # table to summarise 
+  strata = list("sex", c("sex", "prior_ibuprofen")), # strata
+  includeOverallStrata = TRUE,
+  variables = list(
+    c("number_conditions", "age", "future_observation"),
+    c("sex")
+  ), 
+  estimates = list(
+    c("median", "q25", "q75"),
+    c("count", "percentage")
+  )
+)
+```
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](images/hexticker.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**PatientProfiles**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**The end**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**CRAN**](https://cloud.r-project.org/web/packages/PatientProfiles/index.html){style="color: #3a6ea5; text-decoration: underline;"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Manual**](https://cloud.r-project.org/web/packages/PatientProfiles/PatientProfiles.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://github.com/darwin-eu-dev/PatientProfiles/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Website**](https://darwin-eu-dev.github.io/PatientProfiles/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::
