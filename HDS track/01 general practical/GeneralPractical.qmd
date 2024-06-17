@@ -1,0 +1,69 @@
+---
+pagetitle: "General practical"
+format:
+  revealjs: 
+    theme: [simple, styleSS24.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+    footer: "Oxford Summer School 2024"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output-width: 100%
+editor: visual
+---
+
+# General practical {.title-slide}
+
+```{r, echo=FALSE}
+options(width = 130)
+```
+
+::: {style="margin-top: 25px;"}
+:::
+
+::: title-slide-logos
+![](images/clipboard-1996710889.png){width="1000"}
+:::
+
+## Introduction
+
+Now it is time to apply what you've learnt to another dataset.
+
+Option 1: Use the Eunomia Heart dataset
+
+```{r, eval=FALSE}
+Sys.setenv("EUNOMIA_DATA_FOLDER" = here("eunomia"))
+CDMConnector::downloadEunomiaData("synthea-heart-10k")
+con <- DBI::dbConnect(duckdb::duckdb(dbdir = eunomia_dir(
+  dataset_name = "synthea-heart-10k")))
+```
+
+Option 2: Use your own data If you have your own data mapped to the OMOP CDM you can try with that.
+
+```{r, eval=FALSE}
+# to create a cdm with a random sample of 10,000 people 
+cdm <- CDMConnector::cdm_sample(cdm, n = 10000)
+```
+
+## Day 01
+
+Get to your know data
+
+-   Connect to your database
+
+-   Create a cdm reference
+
+-   How many people are in your person table? Does everyone have an observation period? What is the maximum number of observation periods a person has?
+
+-   Characterise your condition occurrence table. Can you plot counts of condition occurrence records by year?
+
+-   Summarise anything else you might be interested in!
