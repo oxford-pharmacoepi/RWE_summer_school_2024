@@ -33,8 +33,11 @@ https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-part1
 ## Day 3
 
 ### PatientProfiles
+https://dpa-pde-oxford.quarto.pub/patientprofiles-summer-school
 
 ### CohortCharacteristics Part 2
+https://dpa-pde-oxford.quarto.pub/summarisecharacteristics-summer-school/
+
 
 ### IncidencePrevalence
 https://dpa-pde-oxford.quarto.pub/incidenceprevalence/
