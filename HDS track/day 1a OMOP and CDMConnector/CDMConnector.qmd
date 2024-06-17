@@ -3,7 +3,7 @@ title: "OMOP and CDMConnector"
 subtitle: "The OMOP Common Data Model"
 format:
   revealjs: 
-    theme: [simple, custom_1.scss]
+    theme: [simple, styleSS24.scss]
     incremental: true   
     slide-number: true
     chalkboard: true
@@ -13,6 +13,7 @@ format:
     code-line-numbers: false
     height: 900
     width: 1600
+    footer: "Oxford Summer School 2024"
 execute:
   echo: true
   eval: true
@@ -27,9 +28,9 @@ editor: visual
 
 -   A compilation of these records for a group of people is what we call the medical databases. Depending on the origin and purpose of these data there are different groups of databases: electronic health records, claims data, registries... This databases can be structured by several different tables.
 
--   The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardize the structure and content of observational data and to enable efficient analyses that can produce reliable evidence.
+-   The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardise the structure and content of observational data and to enable efficient analyses that can produce reliable evidence.
 
-## Standarization of the data format
+## Standarisation of the data format
 
 ![Tables and relation in the OMOP Common Data Model](https://ohdsi.github.io/TheBookOfOhdsi/images/CommonDataModel/cdmDiagram.png)
 
@@ -45,7 +46,7 @@ editor: visual
 
 ![Mapping process](mapping3.png)
 
-## Standarization of the vocabularies
+## Standarisation of the vocabularies
 
 From all the vocabularies OMOP CDM uses only a few as `Standard`: SNOMED for conditions, RxNorm for drugs, ...
 
@@ -102,7 +103,7 @@ All details about OMOP CDM and more can be found in: [the book of ohdsi](https:/
 Database connections from R can be made using the [DBI package](https://dbi.r-dbi.org/).
 
 ```{r, echo = FALSE}
-options(width = 130)
+options(width = 120)
 ```
 
 ```{r}
@@ -148,6 +149,8 @@ In this [CDMConnector article](https://darwin-eu.github.io/CDMConnector/articles
 
 ## Connect to eunomia
 
+. . .
+
 Eunomia is a synthetic OMOP database with \~2,600 individuals. It is freely available and you can download it as:
 
 . . .
@@ -169,9 +172,11 @@ db <- dbConnect(duckdb(), dbdir = eunomia_dir())
 db
 ```
 
-## Databases organization
+## Databases organisation
 
-Databases are organized by `schemas` (blueprint or plan that defines how the data will be organized and structured within the database).
+. . .
+
+Databases are organised by `schemas` (blueprint or plan that defines how the data will be organised and structured within the database).
 
 . . .
 
@@ -187,6 +192,8 @@ Eunomia only has a single schema (**main**) that will be used as cdm schema and 
 
 ## Read tables in Eunomia
 
+. . .
+
 With *dbListTables* we can see the tables that we can access from a connection:
 
 . . .
@@ -197,6 +204,8 @@ dbListTables(db)
 
 ## Read tables in Eunomia
 
+. . .
+
 We can read one of this tables using dplyr:
 
 ```{r}
@@ -205,6 +214,8 @@ tbl(db, "person")
 ```
 
 ## Read tables in Eunomia
+
+. . .
 
 You can save the reference of this person table to a variable:
 
@@ -215,6 +226,8 @@ person_db
 
 ## Read tables in Eunomia
 
+. . .
+
 Once we read a table we can operate with it and for example count the number of rows of person table.
 
 ```{r}
@@ -224,7 +237,7 @@ person_db |>
 
 ## Read tables in Eunomia
 
-If you are familiarized with [tidyverse](https://www.tidyverse.org/) you can use any of the usual `dplyr` commands in you database tables.
+If you are familiarised with [tidyverse](https://www.tidyverse.org/) you can use any of the usual `dplyr` commands in you database tables.
 
 . . .
 
@@ -327,7 +340,11 @@ cdmName(cdm)
 
 ## Database snapshot
 
+. . .
+
 The database snapshot is a useful tool to get information on the metadata of your database:
+
+. . .
 
 ```{r}
 summary(cdm) |>
@@ -335,6 +352,8 @@ summary(cdm) |>
 ```
 
 ## Database snapshot
+
+. . .
 
 The database snapshot is a useful tool to get information on the metadata of your database:
 
@@ -350,6 +369,8 @@ In network studies this can be very useful to export the characteristics of each
 
 Let's say I want to subset the `condition_occurrence` table to a certain rows and certain columns and save it so I can later access it.
 
+. . .
+
 temporary table (default):
 
 ```{r}
@@ -361,6 +382,8 @@ dbListTables(db)
 ```
 
 ## Create a new table
+
+. . .
 
 permanent table:
 
@@ -395,6 +418,8 @@ cdm
 ```
 
 ## Drop an existing table
+
+. . .
 
 ```{r}
 dbListTables(db)

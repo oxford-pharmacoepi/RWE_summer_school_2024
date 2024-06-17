@@ -23,6 +23,7 @@ https://dpa-pde-oxford.quarto.pub/codelistgenerator/
 https://dpa-pde-oxford.quarto.pub/cohortconstructorss24-students/
 
 ### CohortCharacteristics Part 1
+https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-part1
 
 ## Day 3
 
@@ -36,6 +37,7 @@ https://dpa-pde-oxford.quarto.pub/incidenceprevalence/
 ## Day 4
 
 ### DrugUtilisation
+https://dpa-pde-oxford.quarto.pub/drugutilisation
 
 ### CohortSurvival
 https://dpa-pde-oxford.quarto.pub/cohortsurvival/
