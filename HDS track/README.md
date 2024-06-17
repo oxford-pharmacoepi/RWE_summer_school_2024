@@ -1,5 +1,7 @@
 # HDS Afternoon Practicals
 
+Posit Cloud: https://posit.cloud/spaces/524634/join?access_code=uYaiAFj6khXWEGzGV-_fxfZQM0gYtO6V3-TAiLcK
+
 ## Day 1
 
 ### Welcome
