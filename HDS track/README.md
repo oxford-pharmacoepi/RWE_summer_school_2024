@@ -25,7 +25,7 @@ https://dpa-pde-oxford.quarto.pub/generalpractical/
 https://dpa-pde-oxford.quarto.pub/codelistgenerator/
 
 ### CohortConstructor
-https://dpa-pde-oxford.quarto.pub/cohortconstructorss24-students/
+https://dpa-pde-oxford.quarto.pub/cohortconstructorss24/
 
 ### CohortCharacteristics Part 1
 https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-part1
