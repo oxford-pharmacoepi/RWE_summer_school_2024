@@ -1,4 +1,4 @@
-# RealWorldEvidenceSummerSchool2023
+# RealWorldEvidenceSummerSchool2024
 
 
 ## Issues

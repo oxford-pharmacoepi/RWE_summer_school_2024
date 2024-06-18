@@ -1,0 +1,179 @@
+/*-- scss:defaults --*/
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+$theme-red: #730409;
+$theme-brown: #3A251C;
+$theme-green: #39663F;
+$theme-apricot: #EDA073;
+$theme-apricot-light: #FDE6D9;
+$theme-yellow: #EEC852;
+$theme-white: #ECEDEB;
+$theme-blue: #3a6ea5;
+
+$body-bg: $theme-white;
+$body-color: $theme-brown;
+$link-color: $theme-green;
+
+$code-color: #cc0000;
+$code-block-bg: #E1E8EB;
+$code-block-border-color: #000000;
+
+$font-family-sans-serif: 'Roboto Slab', serif;
+
+/*-- scss:rules --*/
+
+.title-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50%;
+  padding: 0;
+}
+
+.title-background {
+  background-color: #ECEDEBCC;
+  box-shadow: 0px 0px 40px #ECEDEBCC;
+}
+
+.title-background {
+  background-color: #ECEDEBCC;
+  box-shadow: 0px 0px 40px #ECEDEBCC;
+}
+
+.title-slide .title-slide-logos {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.title-slide img.logo {
+  height: 200px;
+}
+
+.end-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50%;
+  padding: 0;
+}
+
+.end-background {
+  background-color: #ECEDEBCC;
+  box-shadow: 0px 0px 40px #ECEDEBCC;
+}
+
+.end-slide .end-slide-logos {
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin-top: 5px;
+}
+
+.end-slide img.logo {
+  height: 500px;
+}
+
+.reveal {
+  background-image: url(/logoHDS.png), url(/hexticker.png);
+  background-repeat: no-repeat, no-repeat;
+  background-size: 90px, 90px;
+  background-position-x: 94%, 88.7%;
+  background-position-y: 30px, 30px;
+}
+
+.reveal p, li {
+  font-weight: 100;
+}
+
+.reveal iframe {
+  pointer-events: none;
+}
+
+.announcement-start * {
+  font-size: 200px;
+}
+
+.announcement-end * {
+  font-size: 200px;
+}
+
+.fontsize40 {
+  font-size: 50px;
+}
+
+code span.fu {
+  color: darken($theme-apricot, 30%);
+}
+
+code span.at {
+  color: darken($theme-yellow, 30%);
+}
+
+.reveal .slide link {
+  text-decoration: underline;
+  color: $theme-blue;
+}
+
+.reveal .slide centerlink {
+  text-decoration: underline;
+  color: $theme-blue;
+  text-align: center !important;
+  font-size: 20px !important;
+}
+
+code span.st {
+  color: $theme-green;
+}
+
+code span.dv {
+  color: $theme-red;
+}
+
+.reveal code {
+  color: darken($theme-apricot, 30%);
+}
+
+.red {
+  color: $theme-red;
+  font-weight: 300;
+}
+
+.green {
+  color: $theme-green;
+  font-weight: bold;
+}
+
+.caption {
+  text-align: center;
+}
+
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+
+.cell-output-display pre, .cell-output-display code {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    font-size: 8px !important;
+    max-width: 100% !important;
+}
+
+.cell-output-display {
+    display: block;
+    width: 100% !important;
+}
+
+.reveal pre {
+    word-wrap: break-word !important;
+    white-space: pre-wrap !important;
+}

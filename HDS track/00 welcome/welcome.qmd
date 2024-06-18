@@ -2,7 +2,7 @@
 title: "Introduction"
 format:
   revealjs: 
-    theme: [simple, custom_1.scss]
+    theme: [simple, styleSS24.scss]
     incremental: true   
     slide-number: true
     chalkboard: true
@@ -12,6 +12,7 @@ format:
     code-line-numbers: false
     height: 900
     width: 1600
+    footer: "Oxford Summer School 2024"
 execute:
   echo: true
   eval: true
@@ -20,53 +21,70 @@ editor: visual
 
 ## Welcome
 
+. . .
+
 Welcome everyone in the Analytics track :)
 
-## Motivation
+. . .
 
--   To do our own studies
+![](https://www.careergirls.org/wp-content/uploads/2015/06/Computer_Programmer1920X10180.jpg){width=70% fig-align="center"}
 
-## Background
+## Round of introductions
 
--   A basic knowledge of what is the OMOP Common Data Model
+-   Name and affiliation
 
--   A basic knowledge of R and RStudio
+-   Experience with OMOP
+
+-   Experience with R (or other programming languages)
 
 ## Goals of the course
+
+-   **To be able to perform our own studies.**
 
 -   Understand how to create and perform basic manipulations of the cdm object.
 
 -   Basic knowledge of how to create a codelist.
 
--   Basic knowledge og how to create a cohort.
+-   Basic knowledge of how to create a cohort.
 
 -   Introduction to the different epidemiological studies: Characterisation, Descriptive epidemiology, Drug Utilisation Studies and Survival analysis.
 
 ## How we are going to work
 
-a)  Option 1, set up your own laptop: [instructions](www.omopverse.org). If you decide to work on your own you will have to download the following repository that contains the data that you need: LINK.
+. . .
 
-b)  We have set up a posit cloud for you: LINK
+We have a repo that contains all the practicals:
+[https://github.com/oxford-pharmacoepi/RWE_summer_school_2024](https://github.com/oxford-pharmacoepi/RWE_summer_school_2024)
+
+. . .
+
+We will work using R:
+
+a)  Option 1, set up your own laptop: [instructions](https://github.com/oxford-pharmacoepi/RWE_summer_school_2024/tree/main/HDS%20track/00%20setup).
+
+b)  Option 2, We have set up a posit cloud for you: [https://posit.cloud/content/8315965](https://posit.cloud/content/8315965) In this case you will need a posit account.
 
 ## SET UP TIME
 
-PICTURE OF POSIT CLOUD
+![](https://posit.co/wp-content/uploads/2023/08/img9-1024x804.png){fig-align="center"}
 
 ## Sessions
 
 Two parts:
 
-- 'Package session': A package will be explained with some exercices in between.
+-   'Package session': A package will be explained with some exercises in between.
 
-- 'General practical': During the week we will have a total of 3h30 to do the general practice
+-   'General practical': During the week we will have a total of 3h30 to do the general practice
 
 ## Your turn
 
 During the 'Package session' when there is a slide with your turn this means that this slide contains exercises. Some of the exercises will show the expected result but not the code to do it. We will have two posits (blue and orange). We will use the post-its following this principle:
 
-- ORANGE post-it means: [**HELP :(**]{style="color:red;"}, if you put that post-it in your laptop this means that you are stuck and need help. Then one of the teachers will approach you to help you.
+-   PINK post-it means: [**HELP :(**]{style="color:#ff99cc;"}
 
-- BLUE post-it means: [**I AM DONE :)**]{style="color:green;"}, if you put that post-it in your laptop this means that you finished the task. The session will continue when most of the attendees have the blue post-it.
+-   YELLOW post-it means: [**WORKING**]{style="color:#e6e600;"}
+
+-   GREEN post-it means: [**I AM DONE :)**]{style="color:#99ff66;"}
 
 . . .
 
@@ -135,11 +153,3 @@ The same will work for the General practice session.
 14.45 to 15.00 **Break**
 
 15.00 to 16.30 **General practical**
-
-## Links
-
--   Repository of the summer school: <https://github.com/oxford-pharmacoepi/RWE_summer_school_2024>
-
--   Posit cloud: <https://client.login.posit.cloud/oauth/login?show_auth=0&show_login=1>
-
--   Repository to work:

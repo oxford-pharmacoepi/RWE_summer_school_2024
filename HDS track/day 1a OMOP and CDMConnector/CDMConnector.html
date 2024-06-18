@@ -8,7 +8,7 @@
 <link href="CDMConnector_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="CDMConnector_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.335">
 <title>OMOP and CDMConnector</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -388,15 +388,19 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center"><h1 class="title">OMOP and CDMConnector</h1>
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">OMOP and CDMConnector</h1>
   <p class="subtitle">The OMOP Common Data Model</p>
+
+<div class="quarto-title-authors">
+</div>
+
 </section><section id="introduction-the-omop-common-data-model" class="slide level2"><h2>Introduction: The OMOP Common Data Model</h2>
 <ul>
 <li class="fragment"><p>Every time that someone goes to the doctor and something happens the doctors write it into their records.</p></li>
 <li class="fragment"><p>Each annotation of the doctor is translated into a code, combination of letters and numbers that refers to a condition. There exist several different codding languages: SNOMED, read codes, ICD10, ICD9, RxNorm, ATC, … It depends on the region, language, type of record and others which one is used. This makes that the same condition or drug can be coded in different ways.</p></li>
 <li class="fragment"><p>A compilation of these records for a group of people is what we call the medical databases. Depending on the origin and purpose of these data there are different groups of databases: electronic health records, claims data, registries… This databases can be structured by several different tables.</p></li>
-<li class="fragment"><p>The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardize the structure and content of observational data and to enable efficient analyses that can produce reliable evidence.</p></li>
-</ul></section><section id="standarization-of-the-data-format" class="slide level2"><h2>Standarization of the data format</h2>
+<li class="fragment"><p>The Observational Medical Outcomes Partnership (OMOP) Common Data Model (CDM) is an open community data standard, designed to standardise the structure and content of observational data and to enable efficient analyses that can produce reliable evidence.</p></li>
+</ul></section><section id="standarisation-of-the-data-format" class="slide level2"><h2>Standarisation of the data format</h2>
 
 <img data-src="https://ohdsi.github.io/TheBookOfOhdsi/images/CommonDataModel/cdmDiagram.png" class="r-stretch quarto-figure-center"><p class="caption">Tables and relation in the OMOP Common Data Model</p></section><section id="mapping-a-database-to-the-omop-cdm" class="slide level2"><h2>Mapping a database to the OMOP CDM</h2>
 
@@ -404,7 +408,7 @@
 
 <img data-src="mapping2.png" class="r-stretch quarto-figure-center"><p class="caption">Mapping process</p></section><section id="mapping-a-database-to-the-omop-cdm-2" class="slide level2"><h2>Mapping a database to the OMOP CDM</h2>
 
-<img data-src="mapping3.png" class="r-stretch quarto-figure-center"><p class="caption">Mapping process</p></section><section id="standarization-of-the-vocabularies" class="slide level2"><h2>Standarization of the vocabularies</h2>
+<img data-src="mapping3.png" class="r-stretch quarto-figure-center"><p class="caption">Mapping process</p></section><section id="standarisation-of-the-vocabularies" class="slide level2"><h2>Standarisation of the vocabularies</h2>
 <p>From all the vocabularies OMOP CDM uses only a few as <code>Standard</code>: SNOMED for conditions, RxNorm for drugs, …</p>
 <div class="fragment">
 <p>The process to obtain an standard code from non standard one is called mapping. We can find the mapping in the concept_relationship table.</p>
@@ -466,9 +470,9 @@
 </section><section id="connecting-to-a-database-from-r-the-dbi-package-1" class="slide level2"><h2>Connecting to a database from R (the DBI package)</h2>
 <p>Connect to Sql server:</p>
 <div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-dbi/odbc">odbc</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-dbi.github.io/odbc/">odbc</a></span><span class="op">)</span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dbi.r-dbi.org/reference/dbConnect.html">dbConnect</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/odbc/man/odbc.html">odbc</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://odbc.r-dbi.org/reference/odbc.html">odbc</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>  Driver   <span class="op">=</span> <span class="st">"ODBC Driver 18 for SQL Server"</span>,</span>
 <span>  Server   <span class="op">=</span> <span class="st">"..."</span>,</span>
 <span>  Database <span class="op">=</span> <span class="st">"..."</span>,</span>
@@ -482,7 +486,9 @@
 <p>In this <a href="https://darwin-eu.github.io/CDMConnector/articles/a04_DBI_connection_examples.html">CDMConnector article</a> you can see how to connect to the different supported DBMS.</p>
 </div>
 </section><section id="connect-to-eunomia" class="slide level2"><h2>Connect to eunomia</h2>
+<div class="fragment">
 <p>Eunomia is a synthetic OMOP database with ~2,600 individuals. It is freely available and you can download it as:</p>
+</div>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CDMConnector/">CDMConnector</a></span><span class="op">)</span></span>
@@ -503,8 +509,10 @@ Download completed!</code></pre>
 <span><span class="va">db</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-</section><section id="databases-organization" class="slide level2"><h2>Databases organization</h2>
-<p>Databases are organized by <code>schemas</code> (blueprint or plan that defines how the data will be organized and structured within the database).</p>
+</section><section id="databases-organisation" class="slide level2"><h2>Databases organisation</h2>
+<div class="fragment">
+<p>Databases are organised by <code>schemas</code> (blueprint or plan that defines how the data will be organised and structured within the database).</p>
+</div>
 <div class="fragment">
 <p>In general, OMOP databases have two schemas:</p>
 <ul>
@@ -516,88 +524,98 @@ Download completed!</code></pre>
 <p>Eunomia only has a single schema (<strong>main</strong>) that will be used as cdm schema and write schema.</p>
 </div>
 </section><section id="read-tables-in-eunomia" class="slide level2"><h2>Read tables in Eunomia</h2>
+<div class="fragment">
 <p>With <em>dbListTables</em> we can see the tables that we can access from a connection:</p>
+</div>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "payer_plan_period"     "person"                "procedure_occurrence"  "provider"              "relationship"         
-[31] "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "note"                  "note_nlp"              "observation"          
+[25] "observation_period"    "payer_plan_period"     "person"                "procedure_occurrence" 
+[29] "provider"              "relationship"          "source_to_concept_map" "specimen"             
+[33] "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
 </div>
 </div>
 </div>
 </section><section id="read-tables-in-eunomia-1" class="slide level2"><h2>Read tables in Eunomia</h2>
+<div class="fragment">
 <p>We can read one of this tables using dplyr:</p>
 <div class="cell">
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">db</span>, <span class="st">"person"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
-   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id ethnicity_concept_id
-       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;                &lt;int&gt;
- 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516                    0
- 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527                    0
- 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527                    0
- 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527                    0
- 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516                    0
- 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527                    0
- 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527                    0
- 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527                    0
- 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527                    0
-10       111              8532          1975              5            2 1975-05-02 00:00:00            8527                    0
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
+   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id
+       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;
+ 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516
+ 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527
+ 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527
+ 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527
+ 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516
+ 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527
+ 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527
+ 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527
+ 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527
+10       111              8532          1975              5            2 1975-05-02 00:00:00            8527
 # ℹ more rows
-# ℹ 10 more variables: location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;, person_source_value &lt;chr&gt;,
-#   gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;, race_source_concept_id &lt;int&gt;,
-#   ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
+# ℹ 11 more variables: ethnicity_concept_id &lt;int&gt;, location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;,
+#   person_source_value &lt;chr&gt;, gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;,
+#   race_source_concept_id &lt;int&gt;, ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
+</div>
 </div>
 </div>
 </section><section id="read-tables-in-eunomia-2" class="slide level2"><h2>Read tables in Eunomia</h2>
+<div class="fragment">
 <p>You can save the reference of this person table to a variable:</p>
 <div class="cell">
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">person_db</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">db</span>, <span class="st">"person"</span><span class="op">)</span></span>
 <span><span class="va">person_db</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;person&gt; [?? x 18]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
-   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id ethnicity_concept_id
-       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;                &lt;int&gt;
- 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516                    0
- 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527                    0
- 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527                    0
- 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527                    0
- 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516                    0
- 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527                    0
- 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527                    0
- 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527                    0
- 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527                    0
-10       111              8532          1975              5            2 1975-05-02 00:00:00            8527                    0
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
+   person_id gender_concept_id year_of_birth month_of_birth day_of_birth birth_datetime      race_concept_id
+       &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt; &lt;dttm&gt;                        &lt;int&gt;
+ 1         6              8532          1963             12           31 1963-12-31 00:00:00            8516
+ 2       123              8507          1950              4           12 1950-04-12 00:00:00            8527
+ 3       129              8507          1974             10            7 1974-10-07 00:00:00            8527
+ 4        16              8532          1971             10           13 1971-10-13 00:00:00            8527
+ 5        65              8532          1967              3           31 1967-03-31 00:00:00            8516
+ 6        74              8532          1972              1            5 1972-01-05 00:00:00            8527
+ 7        42              8532          1909             11            2 1909-11-02 00:00:00            8527
+ 8       187              8507          1945              7           23 1945-07-23 00:00:00            8527
+ 9        18              8532          1965             11           17 1965-11-17 00:00:00            8527
+10       111              8532          1975              5            2 1975-05-02 00:00:00            8527
 # ℹ more rows
-# ℹ 10 more variables: location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;, person_source_value &lt;chr&gt;,
-#   gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;, race_source_concept_id &lt;int&gt;,
-#   ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
+# ℹ 11 more variables: ethnicity_concept_id &lt;int&gt;, location_id &lt;int&gt;, provider_id &lt;int&gt;, care_site_id &lt;int&gt;,
+#   person_source_value &lt;chr&gt;, gender_source_value &lt;chr&gt;, gender_source_concept_id &lt;int&gt;, race_source_value &lt;chr&gt;,
+#   race_source_concept_id &lt;int&gt;, ethnicity_source_value &lt;chr&gt;, ethnicity_source_concept_id &lt;int&gt;</code></pre>
+</div>
 </div>
 </div>
 </section><section id="read-tables-in-eunomia-3" class="slide level2"><h2>Read tables in Eunomia</h2>
+<div class="fragment">
 <p>Once we read a table we can operate with it and for example count the number of rows of person table.</p>
 <div class="cell">
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">person_db</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
       n
   &lt;dbl&gt;
 1  2694</code></pre>
 </div>
 </div>
+</div>
 </section><section id="read-tables-in-eunomia-4" class="slide level2"><h2>Read tables in Eunomia</h2>
-<p>If you are familiarized with <a href="https://www.tidyverse.org/">tidyverse</a> you can use any of the usual <code>dplyr</code> commands in you database tables.</p>
+<p>If you are familiarised with <a href="https://www.tidyverse.org/">tidyverse</a> you can use any of the usual <code>dplyr</code> commands in you database tables.</p>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/tbl.html">tbl</a></span><span class="op">(</span><span class="va">db</span>, <span class="st">"drug_exposure"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -640,14 +658,14 @@ Download completed!</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -665,7 +683,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">observation_period</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 5]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
 1                     6         6 1963-12-31                    2007-02-06                                44814724
@@ -678,7 +696,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">[[</span><span class="st">"observation_period"</span><span class="op">]</span><span class="op">]</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 5]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
   observation_period_id person_id observation_period_start_date observation_period_end_date period_type_concept_id
                   &lt;int&gt;     &lt;int&gt; &lt;date&gt;                        &lt;date&gt;                                       &lt;int&gt;
 1                     6         6 1963-12-31                    2007-02-06                                44814724
@@ -706,8 +724,8 @@ drug_strength</code></pre>
  2      2333    50
  3      1478    47
  4      2985    45
- 5      1746    44
- 6      3708    44
+ 5      3708    44
+ 6      1746    44
  7      4297    43
  8      3695    42
  9      4613    42
@@ -748,7 +766,10 @@ drug_strength</code></pre>
 </div>
 </div>
 </section><section id="database-snapshot" class="slide level2"><h2>Database snapshot</h2>
+<div class="fragment">
 <p>The database snapshot is a useful tool to get information on the metadata of your database:</p>
+</div>
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -756,41 +777,44 @@ drug_strength</code></pre>
 <pre><code>Rows: 13
 Columns: 13
 $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-$ cdm_name         &lt;chr&gt; "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUN…
-$ group_name       &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ group_level      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ variable_name    &lt;chr&gt; "snapshot_date", "person_count", "observation_period_count", "cdm", "vocabulary", "cdm", "cdm", "cdm", …
+$ cdm_name         &lt;chr&gt; "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNOMIA", "EUNO…
+$ group_name       &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ group_level      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ variable_name    &lt;chr&gt; "snapshot_date", "person_count", "observation_period_count", "cdm", "vocabulary", "cdm", "cdm…
 $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-$ estimate_name    &lt;chr&gt; "value", "count", "count", "source_name", "version", "version", "holder_name", "release_date", "descrip…
-$ estimate_type    &lt;chr&gt; "date", "integer", "integer", "character", "character", "character", "character", "character", "charact…
-$ estimate_value   &lt;chr&gt; "2024-06-14", "2694", "5343", "Synthea synthetic health database", "v5.0 18-JAN-19", "v5.3.1", "OHDSI C…
-$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…</code></pre>
+$ estimate_name    &lt;chr&gt; "value", "count", "count", "source_name", "version", "version", "holder_name", "release_date"…
+$ estimate_type    &lt;chr&gt; "date", "integer", "integer", "character", "character", "character", "character", "character"…
+$ estimate_value   &lt;chr&gt; "2024-06-17", "2694", "5343", "Synthea synthetic health database", "v5.0 18-JAN-19", "v5.3.1"…
+$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…</code></pre>
+</div>
 </div>
 </div>
 </section><section id="database-snapshot-1" class="slide level2"><h2>Database snapshot</h2>
+<div class="fragment">
 <p>The database snapshot is a useful tool to get information on the metadata of your database:</p>
 <div class="cell">
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">variable_name</span>, <span class="va">estimate_name</span>, <span class="va">estimate_value</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n <span class="op">=</span> <span class="cn">Inf</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 13 × 3
-   variable_name                 estimate_name           estimate_value                                                           
-   &lt;chr&gt;                         &lt;chr&gt;                   &lt;chr&gt;                                                                    
- 1 snapshot_date                 value                   2024-06-14                                                               
- 2 person_count                  count                   2694                                                                     
- 3 observation_period_count      count                   5343                                                                     
- 4 cdm                           source_name             Synthea synthetic health database                                        
- 5 vocabulary                    version                 v5.0 18-JAN-19                                                           
- 6 cdm                           version                 v5.3.1                                                                   
- 7 cdm                           holder_name             OHDSI Community                                                          
- 8 cdm                           release_date            2019-05-25                                                               
- 9 cdm                           description             SyntheaTM is a Synthetic Patient Population Simulator. The goal is to ou…
-10 cdm                           documentation_reference https://synthetichealth.github.io/synthea/                               
-11 cdm                           source_type             duckdb                                                                   
-12 observation_period_start_date min                     1908-09-22                                                               
-13 observation_period_end_date   max                     2019-07-03                                                               </code></pre>
+   variable_name                 estimate_name           estimate_value                                                 
+   &lt;chr&gt;                         &lt;chr&gt;                   &lt;chr&gt;                                                          
+ 1 snapshot_date                 value                   2024-06-17                                                     
+ 2 person_count                  count                   2694                                                           
+ 3 observation_period_count      count                   5343                                                           
+ 4 cdm                           source_name             Synthea synthetic health database                              
+ 5 vocabulary                    version                 v5.0 18-JAN-19                                                 
+ 6 cdm                           version                 v5.3.1                                                         
+ 7 cdm                           holder_name             OHDSI Community                                                
+ 8 cdm                           release_date            2019-05-25                                                     
+ 9 cdm                           description             SyntheaTM is a Synthetic Patient Population Simulator. The goa…
+10 cdm                           documentation_reference https://synthetichealth.github.io/synthea/                     
+11 cdm                           source_type             duckdb                                                         
+12 observation_period_start_date min                     1908-09-22                                                     
+13 observation_period_end_date   max                     2019-07-03                                                     </code></pre>
+</div>
 </div>
 </div>
 <div class="fragment">
@@ -798,6 +822,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 </div>
 </section><section id="create-a-new-table" class="slide level2"><h2>Create a new table</h2>
 <p>Let’s say I want to subset the <code>condition_occurrence</code> table to a certain rows and certain columns and save it so I can later access it.</p>
+<div class="fragment">
 <p>temporary table (default):</p>
 <div class="cell">
 <div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_saved_table</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">condition_occurrence</span> <span class="op">|&gt;</span></span>
@@ -806,17 +831,20 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
-[31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
-[36] "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "note"                  "note_nlp"              "observation"          
+[25] "observation_period"    "og_001_1718620364"     "payer_plan_period"     "person"               
+[29] "procedure_occurrence"  "provider"              "relationship"          "source_to_concept_map"
+[33] "specimen"              "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
+</div>
 </div>
 </div>
 </section><section id="create-a-new-table-1" class="slide level2"><h2>Create a new table</h2>
+<div class="fragment">
 <p>permanent table:</p>
 <div class="cell">
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_saved_table</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">condition_occurrence</span> <span class="op">|&gt;</span></span>
@@ -825,14 +853,17 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"my_saved_table"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "my_saved_table"        "note"                  "note_nlp"              "observation"          
-[26] "observation_period"    "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence" 
-[31] "provider"              "relationship"          "source_to_concept_map" "specimen"              "visit_detail"         
-[36] "visit_occurrence"      "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "my_saved_table"        "note"                  "note_nlp"             
+[25] "observation"           "observation_period"    "og_001_1718620364"     "payer_plan_period"    
+[29] "person"                "procedure_occurrence"  "provider"              "relationship"         
+[33] "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
+[37] "vocabulary"           </code></pre>
+</div>
 </div>
 </div>
 </section><section id="create-a-new-table-2" class="slide level2"><h2>Create a new table</h2>
@@ -842,14 +873,14 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ──────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -863,7 +894,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_saved_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_saved_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
    person_id condition_start_date
        &lt;int&gt; &lt;date&gt;              
  1       263 2015-10-02          
@@ -893,14 +924,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ──────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -914,17 +945,20 @@ drug_strength</code></pre>
 </div>
 </div>
 </section><section id="drop-an-existing-table-1" class="slide level2"><h2>Drop an existing table</h2>
+<div class="fragment">
 <div class="cell">
 <div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
-[31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
-[36] "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "note"                  "note_nlp"              "observation"          
+[25] "observation_period"    "og_001_1718620364"     "payer_plan_period"     "person"               
+[29] "procedure_occurrence"  "provider"              "relationship"          "source_to_concept_map"
+[33] "specimen"              "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
+</div>
 </div>
 </div>
 </section><section id="drop-an-existing-table-2" class="slide level2"><h2>Drop an existing table</h2>
@@ -936,14 +970,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ──────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -959,14 +993,15 @@ drug_strength</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb70"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
-[31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
-[36] "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "note"                  "note_nlp"              "observation"          
+[25] "observation_period"    "og_001_1718620364"     "payer_plan_period"     "person"               
+[29] "procedure_occurrence"  "provider"              "relationship"          "source_to_concept_map"
+[33] "specimen"              "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
 </div>
 </div>
 </section><section id="insert-a-table" class="slide level2"><h2>Insert a table</h2>
@@ -978,14 +1013,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ──────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of EUNOMIA ────────────────────────────────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -1001,19 +1036,21 @@ drug_strength</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb79"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "my_test_table"         "note"                  "note_nlp"              "observation"          
-[26] "observation_period"    "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence" 
-[31] "provider"              "relationship"          "source_to_concept_map" "specimen"              "visit_detail"         
-[36] "visit_occurrence"      "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "my_test_table"         "note"                  "note_nlp"             
+[25] "observation"           "observation_period"    "og_001_1718620364"     "payer_plan_period"    
+[29] "person"                "procedure_occurrence"  "provider"              "relationship"         
+[33] "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
+[37] "vocabulary"           </code></pre>
 </div>
 <div class="sourceCode" id="cb81"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_test_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_test_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
    speed  dist
    &lt;dbl&gt; &lt;dbl&gt;
  1     4     2
@@ -1045,14 +1082,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -1073,14 +1110,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -1102,7 +1139,7 @@ drug_strength</code></pre>
 [13] "domain"                  "dose_era"                "drug_era"                "drug_exposure"          
 [17] "drug_strength"           "fact_relationship"       "location"                "measurement"            
 [21] "metadata"                "my_prefix_my_test_table" "note"                    "note_nlp"               
-[25] "observation"             "observation_period"      "og_001_1718357281"       "payer_plan_period"      
+[25] "observation"             "observation_period"      "og_001_1718620364"       "payer_plan_period"      
 [29] "person"                  "procedure_occurrence"    "provider"                "relationship"           
 [33] "source_to_concept_map"   "specimen"                "visit_detail"            "visit_occurrence"       
 [37] "vocabulary"             </code></pre>
@@ -1110,7 +1147,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_test_table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.my_prefix_my_test_table&gt; [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpYlDAp8\file6c7053cf4dde.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpcVA9uQ\file3ba456755464.duckdb]
    speed  dist
    &lt;dbl&gt; &lt;dbl&gt;
  1     4     2
@@ -1138,7 +1175,7 @@ drug_strength</code></pre>
 [13] "domain"                  "dose_era"                "drug_era"                "drug_exposure"          
 [17] "drug_strength"           "fact_relationship"       "location"                "measurement"            
 [21] "metadata"                "my_prefix_my_test_table" "note"                    "note_nlp"               
-[25] "observation"             "observation_period"      "og_001_1718357281"       "payer_plan_period"      
+[25] "observation"             "observation_period"      "og_001_1718620364"       "payer_plan_period"      
 [29] "person"                  "procedure_occurrence"    "provider"                "relationship"           
 [33] "source_to_concept_map"   "specimen"                "visit_detail"            "visit_occurrence"       
 [37] "vocabulary"             </code></pre>
@@ -1151,14 +1188,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -1176,14 +1213,15 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb110"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/dropTable.html">dropTable</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span>, name <span class="op">=</span> <span class="st">"my_test_table"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://dbi.r-dbi.org/reference/dbListTables.html">dbListTables</a></span><span class="op">(</span><span class="va">db</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"      "concept_class"        
- [6] "concept_relationship"  "concept_synonym"       "condition_era"         "condition_occurrence"  "cost"                 
-[11] "death"                 "device_exposure"       "domain"                "dose_era"              "drug_era"             
-[16] "drug_exposure"         "drug_strength"         "fact_relationship"     "location"              "measurement"          
-[21] "metadata"              "note"                  "note_nlp"              "observation"           "observation_period"   
-[26] "og_001_1718357281"     "payer_plan_period"     "person"                "procedure_occurrence"  "provider"             
-[31] "relationship"          "source_to_concept_map" "specimen"              "visit_detail"          "visit_occurrence"     
-[36] "vocabulary"           </code></pre>
+<pre><code> [1] "care_site"             "cdm_source"            "concept"               "concept_ancestor"     
+ [5] "concept_class"         "concept_relationship"  "concept_synonym"       "condition_era"        
+ [9] "condition_occurrence"  "cost"                  "death"                 "device_exposure"      
+[13] "domain"                "dose_era"              "drug_era"              "drug_exposure"        
+[17] "drug_strength"         "fact_relationship"     "location"              "measurement"          
+[21] "metadata"              "note"                  "note_nlp"              "observation"          
+[25] "observation_period"    "og_001_1718620364"     "payer_plan_period"     "person"               
+[29] "procedure_occurrence"  "provider"              "relationship"          "source_to_concept_map"
+[33] "specimen"              "visit_detail"          "visit_occurrence"      "vocabulary"           </code></pre>
 </div>
 </div>
 </section><section id="use-a-prefix-6" class="slide level2"><h2>Use a prefix</h2>
@@ -1193,14 +1231,14 @@ drug_strength</code></pre>
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -1225,7 +1263,7 @@ drug_strength</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">my_custom_name</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">person</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"not_my_custom_name"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `[[&lt;-` at OMOPGenerics/R/classCdmReference.R:503:2:
+<pre><code>Error in `[[&lt;-`:
 ! You can't assign a table named not_my_custom_name to my_custom_name. Please use compute to change table name.</code></pre>
 </div>
 </div>
@@ -1244,7 +1282,7 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb123"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">person</span> <span class="op">&lt;-</span> <span class="va">cdm</span><span class="op">$</span><span class="va">drug_exposure</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"person"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `newOmopTable()` at OMOPGenerics/R/classCdmReference.R:557:6:
+<pre><code>Error in `newOmopTable()`:
 ! gender_concept_id, year_of_birth, race_concept_id and ethnicity_concept_id are not present in table person</code></pre>
 </div>
 </div>
@@ -1255,12 +1293,12 @@ drug_strength</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html">rename</a></span><span class="op">(</span><span class="st">"my_id"</span> <span class="op">=</span> <span class="st">"person_id"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"drug_exposure"</span>, temporary <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
-<pre><code>Error in `newOmopTable()` at OMOPGenerics/R/classCdmReference.R:557:6:
+<pre><code>Error in `newOmopTable()`:
 ! person_id is not present in table drug_exposure</code></pre>
 </div>
 </div>
 <div class="footer footer-default">
-
+<p>Oxford Summer School 2024</p>
 </div>
 </div>
 </section>
@@ -1464,12 +1502,15 @@ drug_strength</code></pre>
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -1480,13 +1521,6 @@ drug_strength</code></pre>
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -1536,7 +1570,24 @@ drug_strength</code></pre>
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1574,24 +1625,42 @@ drug_strength</code></pre>
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

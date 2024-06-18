@@ -1,0 +1,571 @@
+---
+pagetitle: "OmopSketch"
+format:
+  revealjs: 
+    theme: [simple, styleSS24.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+    footer: "Oxford Summer School 2024"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output-width: 100%
+editor: visual
+---
+
+# OmopSketch {.title-slide}
+
+```{r, echo=FALSE}
+options(width = 120)
+```
+
+::: {style="margin-top: 25px;"}
+:::
+
+An R package to characterise your OMOP mapped database.
+
+::: title-slide-logos
+<img src="Figures/Hexsticker_HDS.png" alt="Logo 2" class="logo"/>
+:::
+
+## Introduction
+
+-   Most of the data used for observational healthcare research has not been collected for this purpose.
+-   Potential mismatch between the **data quality**, the **data collected** and **research needs**.\
+
+. . .
+
+. . .
+
+<center>Having a great knowledge of the data we are analysing is crucial to ensure the validity and reliability of our research findings.</center>
+
+-   Overall overview
+-   Data quality
+-   Can I use this database to perform my own specific study?
+
+## Tools
+
+![](Figures/ohdsi.png){width="50" height="50"} **Achilles**                          ![](Figures/ohdsi_vanished.png){width="50" height="50"} [**DQD**]{style="color:lightgrey;"}
+
+-   **A**utomated **C**haracterisation of **H**ealth **I**nformation at **L**arge-scale **L**ongitudinal **E**vidence **S**ystems
+-   Overall characterisation and visualisation of a database.
+-   It computes 170 data characterisation analysis:\
+    ![](Figures/achilles_ex1.png)
+
+## Tools
+
+![](Figures/ohdsi.png){width="50" height="50"} **Achilles**                          ![](Figures/ohdsi_vanished.png){width="50" height="50"} [**DQD**]{style="color:lightgrey;"}
+
+![](Figures/achilles_ex2_analysis.png)
+
+## Tools
+
+![](Figures/ohdsi.png){width="50" height="50"} **Achilles**                          ![](Figures/ohdsi_vanished.png){width="50" height="50"} [**DQD**]{style="color:lightgrey;"}
+
+![](Figures/achilles_ex3_results.png){height="400"}
+
+## Tools
+
+![](Figures/ohdsi_vanished.png){width="50" height="50"} [**Achilles**]{style="color:lightgrey;"}                          ![](Figures/ohdsi.png){width="50" height="50"}**DQD**
+
+-   **D**ata **Q**uality **D**ashboard.
+
+-   Checks table by table and field by field to quantify the number of records in a CDM that do not conform to the given specifications.
+
+-   [Link to CPRD GOLD DQD 202301.](https://dpa-pde-oxford.shinyapps.io/dqd_cdm_gold_202301/)\
+
+    <center>![](Figures/dqd.png){width="950"}</center>
+
+## Tools
+
+![](Figures/ohdsi_vanished.png){width="50" height="50"}[**Achilles**]{style="color:lightgrey;"}                          ![](Figures/ohdsi_vanished.png){width="50" height="50"}[**DQD**]{style="color:lightgrey;"}
+
+<center>Having a great knowledge of the data we are analysing is crucial to ensure the validity and reliability of our research findings.</center>
+
+-   Overall overview $\longrightarrow$ **Achilles**
+-   Data quality $\longrightarrow$ **DQD**
+-   Can I use this database to perform my own specific study? $\longrightarrow$ **?**
+
+## Tools
+
+**Study: A cohort-study**
+
+-   *Are our exposure and outcome present in our database*
+-   *Do we have enough people in observation during our study period?*
+-   *Do we have enough follow-up of the participants?*
+
+## Tools
+
+**Study: Incidence-prevalence of some drugs**
+
+-   *Is our drug_exposure table well-populated? Is it well-mapped?*
+-   *Which is the trend of the drug_exposure records?*
+-   *Do we have enough individuals in our study period?*
+
+## OmopSketch
+
+![](Figures/ohdsi_vanished.png){width="50" height="50"}[**Achilles**]{style="color:lightgrey;"}                          ![](Figures/ohdsi_vanished.png){width="50" height="50"}[**DQD**]{style="color:lightgrey;"}                         ![](Figures/Logo_HDS.png){width="40" height="50"}**OmopSketch**\
+
+-   OmopSketch package is designed to provide context and characterise your OMOP-mapped database.
+-   Complementary to Achilles and DQD.
+
+# Characterise our database
+
+*Use-case example: Incidence-prevalence of different drugs*
+
+## Let's get started!
+
+-   Get the necessary packages
+
+. . .
+
+```{r, message=FALSE}
+# Install packages (install only those that you don't have)
+# devtools::install_github("oxford-pharmacoepi/OmopSketch")
+# install.packages(c("CDMConnector", "dplyr", "duckdb","lubridate))
+
+# Load packages 
+library(CDMConnector)
+library(OmopSketch)
+library(dplyr)
+library(lubridate)
+```
+
+## Let's get started!
+
+-   Connect to Eunomia and create a cdm object
+
+. . .
+
+```{r, message=TRUE}
+con <- DBI::dbConnect(duckdb::duckdb(), dbdir = eunomia_dir())
+
+cdm <- cdm_from_con(
+  con = con, 
+  cdm_schema = "main",  
+  write_schema = c(prefix = "my_practical", schema = "main")
+)
+
+cdm
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise the drug_exposure table**
+    -   How many records does it have? And how many subjects?
+    -   Calculate the mean number of records per person.
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Result
+
+Number of records and subjects in the database
+
+```{r, message=FALSE, echo=FALSE}
+summariseOmopTable(cdm$drug_exposure, recordsPerPerson = c("mean"), 
+                   inObservation = FALSE,
+                   standardConcept = FALSE,
+                   sourceVocabulary = FALSE,
+                   domainId = FALSE,
+                   typeConcept = FALSE) |>
+  tableOmopTable()
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise the drug_exposure table**
+    -   How many of these records are within the observation period?
+
+. . .
+
+Hints:
+
+-   Use `cdm$observation_period` table to extract the observation period of the participants.
+-   Use [join](https://dpa-pde-oxford.quarto.pub/bespoke-code/#/join-tables) functions to merge the observation_period table with the drug_exposure table.
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Result
+
+```{r, message=FALSE, echo=FALSE}
+summariseOmopTable(cdm$drug_exposure, recordsPerPerson = c("mean"), 
+                   inObservation = TRUE,
+                   standardConcept = FALSE,
+                   sourceVocabulary = FALSE,
+                   domainId = FALSE,
+                   typeConcept = FALSE) |>
+  tableOmopTable()
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=TRUE}
+# Number of records
+n_records <- cdm$drug_exposure |>
+  tally() |>
+  pull("n")
+print(n_records)
+
+# Number of subjects
+n_subjects <- cdm$drug_exposure |>
+  summarise(n = n_distinct("person_id")) |>
+  pull("n")
+print(n_subjects)
+
+# Mean number of records per person
+mean_record_per_person <- n_records/n_subjects
+print(mean_record_per_person)
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=TRUE}
+# Records within the observation period
+records_in_observation_period <- cdm$drug_exposure |>
+  select("person_id", "drug_exposure_start_date", "drug_exposure_end_date") |>
+  left_join(
+    cdm$observation_period |>
+      select("person_id", "observation_period_start_date", "observation_period_end_date"),
+    by = "person_id"
+  ) |>
+  filter(observation_period_start_date <= drug_exposure_start_date,
+         observation_period_end_date >= drug_exposure_end_date) |>
+  tally() |> 
+  pull("n")
+print(records_in_observation_period)
+
+records_in_observation_period/n_records*100
+```
+
+## Use OmopSketch to summarise omop tables
+
+-   `summariseOmopTable()`
+    -   Summarise different aspects of the omop table:
+        -   Number of subjects and records
+        -   The mean, sd, median, quantiles... regarding the number of records per person
+        -   How many records are in observation
+        -   How many concepts are mapped
+        -   Which type of source vocabulary does it have
+        -   Which is the domain or type of the concepts
+-   `tableOmopTable()`
+    -   Create a nice table summarising all these aspects
+
+## Use OmopSketch to summarise omop tables - Example
+
+```{r, message=TRUE, echo=TRUE}
+summary <- summariseOmopTable(cdm$drug_exposure, 
+                   recordsPerPerson = c("mean", "sd", "median", "q25", "q75", "min", "max"), 
+                   inObservation = TRUE,
+                   standardConcept = TRUE,
+                   sourceVocabulary = TRUE,
+                   domainId = TRUE,
+                   typeConcept = TRUE)
+```
+
+. . .
+
+```{r, message=TRUE, echo=TRUE}
+summary |> glimpse()
+```
+
+## Use OmopSketch to summarise omop tables - Example
+
+```{r, message=TRUE, echo=TRUE}
+tableOmopTable(summary)
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise drug_exposure records**
+    -   Which is the year with most number of drug_exposure records? Which is the year with the fewest?
+
+. . .
+
+Hints:
+
+-   Use `year()` function from *lubridate* package to extract the year of a date column.
+-   Use *drug_exosure_start_date* as the date of the drug exposure.
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Results
+
+```{r, message=TRUE, echo=FALSE}
+# Most people
+cdm$drug_exposure |>
+  dplyr::mutate(Year = year(drug_exposure_start_date)) |>
+  dplyr::group_by(Year) |>
+  dplyr::summarise(N = n()) |>
+  dplyr::collect() |>
+  dplyr::filter(
+    N == min(N) | N == max(N)
+  ) |>
+  dplyr::mutate("Result" =  c("Minimum number of people", "Maximum number of people")) |>
+  dplyr::relocate(Result) 
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=TRUE}
+# Most people
+records_per_year <- cdm$drug_exposure |>
+  dplyr::mutate(start = year(drug_exposure_start_date)) |>
+  dplyr::group_by(start) |>
+  dplyr::summarise(n = n()) |>
+  dplyr::collect()
+
+min_records_per_year <- records_per_year |> dplyr::filter(n == min(n))
+max_records_per_year <- records_per_year |> dplyr::filter(n == max(n))
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise drug_exposure records**
+    -   How many records do we have during 1960?
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Result
+
+```{r, message=TRUE, echo=FALSE}
+# Most people
+cdm$drug_exposure |>
+  dplyr::mutate(Year = year(drug_exposure_start_date)) |>
+  dplyr::group_by(Year) |>
+  dplyr::summarise(N = n()) |>
+  dplyr::collect() |>
+  dplyr::filter(
+    Year == 1960
+  ) 
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=TRUE}
+# Most people
+records_per_year |> dplyr::filter(start == 1960)
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise drug_exposure records**
+    -   How many records do we have between 1960 and 1979?
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Result
+
+```{r, message=TRUE, echo=FALSE}
+# Most people
+cdm$drug_exposure |>
+  dplyr::mutate(Year = year(drug_exposure_start_date)) |>
+  dplyr::group_by(Year) |>
+  dplyr::summarise(N = n()) |>
+  dplyr::collect() |>
+  dplyr::filter(
+    Year >= 1960 & Year <= 1979
+  )  |>
+  dplyr::summarise(N = sum(N))
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=TRUE}
+# Most people
+records_per_year |> 
+  filter(start >= 1960 & start <= 1979) |>
+  summarise(n = sum(n))
+```
+
+## Use OmopSketch to explore the trend of an omop table records
+
+-   `summariseTableCounts()`
+    -   Summarise the number of records per year or month.
+    -   Specify the unit time interval we would like to explore.
+-   `plotTableCounts()`
+    -   Plot the trend
+
+## Use OmopSketch to explore the trend of omop tables records - Example
+
+```{r, message=TRUE, echo=TRUE}
+summary <- summariseTableCounts(cdm$drug_exposure,
+                                unit = "year",
+                                unitInterval = 1)
+
+summary |> glimpse()
+```
+
+## Use OmopSketch to explore the trend of omop tables records - Example
+
+```{r, message=TRUE, echo=TRUE}
+plotTableCounts(summary)
+```
+
+## Use OmopSketch to explore the trend of omop tables records - Example
+
+```{r, message=TRUE, echo=TRUE}
+cdm$drug_exposure |>
+  summariseTableCounts(unit = "year",
+                       unitInterval = 5) |>
+  plotTableCounts()
+```
+
+## Your turn!
+
+Use-case example: *Incidence-prevalence of different drugs*
+
+-   **Characterise the observation_period of the participants**
+    -   How many individuals were in observation between 1980 and 1999? And between 1960 and 1979? In which of these two intervals do we have more people in observation?
+
+. . .
+
+##### *Move to the next slide to see the results.*
+
+## Result
+
+```{r, message=TRUE, echo=FALSE}
+# In observation between 1980 and 1999
+result_1 <- cdm$observation_period |>
+  dplyr::mutate(obs_start = lubridate::year(observation_period_start_date),
+                obs_end   = lubridate::year(observation_period_end_date)) |>
+  dplyr::filter((obs_start <= 1980 & obs_end >= 1999)) |>
+  dplyr::tally() |>
+  dplyr::collect() |>
+  dplyr::mutate(Result = "People in observation between 1980 and 1999") |>
+  dplyr::select("Result", "N" = "n")
+
+# In observation between 1960 and 1979
+result_2 <- cdm$observation_period |>
+  dplyr::mutate(obs_start = lubridate::year(observation_period_start_date),
+                obs_end   = lubridate::year(observation_period_end_date)) |>
+  dplyr::filter((obs_start <= 1960 & obs_end >= 1979)) |>
+  dplyr::tally() |>
+  dplyr::collect() |>
+  dplyr::mutate(Result = "People in observation between 1960 and 1979") |>
+  dplyr::select("Result", "N" = "n")
+
+result_1 |>
+  rbind(result_2)
+```
+
+## Solution {visibility="hidden"}
+
+```{r, message=FALSE}
+# In observation in 1980
+# In observation between 1980 and 1999
+result_1 <- cdm$observation_period |>
+  mutate(obs_start = year(observation_period_start_date),
+                obs_end = year(observation_period_end_date)) |>
+  filter((obs_start <= 1980 & obs_end >= 1999)) |>
+  tally() |>
+  collect() |>
+  mutate(Result = "People in observation between 1980 and 1999") |>
+  select("Result", "N" = "n")
+
+# In observation between 1960 and 1979
+result_2 <- cdm$observation_period |>
+  mutate(obs_start = year(observation_period_start_date),
+                obs_end = year(observation_period_end_date)) |>
+  filter((obs_start <= 1960 & obs_end >= 1979)) |>
+  tally() |>
+  collect() |>
+  mutate(Result = "People in observation between 1960 and 1979") |>
+  select("Result", "N" = "n")
+
+result_1 |>
+  rbind(result_2)
+```
+
+## Use OmopSketch to explore the trend of individual's observation period
+
+-   `summariseObservationPeriod()`
+    -   Summarise how many people in observation we have per year (or month).
+    -   Specify the unit time interval we would like to explore.
+-   `plotObservationPeriod()`
+    -   Plot the trend
+
+## Use OmopSketch to explore the trend of individual's observation period - Example
+
+```{r, message=TRUE, echo=TRUE}
+summary <- summariseObservationPeriod(cdm$observation_period,
+                                unit = "year",
+                                unitInterval = 5)
+
+summary |> glimpse()
+```
+
+## Use OmopSketch to explore the trend of individual's observation period - Example
+
+```{r, message=TRUE, echo=TRUE}
+plotObservationPeriod(summary)
+```
+
+## Furtherwork
+
+Main goal: To build all the tables and plots appearing in [here](https://dpa-pde-oxford.shinyapps.io/databaseCharacterisation/).
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](Figures/Hexsticker_HDS.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**OmopSketch**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Thank you for your attention!**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://github.com/oxford-pharmacoepi/OmopSketch){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::

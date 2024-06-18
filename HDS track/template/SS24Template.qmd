@@ -21,38 +21,24 @@ execute:
 editor: visual
 ---
 
+# PackageName {.title-slide}
+
 ```{r, echo=FALSE}
 options(width = 130)
 ```
 
-# PackageName {.title-slide}
-
 ::: {style="margin-top: 25px;"}
 :::
-
 
 very brief description
 
 ::: title-slide-logos
-<img src="images/hexticker.png" alt="Logo 1" class="logo"/> &ensp;<img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
+<img src="images/hexticker.png" alt="Logo 1" class="logo"/> <img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
 :::
 
 ## Introduction
 
-![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
-
 -   PakcageName package is designed to ...
-
-::: {style="margin-bottom: 10px;"}
-:::
-
--   ...
-
-# Change topic
-
-## New slide
-
-![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
 
 #  {.end-slide}
 
@@ -100,14 +86,14 @@ very brief description
 ::: {style="margin-bottom: 25px;"}
 :::
 
-[**GitHub**](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+[**GitHub**](https://github.com/OHDSI/CohortConstructor){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
 :::
 
 ::: {.column width="22%"}
 ::: {style="margin-bottom: 25px;"}
 :::
 
-[**Website**](https://cran.r-project.org/web/packages/CohortConstructor/CohortConstructor.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+[**Website**](https://ohdsi.github.io/CohortConstructor/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
 :::
 
 ::: {.column width="1.2%"}

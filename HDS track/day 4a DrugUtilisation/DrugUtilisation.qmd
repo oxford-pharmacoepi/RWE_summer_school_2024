@@ -1,0 +1,690 @@
+---
+pagetitle: "DrugUtilisation"
+format:
+  revealjs: 
+    theme: [simple, styleSS24.scss]
+    incremental: true   
+    slide-number: true
+    chalkboard: true
+    preview-links: auto
+    margin: 0.07
+    code-link: true
+    code-line-numbers: false
+    height: 900
+    width: 1600
+    footer: "Oxford Summer School 2024"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  output-width: 100%
+editor: visual
+---
+
+# DrugUtilisation {.title-slide}
+
+```{r, echo=FALSE}
+options(width = 130)
+```
+
+::: {style="margin-top: 25px;"}
+:::
+
+Conduct Drug Utilisation Studies using the OMOP Common Data Model
+
+::: title-slide-logos
+<img src="images/hexticker.png" alt="Logo 1" class="logo"/> <img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
+:::
+
+## Introduction
+
+
+Drug utilisation studies (DUS) were defined by the World Health Organization as studying the marketing, distribution, prescription, and use of medicinal products in a society, with special emphasis on the resulting medical and socioeconomic consequences (WHO, 2003).
+
+. . .
+
+This package aims to standardise and provide the tools to conduct Drug Utilisation studies as of the Darwin-EU Catalogue of Standard Analytics.
+
+![](https://www.darwin-eu.org/templates/rt_horizon/custom/images/darwin-eu-logo.png){fig-align="center" width=45%}
+
+## Functionalities
+
+-   Create cohort of drug user
+
+-   Compute daily dose for a given exposure.
+
+-   Identify potential indications
+
+-   Summarise drug use
+
+-   Identify alternative treatments
+
+-   Analyse treatment discontinuation (under development)
+
+## Create a reference to a cdm object
+
+For this example we are going to use
+
+```{r}
+library(DBI)
+library(duckdb)
+library(CDMConnector)
+library(dplyr)
+library(here)
+
+# downloadEunomiaData(pathToData = here(), overwrite = TRUE)
+# Sys.setenv("EUNOMIA_DATA_FOLDER" = here())
+
+db <- dbConnect(duckdb(), dbdir = eunomia_dir())
+cdm <- cdmFromCon(con = db, cdmSchema = "main", writeSchema = "main")
+```
+
+## Fix eunomia problems with drugs
+
+Add a drug_strength table:
+
+```{r}
+x <- read.csv("https://raw.githubusercontent.com/darwin-eu-dev/DrugUtilisation/main/extras/mock_drug_strength.csv")
+cdm <- insertTable(cdm = cdm, name = "drug_strength", table = x)
+```
+
+. . .
+
+Fix quantity:
+
+```{r}
+cdm$drug_exposure <- cdm$drug_exposure |>
+  mutate(quantity = days_supply) |>
+  compute(name = "drug_exposure", temporary = FALSE)
+```
+
+## Generate a drug cohort
+
+To generate a drug cohort we need a conceptSet (named list of concepts). Each element will be a different cohort, so we can instantiate multiple cohorts following the same logit at the same time.
+
+Methods to create a conceptSet:
+
+-   read it from JSON [CodelistGenerator::codesFromConceptSet](https://darwin-eu.github.io/CodelistGenerator/reference/codesFromConceptSet.html)
+
+-   create from an ingredient [CodelistGenerator::getDrugIngredientCodes](https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html)
+
+-   create from a text search [CodelistGenerator::getCandidateCodes](https://darwin-eu.github.io/CodelistGenerator/reference/getCandidateCodes.html)
+
+-   custom creation
+
+. . .
+
+```{r}
+codelist <- list(concept1 = c(1, 2, 3, 4), concept2 = c(3, 4, 5))
+codelist
+```
+
+. . .
+
+```{r}
+codelist |> omopgenerics::newCodelist()
+```
+
+## Generate a drug cohort
+
+For this example we are going to use all records of `acteaminophen`:
+
+. . .
+
+```{r}
+library(CodelistGenerator)
+codelist <- getDrugIngredientCodes(cdm, "acetaminophen")
+codelist
+```
+
+## Generate a drug cohort
+
+Once we have our conceptSet we can create a simple cohort:
+
+. . .
+
+```{r, message=FALSE}
+library(DrugUtilisation)
+cdm <- generateDrugUtilisationCohortSet(
+  cdm = cdm,
+  name = "dus_cohort",
+  conceptSet = codelist
+)
+```
+
+. . .
+
+The results is the cdm object with the new cohort instantiated.
+
+. . .
+
+```{r, message=TRUE}
+cdm
+```
+
+. . .
+
+```{r}
+cdm$dus_cohort
+```
+
+## Generate a drug cohort
+
+We can check some metadata of the cohort:
+
+```{r}
+settings(cdm$dus_cohort)
+```
+
+. . .
+
+```{r}
+cohortCount(cdm$dus_cohort)
+```
+
+## Generate a drug cohort
+
+```{r}
+attrition(cdm$dus_cohort)
+```
+
+## Generate a drug cohort
+
+```{r}
+summary(cdm$dus_cohort)
+```
+
+## Generate a drug cohort
+
+Let's explore the parameters:
+
+```{r, eval = FALSE}
+?generateDrugUtilisationCohortSet
+```
+
+. . .
+
+![](arguments.png)
+
+## Generate a drug cohort
+
+![](step1_darwin.png){fig-align="center"}
+
+## Generate a drug cohort
+
+![](step2_darwin.png){fig-align="center"}
+
+## Generate a drug cohort
+
+![](step3_darwin.png){fig-align="center"}
+
+## Generate a drug cohort
+
+![](step4_darwin.png){fig-align="center"}
+
+## Generate a drug cohort
+
+![](step5_darwin.png){fig-align="center"}
+
+## Generate a drug cohort
+
+. . .
+
+```{r, message=FALSE}
+cdm <- generateDrugUtilisationCohortSet(
+  cdm = cdm,
+  name = "dus_new_user",
+  conceptSet = codelist,
+  gapEra = 30, # 30 day separated prescriptions will be joined
+  priorUseWashout = 365, # no use in the prior 365 days
+  priorObservation = 365, # in the database for more than 365 dyas before start date
+  cohortDateRange = as.Date(c("2000-01-01", "2019-12-31")), # range of allowed dates
+  limit = "first" # limit to only the first record per person
+)
+```
+
+## Generate a drug cohort
+
+. . .
+
+```{r}
+settings(cdm$dus_new_user) |> glimpse()
+```
+
+## Generate a drug cohort
+
+. . .
+
+```{r}
+cohortCount(cdm$dus_new_user) |> glimpse()
+```
+
+## Generate a drug cohort
+
+. . .
+
+```{r}
+attrition(cdm$dus_new_user) |>
+  glimpse()
+```
+
+## Generate a drug cohort
+
+```{r}
+library(CohortCharacteristics)
+cdm$dus_new_user |>
+  summariseCohortAttrition() |>
+  plotCohortAttrition()
+```
+
+## Some helpers
+
+. . .
+
+```{r, eval = FALSE}
+?generateIngredientCohortSet
+```
+
+<br>
+
+. . .
+
+```{r, eval = FALSE}
+?generateAtcCohortSet
+```
+
+## Your turn
+
+Can you use the generateIngredientCohortSet to create an amoxicillin new users cohort with a gapEra of 30 days, with at least a prior observation of 365 days and no prior use of the drug in the last 365 days.
+
+## Your turn
+
+```{r, echo = FALSE}
+cdm <- generateIngredientCohortSet(
+  cdm = cdm, 
+  name = "my_cohort", 
+  ingredient = "amoxicillin",
+  gapEra = 30, 
+  priorUseWashout = 365, 
+  priorObservation = 365
+)
+cdm$my_cohort |>
+  summariseCohortAttrition() |>
+  suppress() |>
+  plotCohortAttrition()
+```
+
+
+## Dealing with daily dose
+
+[addDailyDose](https://darwin-eu-dev.github.io/DrugUtilisation/reference/addDailyDose.html)
+
+This function works if:
+
+-   The relation between the `drug_concept_id` and `ingredient_concept_id`, can be established though `drug_strength` table by one of the 126 identified valid patterns. And if they have a formula assigned. Currently 41 patterns have a formula assigned you can check them here:
+
+. . .
+
+```{r}
+patternsWithFormula |> print(n = Inf)
+```
+
+## daily dose
+
+We can add daily dose to drug_exposure like this:
+
+. . .
+
+```{r}
+cdm$drug_exposure |>
+  addDailyDose(ingredientConceptId = 1125315) |>
+  glimpse()
+```
+
+. . .
+
+!! As drug exposure is a big table it is not recommended to add daily dose to the whole `drug_exposure` table, first it is important to subset to the subjects and concepts of interest.
+
+## daily dose
+
+To see the coverage of an specific ingredient you can compute it as:
+
+. . .
+
+```{r}
+dailyDoseCoverage(cdm = cdm, ingredientConceptId = 1125315) |>
+  select(-c("result_id", "cdm_name", "group_name", "group_level")) |>
+  print(n = Inf)
+```
+
+# Characterisation
+
+## Characterise drug use
+
+We have a function to add columns related to drugUse:
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(
+    ingredientConceptId = 1125315,
+    duration = FALSE,
+    quantity = FALSE,
+    dose = FALSE
+  )
+```
+
+`number_exposure` and `number_eras` are always computed.
+
+## Characterise drug use
+
+`duartion = TRUE` adds duration and impute_duration_percentage fields
+
+. . .
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(
+    ingredientConceptId = 1125315,
+    duration = TRUE,
+    quantity = FALSE,
+    dose = FALSE
+  ) |>
+  select(-c("number_exposures", "number_eras"))
+```
+
+## Characterise drug use
+
+`quantity = TRUE` adds initial_quantity and cumulative_quantity fields
+
+. . .
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(
+    ingredientConceptId = 1125315,
+    duration = FALSE,
+    quantity = TRUE,
+    dose = FALSE
+  ) |>
+  select(-c("number_exposures", "number_eras"))
+```
+
+## Characterise drug use
+
+`dose = TRUE` adds impute_daily_dose_percentage, initial_daily_dose and cumulative_dose fields
+
+. . .
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(
+    ingredientConceptId = 1125315,
+    duration = FALSE,
+    quantity = FALSE,
+    dose = TRUE
+  ) |>
+  select(-c("number_exposures", "number_eras"))
+```
+
+## Characterise drug use
+
+We can make some decisions to solve how we threat gaps (not exposed periods):
+
+![](eraJoinMode.png)
+
+## Characterise drug use
+
+![](overlpaMode.png)
+
+## Characterise drug use
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(
+    ingredientConceptId = 1125315,
+    eraJoinMode = "zero",
+    sameIndexMode = "sum"
+  )
+```
+
+## Characterise drug use
+
+We can summarise all this information grouped by cohorts in a summarisedResult object:
+
+. . .
+
+```{r}
+cdm$dus_new_user |>
+  addDrugUse(ingredientConceptId = 1125315) |>
+  summariseDrugUse() |>
+  select(-"strata_name", -"strata_level") |>
+  print(n = Inf)
+```
+
+## Your turn
+
+Get the mean and median duration and initial daily dose for our amoxicillin cohort:
+
+- addDrugUse to the amoxicillin cohort (we have to find the ingredientConceptId for amoxicillin!!)
+
+- summarise the Drug 
+
+- filter to find the information that we need
+
+## Your turn
+
+```{r}
+ingredientConceptId <- cdm$concept |>
+  filter(concept_class_id == "Ingredient") |>
+  filter(concept_name == "Amoxicillin") |>
+  pull(concept_id)
+result <- cdm$my_cohort |> 
+  addDrugUse(ingredientConceptId = ingredientConceptId) |>
+  summariseDrugUse()
+result |>
+  filter(
+    variable_name %in% c("duration", "initial_daily_dose_milligram"),
+    estimate_name %in% c("mean", "median")
+  )
+```
+
+
+## Indication
+
+First we need to instantiate some indication cohorts, in this case we are going to explore `sinusitis` and `bronchitis`:
+
+. . .
+
+```{r}
+cdm <- generateConceptCohortSet(
+  cdm = cdm,
+  conceptSet = list(sinusitis = c(4294548, 40481087, 257012), bronchitis = c(258780, 260139)),
+  name = "indications",
+  limit = "all",
+  end = 0
+)
+settings(cdm$indications) |>
+  select("cohort_definition_id", "cohort_name") |>
+  inner_join(cohortCount(cdm$indications), by = "cohort_definition_id")
+```
+
+## Indication
+
+We have to define a gap (period before index date) that we are interested to assess indication:
+
+![](gapIndication.png)
+
+## Indication
+
+```{r}
+cdm$dus_new_user <- cdm$dus_new_user |>
+  addIndication(
+    indicationCohortName = "indications",
+    unknownIndicationTable = c("condition_occurrence"),
+    indicationGap = c(0, 30, Inf)
+  )
+glimpse(cdm$dus_new_user)
+```
+
+## Indication
+
+We can join the indications if we need later to stratify by them:
+
+```{r}
+cdm$dus_new_user |>
+  indicationToStrata()
+```
+
+## Indication
+
+Summarise indication into a summarisedResult object:
+
+```{r}
+cdm$dus_new_user |>
+  summariseIndication() |>
+  select("variable_name", "variable_level", "estimate_name", "estimate_value") |>
+  print(n = Inf)
+```
+
+## Alternative treatments
+
+You can summarise other treatments after a certain cohort, for example we have our cohort of `acetaminophen`, which are the treatments that are used.
+
+. . .
+
+```{r}
+getDrugIngredientCodes(cdm = cdm)
+```
+
+## Alternative treatments
+
+```{r}
+x <- cdm$dus_new_user |>
+  summariseTreatmentFromConceptSet(
+    treatmentConceptSet = getDrugIngredientCodes(cdm = cdm), 
+    window = list(c(0, 90), c(91, 180), c(181, 270), c(271, 360))
+  )
+x |>
+  select("variable_name", "estimate_name", "estimate_value", "additional_name", "additional_level")
+```
+
+## Alternative treatments
+
+```{r, eval = FALSE}
+library(ggplot2)
+xx <- x |>
+  filter(estimate_name == "percentage") |>
+  mutate(estimate_value = as.numeric(estimate_value)) |>
+  select(variable_name, window = additional_level, estimate_value) |>
+  mutate(window = factor(window, levels = c("0 to 90", "91 to 180", "181 to 270", "271 to 360")))
+xx |>
+  filter(variable_name %in% unique(xx$variable_name[xx$estimate_value > 1])) |>
+  ggplot(aes(x = variable_name, y = estimate_value, color = variable_name, fill = variable_name)) +
+  geom_bar(stat="identity") + 
+  coord_flip() +
+  facet_grid( ~ window) +
+  theme(legend.position = "none")
+```
+
+## Alternative treatments
+
+```{r, echo = FALSE}
+library(ggplot2)
+xx <- x |>
+  filter(estimate_name == "percentage") |>
+  mutate(estimate_value = as.numeric(estimate_value)) |>
+  select(variable_name, window = additional_level, estimate_value) |>
+  mutate(window = factor(window, levels = c("0 to 90", "91 to 180", "181 to 270", "271 to 360")))
+xx |>
+  filter(variable_name %in% unique(xx$variable_name[xx$estimate_value > 1])) |>
+  ggplot(aes(x = variable_name, y = estimate_value, color = variable_name, fill = variable_name)) +
+  geom_bar(stat="identity") + 
+  coord_flip() +
+  facet_grid( ~ window) +
+  theme(legend.position = "none")
+```
+
+## Treatment discontinuation
+
+We are working on a treatment discontinuation where we use the CohortSurvival package that we will see later.
+
+. . .
+
+```{r, echo = FALSE}
+cdm <- CohortSurvival::mockMGUS2cdm()
+
+MGUS_death <- CohortSurvival::estimateSingleEventSurvival(cdm,
+  targetCohortTable = "mgus_diagnosis",
+  targetCohortId = 1,
+  outcomeCohortTable = "death_cohort",
+  outcomeCohortId = 1
+)
+
+CohortSurvival::plotSurvival(MGUS_death)
+```
+
+## New slide
+
+![](images/hexticker.png){.absolute right="70px" top="0px" height="70"} ![](images/logoHDS.png){.absolute right="0px" top="0px" height="70"}
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](images/hexticker.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**DrugUtilisation**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Thank you for your attention!**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**CRAN**](https://cran.r-project.org/package=DrugUtilisation){style="color: #3a6ea5; text-decoration: underline;"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Manual**](https://cran.r-project.org/web/packages/DrugUtilisation/DrugUtilisation.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://github.com/darwin-eu-dev/DrugUtilisation){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Website**](https://ohdsi.github.io/DrugUtilisation/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::
