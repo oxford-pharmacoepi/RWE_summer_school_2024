@@ -384,6 +384,17 @@
     <div class="slides">
 
 <section id="title-slide" class="center"><h1 class="title">CodelistGenerator</h1>
+</section><section id="codelistgenerator" class="title-slide slide level1 center"><h1>CodelistGenerator</h1>
+<div class="cell">
+
+</div>
+<div style="margin-top: 25px;">
+
+</div>
+<p>Working with the OMOP CDM vocabulary tables</p>
+<div class="title-slide-logos">
+<p><img src="images/hexsticker.png" alt="Logo 1" class="logo"><img src="images/logoHDS.png" alt="Logo 2" class="logo"></p>
+</div>
 </section><section><section id="reference-to-the-cdm-vocabulary-tables" class="title-slide slide level1 center"><h1>Reference to the CDM vocabulary tables</h1>
 
 </section><section id="reference-to-the-cdm-vocabulary-tables-1" class="slide level2"><h2>Reference to the CDM vocabulary tables</h2>
@@ -403,17 +414,33 @@
 </div>
 <div class="cell">
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code></code></pre>
 </div>
-</section><section id="codelistgenerator" class="slide level2"><h2>CodelistGenerator</h2>
-<p>Stable version available on CRAN</p>
-<div class="cell">
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"CodelistGenerator"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
 </div>
-<p>Package website can be found at <a href="https://darwin-eu.github.io/CodelistGenerator/" class="uri">https://darwin-eu.github.io/CodelistGenerator/</a></p>
+<div class="cell-output cell-output-stderr">
+<pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
+care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
+domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
+drug_strength</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• cohort tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• achilles tables: -</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>• other tables: -</code></pre>
+</div>
+</div>
 </section><section id="reference-to-the-cdm-vocabulary-tables-2" class="slide level2"><h2>Reference to the CDM vocabulary tables</h2>
 <p>Note, Eunomia doesn´t have a full set of vocabularies:</p>
 <div class="cell">
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 444</code></pre>
 </div>
@@ -421,7 +448,7 @@
 <p><br></p>
 <p>We’ll create a mock to show some of the functions where Eunomia won’t work because of its partial vocabularies</p>
 <div class="cell">
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://darwin-eu.github.io/CodelistGenerator/">CodelistGenerator</a></span><span class="op">)</span></span>
 <span><span class="va">cdm_mock</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/mockVocabRef.html">mockVocabRef</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">cdm_mock</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -432,26 +459,26 @@
 
 <img data-src="images/paste-08513A51.png" width="2000" class="r-stretch"></section><section id="cdm-vocabulary-tables-2" class="slide level2"><h2>CDM vocabulary tables</h2>
 <div class="cell">
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 10
-Database: DuckDB v0.10.3-dev775 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpaGkbYM\file86406c27104a.duckdb]
-$ concept_id       &lt;int&gt; 35208414, 1118088, 40213201, 1557272, 4336464, 429588…
-$ concept_name     &lt;chr&gt; "Gastrointestinal hemorrhage, unspecified", "celecoxi…
-$ domain_id        &lt;chr&gt; "Condition", "Drug", "Drug", "Drug", "Procedure", "Pr…
-$ vocabulary_id    &lt;chr&gt; "ICD10CM", "RxNorm", "CVX", "RxNorm", "SNOMED", "SNOM…
-$ concept_class_id &lt;chr&gt; "4-char billing code", "Branded Drug", "CVX", "Ingred…
-$ standard_concept &lt;chr&gt; NA, "S", "S", "S", "S", "S", "S", "S", NA, NA, "S", "…
-$ concept_code     &lt;chr&gt; "K92.2", "213469", "33", "46041", "232717009", "76601…
-$ valid_start_date &lt;date&gt; 2007-01-01, 1970-01-01, 2008-12-01, 1970-01-01, 1970…
-$ valid_end_date   &lt;date&gt; 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099…
-$ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+$ concept_id       &lt;int&gt; 35208414, 1118088, 40213201, 1557272, 4336464, 4295880, 3020630, 19129655, 44923712, 1569708, 40213216,…
+$ concept_name     &lt;chr&gt; "Gastrointestinal hemorrhage, unspecified", "celecoxib 200 MG Oral Capsule [Celebrex]", "pneumococcal p…
+$ domain_id        &lt;chr&gt; "Condition", "Drug", "Drug", "Drug", "Procedure", "Procedure", "Measurement", "Drug", "Drug", "Conditio…
+$ vocabulary_id    &lt;chr&gt; "ICD10CM", "RxNorm", "CVX", "RxNorm", "SNOMED", "SNOMED", "LOINC", "RxNorm", "NDC", "ICD10CM", "CVX", "…
+$ concept_class_id &lt;chr&gt; "4-char billing code", "Branded Drug", "CVX", "Ingredient", "Procedure", "Procedure", "Lab Test", "Clin…
+$ standard_concept &lt;chr&gt; NA, "S", "S", "S", "S", "S", "S", "S", NA, NA, "S", "S", "S", "S", "S", "S", NA, "S", "S", "S", "S", "S…
+$ concept_code     &lt;chr&gt; "K92.2", "213469", "33", "46041", "232717009", "76601001", "2885-2", "789980", "00025152531", "K92", "1…
+$ valid_start_date &lt;date&gt; 2007-01-01, 1970-01-01, 2008-12-01, 1970-01-01, 1970-01-01, 1970-01-01, 1970-01-01, 2008-03-30, 2000-0…
+$ valid_end_date   &lt;date&gt; 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-1…
+$ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
 </div>
 </div>
 </section><section id="cdm-vocabulary-tables-3" class="slide level2"><h2>CDM vocabulary tables</h2>
 <div class="cell">
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">condition_occurrence</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">condition_occurrence</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">condition_concept_id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -478,42 +505,42 @@ $ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 </div>
 </section><section id="cdm-vocabulary-tables-4" class="slide level2"><h2>CDM vocabulary tables</h2>
 <div class="cell">
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_ancestor</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_ancestor</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 4
-Database: DuckDB v0.10.3-dev775 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpaGkbYM\file86406c27104a.duckdb]
-$ ancestor_concept_id      &lt;int&gt; 4180628, 4179141, 21500574, 21505770, 2150396…
-$ descendant_concept_id    &lt;int&gt; 313217, 4146173, 1118084, 1119510, 40162522, …
-$ min_levels_of_separation &lt;int&gt; 5, 2, 4, 0, 5, 4, 0, 4, 2, 2, 0, 0, 0, 0, 0, …
-$ max_levels_of_separation &lt;int&gt; 6, 2, 4, 0, 6, 4, 0, 4, 2, 2, 0, 0, 0, 0, 0, …</code></pre>
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+$ ancestor_concept_id      &lt;int&gt; 4180628, 4179141, 21500574, 21505770, 21503967, 36203060, 36151386, 21502552, 40765628, 4433964…
+$ descendant_concept_id    &lt;int&gt; 313217, 4146173, 1118084, 1119510, 40162522, 40479422, 1119510, 1112807, 40769189, 19128009, 15…
+$ min_levels_of_separation &lt;int&gt; 5, 2, 4, 0, 5, 4, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0,…
+$ max_levels_of_separation &lt;int&gt; 6, 2, 4, 0, 6, 4, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 3, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0,…</code></pre>
 </div>
 </div>
 </section><section id="cdm-vocabulary-tables-5" class="slide level2"><h2>CDM vocabulary tables</h2>
 <div class="cell">
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_relationship</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_relationship</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 6
-Database: DuckDB v0.10.3-dev775 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpaGkbYM\file86406c27104a.duckdb]
-$ concept_id_1     &lt;int&gt; 192671, 1118088, 1569708, 35208414, 35208414, 4016235…
-$ concept_id_2     &lt;int&gt; 35208414, 44923712, 35208414, 192671, 1569708, 450118…
-$ relationship_id  &lt;chr&gt; "Mapped from", "Mapped from", "Subsumes", "Maps to", …
-$ valid_start_date &lt;date&gt; 1970-01-01, 1970-01-01, 2016-03-25, 1970-01-01, 2016…
-$ valid_end_date   &lt;date&gt; 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099…
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+$ concept_id_1     &lt;int&gt; 192671, 1118088, 1569708, 35208414, 35208414, 40162359, 44923712, 45011828
+$ concept_id_2     &lt;int&gt; 35208414, 44923712, 35208414, 192671, 1569708, 45011828, 1118088, 40162359
+$ relationship_id  &lt;chr&gt; "Mapped from", "Mapped from", "Subsumes", "Maps to", "Is a", "Mapped from", "Maps to", "Maps to"
+$ valid_start_date &lt;date&gt; 1970-01-01, 1970-01-01, 2016-03-25, 1970-01-01, 2016-03-25, 2009-08-03, 1970-01-01, 2009-08-03
+$ valid_end_date   &lt;date&gt; 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31, 2099-12-31
 $ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA</code></pre>
 </div>
 </div>
 </section><section id="cdm-vocabulary-tables-6" class="slide level2"><h2>CDM vocabulary tables</h2>
 <div class="cell">
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_synonym</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept_synonym</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 3
-Database: DuckDB v0.10.3-dev775 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpaGkbYM\file86406c27104a.duckdb]
-$ concept_id           &lt;int&gt; 964261, 1322184, 441267, 1718412, 4336464, 410212…
-$ concept_synonym_name &lt;chr&gt; "cyanocobalamin 5000 MCG/ML Injectable Solution",…
-$ language_concept_id  &lt;int&gt; 4180186, 4180186, 4180186, 4180186, 4180186, 4180…</code></pre>
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+$ concept_id           &lt;int&gt; 964261, 1322184, 441267, 1718412, 4336464, 4102123, 4237458, 4280726, 4330583, 3014576, 4242997, 30…
+$ concept_synonym_name &lt;chr&gt; "cyanocobalamin 5000 MCG/ML Injectable Solution", "clopidogrel", "Cystic fibrosis (disorder)", "Kyl…
+$ language_concept_id  &lt;int&gt; 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, …</code></pre>
 </div>
 </div>
 </section></section><section><section id="achilles-analysis-results" class="title-slide slide level1 center"><h1>Achilles analysis results</h1>
@@ -525,7 +552,7 @@ $ language_concept_id  &lt;int&gt; 4180186, 4180186, 4180186, 4180186, 4180186, 
 
 <img data-src="images/achilles2.png" class="r-stretch"></section><section id="achilles-2" class="slide level2"><h2>Achilles</h2>
 <div class="cell">
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_analysis</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_analysis</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
@@ -543,7 +570,7 @@ $ category       &lt;lgl&gt; NA</code></pre>
 </div>
 </section><section id="achilles-3" class="slide level2"><h2>Achilles</h2>
 <div class="cell">
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_results</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_results</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 2
@@ -559,7 +586,7 @@ $ count_value &lt;dbl&gt; 400, 200</code></pre>
 </div>
 </section><section id="achilles-4" class="slide level2"><h2>Achilles</h2>
 <div class="cell">
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_results_dist</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm_mock</span><span class="op">$</span><span class="va">achilles_results_dist</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 1
@@ -587,7 +614,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 </section><section id="vocabulary-version" class="slide level2"><h2>Vocabulary version</h2>
 <p>Search results will be specific to the version of the vocabulary being used</p>
 <div class="cell">
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getVocabVersion.html">getVocabVersion</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getVocabVersion.html">getVocabVersion</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "v5.0 18-JAN-19"</code></pre>
 </div>
@@ -595,36 +622,33 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 </section><section id="available-vocabularies" class="slide level2"><h2>Available vocabularies</h2>
 <p>What vocabularies are available?</p>
 <div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getVocabularies.html">getVocabularies</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getVocabularies.html">getVocabularies</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "RxNorm"  "CVX"     "SNOMED"  "None"    "ICD10CM" "LOINC"   "Gender" 
-[8] "NDC"     "Visit"  </code></pre>
+<pre><code>[1] "Gender"  "NDC"     "Visit"   "RxNorm"  "CVX"     "SNOMED"  "None"    "ICD10CM" "LOINC"  </code></pre>
 </div>
 </div>
 </section><section id="available-domains" class="slide level2"><h2>Available domains</h2>
 <p>What domains are present?</p>
 <div class="cell">
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDomains.html">getDomains</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDomains.html">getDomains</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Measurement" "Observation" "Visit"       "Drug"        "Gender"     
-[6] "Procedure"   "Condition"  </code></pre>
+<pre><code>[1] "Measurement" "Drug"        "Observation" "Visit"       "Procedure"   "Condition"   "Gender"     </code></pre>
 </div>
 </div>
 </section><section id="concept-classes" class="slide level2"><h2>Concept classes</h2>
 <p>What concept classes are present?</p>
 <div class="cell">
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getConceptClassId.html">getConceptClassId</a></span><span class="op">(</span><span class="va">cdm</span>,</span>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getConceptClassId.html">getConceptClassId</a></span><span class="op">(</span><span class="va">cdm</span>,</span>
 <span>                  standardConcept <span class="op">=</span> <span class="st">"Standard"</span>,</span>
 <span>                  domain <span class="op">=</span> <span class="st">"Drug"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Branded Drug Comp"   "Ingredient"          "Quant Clinical Drug"
-[4] "Quant Branded Drug"  "CVX"                 "Clinical Drug"      
-[7] "Branded Pack"        "Branded Drug"        "Clinical Drug Comp" </code></pre>
+<pre><code>[1] "Quant Branded Drug"  "Branded Drug"        "Ingredient"          "Quant Clinical Drug" "Branded Drug Comp"  
+[6] "CVX"                 "Clinical Drug"       "Branded Pack"        "Clinical Drug Comp" </code></pre>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getConceptClassId.html">getConceptClassId</a></span><span class="op">(</span><span class="va">cdm</span>,</span>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getConceptClassId.html">getConceptClassId</a></span><span class="op">(</span><span class="va">cdm</span>,</span>
 <span>                  standardConcept <span class="op">=</span> <span class="st">"Standard"</span>,</span>
 <span>                  domain <span class="op">=</span> <span class="st">"Condition"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -635,7 +659,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 </section><section id="relationship-id" class="slide level2"><h2>Relationship ID</h2>
 <p>What relationships do we have between standard concepts?</p>
 <div class="cell">
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getRelationshipId.html">getRelationshipId</a></span><span class="op">(</span><span class="va">cdm_mock</span>, </span>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getRelationshipId.html">getRelationshipId</a></span><span class="op">(</span><span class="va">cdm_mock</span>, </span>
 <span>                                     standardConcept1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"standard"</span><span class="op">)</span>,</span>
 <span>                                     standardConcept2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"standard"</span><span class="op">)</span>, </span>
 <span>                                     domains1 <span class="op">=</span> <span class="st">"condition"</span>, </span>
@@ -646,7 +670,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 </div>
 <p>What relationships do we have between non-standard to standard concepts?</p>
 <div class="cell">
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getRelationshipId.html">getRelationshipId</a></span><span class="op">(</span><span class="va">cdm_mock</span>, </span>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getRelationshipId.html">getRelationshipId</a></span><span class="op">(</span><span class="va">cdm_mock</span>, </span>
 <span>                                     standardConcept1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"standard"</span><span class="op">)</span>,</span>
 <span>                                     standardConcept2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"non-standard"</span><span class="op">)</span>, </span>
 <span>                                     domains1 <span class="op">=</span> <span class="st">"condition"</span>, </span>
@@ -657,7 +681,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 </div>
 </section><section id="drug-dose-forms" class="slide level2"><h2>Drug dose forms</h2>
 <div class="cell">
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDoseForm.html">getDoseForm</a></span><span class="op">(</span><span class="va">cdm_mock</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDoseForm.html">getDoseForm</a></span><span class="op">(</span><span class="va">cdm_mock</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Injection"  "Injectable"</code></pre>
 </div>
@@ -674,7 +698,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 <p>We can use drug hierarchies and relationships to create vocabulary-based codelists.</p>
 </section><section id="drug-ingredients" class="slide level2"><h2>Drug ingredients</h2>
 <div class="cell">
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ingredients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ingredients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDrugIngredientCodes.html">getDrugIngredientCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span>
 <span><span class="va">ingredients</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -693,7 +717,7 @@ along with 81 more codelists</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ingredients</span><span class="op">$</span><span class="va">warfarin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">ingredients</span><span class="op">$</span><span class="va">warfarin</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1]  1310149 40163554</code></pre>
 </div>
@@ -701,23 +725,22 @@ along with 81 more codelists</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">concept</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">concept_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1310149</span>, <span class="fl">40163554</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 10]
-# Database: DuckDB v0.10.3-dev775 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpaGkbYM\file86406c27104a.duckdb]
-  concept_id concept_name               domain_id vocabulary_id concept_class_id
-       &lt;int&gt; &lt;chr&gt;                      &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;           
-1    1310149 Warfarin                   Drug      RxNorm        Ingredient      
-2   40163554 Warfarin Sodium 5 MG Oral… Drug      RxNorm        Clinical Drug   
-# ℹ 5 more variables: standard_concept &lt;chr&gt;, concept_code &lt;chr&gt;,
-#   valid_start_date &lt;date&gt;, valid_end_date &lt;date&gt;, invalid_reason &lt;chr&gt;</code></pre>
+# Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+  concept_id concept_name   domain_id vocabulary_id concept_class_id standard_concept concept_code valid_start_date valid_end_date
+       &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        &lt;date&gt;           &lt;date&gt;        
+1    1310149 Warfarin       Drug      RxNorm        Ingredient       S                11289        1970-01-01       2099-12-31    
+2   40163554 Warfarin Sodi… Drug      RxNorm        Clinical Drug    S                855332       2009-08-02       2099-12-31    
+# ℹ 1 more variable: invalid_reason &lt;chr&gt;</code></pre>
 </div>
 </div>
 </div>
 </section><section id="atc-classifications" class="slide level2"><h2>ATC classifications</h2>
 <div class="cell">
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">atc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getATCCodes.html">getATCCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm_mock</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">atc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getATCCodes.html">getATCCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm_mock</span><span class="op">)</span></span>
 <span><span class="va">atc</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -727,7 +750,7 @@ along with 81 more codelists</code></pre>
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">atc</span><span class="op">$</span><span class="va">alimentary_tract_and_metabolism</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">atc</span><span class="op">$</span><span class="va">alimentary_tract_and_metabolism</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 12 13</code></pre>
 </div>
@@ -735,7 +758,7 @@ along with 81 more codelists</code></pre>
 </div>
 </section><section id="icd10-chapters" class="slide level2"><h2>ICD10 chapters</h2>
 <div class="cell">
-<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">icd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getICD10StandardCodes.html">getICD10StandardCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm_mock</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">icd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getICD10StandardCodes.html">getICD10StandardCodes</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm_mock</span><span class="op">)</span></span>
 <span><span class="va">icd</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -746,7 +769,7 @@ along with 81 more codelists</code></pre>
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">icd</span><span class="op">$</span><span class="va">arthropathies</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">icd</span><span class="op">$</span><span class="va">arthropathies</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3 4 5</code></pre>
 </div>
@@ -776,7 +799,7 @@ along with 81 more codelists</code></pre>
 </div>
 </section><section id="codes-for-asthma" class="slide level2"><h2>Codes for asthma</h2>
 <div class="cell">
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getCandidateCodes.html">getCandidateCodes</a></span><span class="op">(</span>cdm<span class="op">=</span><span class="va">cdm</span>,</span>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getCandidateCodes.html">getCandidateCodes</a></span><span class="op">(</span>cdm<span class="op">=</span><span class="va">cdm</span>,</span>
 <span>                           keywords<span class="op">=</span> <span class="st">"asthma"</span>,</span>
 <span>                           domains <span class="op">=</span> <span class="st">"Condition"</span><span class="op">)</span></span>
 <span><span class="va">asthma_codes</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -794,7 +817,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <p><br></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_cs</span> <span class="op">&lt;-</span> <span class="fu">omopgenerics</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/newCodelist.html">newCodelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"asthma"</span> <span class="op">=</span> <span class="va">asthma_codes</span><span class="op">$</span><span class="va">concept_id</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_cs</span> <span class="op">&lt;-</span> <span class="fu">omopgenerics</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/newCodelist.html">newCodelist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="st">"asthma"</span> <span class="op">=</span> <span class="va">asthma_codes</span><span class="op">$</span><span class="va">concept_id</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">asthma_cs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -806,12 +829,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <p>Using Eunomia data:</p>
 <ol type="1">
 <li class="fragment"><p>Search for codes for sinusitis recorded in the condition domain</p></li>
-<li class="fragment"><p>Do you identify any more codes if you also search in the observation domain</p></li>
+<li class="fragment"><p>Do you identify any more codes if you also search in the observation domain as well as the condition domain</p></li>
 </ol></section></section><section><section id="codelist-diagnostics" class="title-slide slide level1 center"><h1>Codelist diagnostics</h1>
 
 </section><section id="code-counts" class="slide level2"><h2>Code counts</h2>
 <div class="cell">
-<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_code_use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/summariseCodeUse.html">summariseCodeUse</a></span><span class="op">(</span><span class="va">asthma_cs</span>, </span>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">asthma_code_use</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/summariseCodeUse.html">summariseCodeUse</a></span><span class="op">(</span><span class="va">asthma_cs</span>, </span>
 <span>                                    byYear <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                    bySex <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>                                    ageGroup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">17</span><span class="op">)</span>,</span>
@@ -824,23 +847,23 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="sersaykidt" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#sersaykidt table {
+<div id="vgoxgtfbza" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vgoxgtfbza table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#sersaykidt thead, #sersaykidt tbody, #sersaykidt tfoot, #sersaykidt tr, #sersaykidt td, #sersaykidt th {
+#vgoxgtfbza thead, #vgoxgtfbza tbody, #vgoxgtfbza tfoot, #vgoxgtfbza tr, #vgoxgtfbza td, #vgoxgtfbza th {
   border-style: none;
 }
 
-#sersaykidt p {
+#vgoxgtfbza p {
   margin: 0;
   padding: 0;
 }
 
-#sersaykidt .gt_table {
+#vgoxgtfbza .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -866,12 +889,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#sersaykidt .gt_caption {
+#vgoxgtfbza .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#sersaykidt .gt_title {
+#vgoxgtfbza .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -883,7 +906,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#sersaykidt .gt_subtitle {
+#vgoxgtfbza .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -895,7 +918,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#sersaykidt .gt_heading {
+#vgoxgtfbza .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -907,13 +930,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#sersaykidt .gt_bottom_border {
+#vgoxgtfbza .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#sersaykidt .gt_col_headings {
+#vgoxgtfbza .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -928,7 +951,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#sersaykidt .gt_col_heading {
+#vgoxgtfbza .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -948,7 +971,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#sersaykidt .gt_column_spanner_outer {
+#vgoxgtfbza .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -960,15 +983,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#sersaykidt .gt_column_spanner_outer:first-child {
+#vgoxgtfbza .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#sersaykidt .gt_column_spanner_outer:last-child {
+#vgoxgtfbza .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#sersaykidt .gt_column_spanner {
+#vgoxgtfbza .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -980,11 +1003,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#sersaykidt .gt_spanner_row {
+#vgoxgtfbza .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#sersaykidt .gt_group_heading {
+#vgoxgtfbza .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1010,7 +1033,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#sersaykidt .gt_empty_group_heading {
+#vgoxgtfbza .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1025,15 +1048,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#sersaykidt .gt_from_md > :first-child {
+#vgoxgtfbza .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#sersaykidt .gt_from_md > :last-child {
+#vgoxgtfbza .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#sersaykidt .gt_row {
+#vgoxgtfbza .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1052,7 +1075,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#sersaykidt .gt_stub {
+#vgoxgtfbza .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1065,7 +1088,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#sersaykidt .gt_stub_row_group {
+#vgoxgtfbza .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1079,15 +1102,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#sersaykidt .gt_row_group_first td {
+#vgoxgtfbza .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#sersaykidt .gt_row_group_first th {
+#vgoxgtfbza .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#sersaykidt .gt_summary_row {
+#vgoxgtfbza .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1097,16 +1120,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#sersaykidt .gt_first_summary_row {
+#vgoxgtfbza .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#sersaykidt .gt_first_summary_row.thick {
+#vgoxgtfbza .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#sersaykidt .gt_last_summary_row {
+#vgoxgtfbza .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1116,7 +1139,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#sersaykidt .gt_grand_summary_row {
+#vgoxgtfbza .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1126,7 +1149,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#sersaykidt .gt_first_grand_summary_row {
+#vgoxgtfbza .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1136,7 +1159,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#sersaykidt .gt_last_grand_summary_row_top {
+#vgoxgtfbza .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1146,11 +1169,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#sersaykidt .gt_striped {
+#vgoxgtfbza .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#sersaykidt .gt_table_body {
+#vgoxgtfbza .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1159,7 +1182,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#sersaykidt .gt_footnotes {
+#vgoxgtfbza .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1173,7 +1196,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#sersaykidt .gt_footnote {
+#vgoxgtfbza .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1182,7 +1205,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#sersaykidt .gt_sourcenotes {
+#vgoxgtfbza .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1196,7 +1219,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#sersaykidt .gt_sourcenote {
+#vgoxgtfbza .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1204,63 +1227,63 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#sersaykidt .gt_left {
+#vgoxgtfbza .gt_left {
   text-align: left;
 }
 
-#sersaykidt .gt_center {
+#vgoxgtfbza .gt_center {
   text-align: center;
 }
 
-#sersaykidt .gt_right {
+#vgoxgtfbza .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#sersaykidt .gt_font_normal {
+#vgoxgtfbza .gt_font_normal {
   font-weight: normal;
 }
 
-#sersaykidt .gt_font_bold {
+#vgoxgtfbza .gt_font_bold {
   font-weight: bold;
 }
 
-#sersaykidt .gt_font_italic {
+#vgoxgtfbza .gt_font_italic {
   font-style: italic;
 }
 
-#sersaykidt .gt_super {
+#vgoxgtfbza .gt_super {
   font-size: 65%;
 }
 
-#sersaykidt .gt_footnote_marks {
+#vgoxgtfbza .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#sersaykidt .gt_asterisk {
+#vgoxgtfbza .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#sersaykidt .gt_indent_1 {
+#vgoxgtfbza .gt_indent_1 {
   text-indent: 5px;
 }
 
-#sersaykidt .gt_indent_2 {
+#vgoxgtfbza .gt_indent_2 {
   text-indent: 10px;
 }
 
-#sersaykidt .gt_indent_3 {
+#vgoxgtfbza .gt_indent_3 {
   text-indent: 15px;
 }
 
-#sersaykidt .gt_indent_4 {
+#vgoxgtfbza .gt_indent_4 {
   text-indent: 20px;
 }
 
-#sersaykidt .gt_indent_5 {
+#vgoxgtfbza .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1334,28 +1357,28 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </div>
 </section><section id="code-counts-1" class="slide level2"><h2>Code counts</h2>
 <div class="cell">
-<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"year"</span>,</span>
 <span>         <span class="va">strata_level</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2004"</span>, <span class="st">"2005"</span>, <span class="st">"2006"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="vmkzopbwta" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vmkzopbwta table {
+<div id="agqotakpin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#agqotakpin table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vmkzopbwta thead, #vmkzopbwta tbody, #vmkzopbwta tfoot, #vmkzopbwta tr, #vmkzopbwta td, #vmkzopbwta th {
+#agqotakpin thead, #agqotakpin tbody, #agqotakpin tfoot, #agqotakpin tr, #agqotakpin td, #agqotakpin th {
   border-style: none;
 }
 
-#vmkzopbwta p {
+#agqotakpin p {
   margin: 0;
   padding: 0;
 }
 
-#vmkzopbwta .gt_table {
+#agqotakpin .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1381,12 +1404,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_caption {
+#agqotakpin .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vmkzopbwta .gt_title {
+#agqotakpin .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1398,7 +1421,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#vmkzopbwta .gt_subtitle {
+#agqotakpin .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1410,7 +1433,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#vmkzopbwta .gt_heading {
+#agqotakpin .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1422,13 +1445,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_bottom_border {
+#agqotakpin .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_col_headings {
+#agqotakpin .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1443,7 +1466,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_col_heading {
+#agqotakpin .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1463,7 +1486,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#vmkzopbwta .gt_column_spanner_outer {
+#agqotakpin .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1475,15 +1498,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#vmkzopbwta .gt_column_spanner_outer:first-child {
+#agqotakpin .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vmkzopbwta .gt_column_spanner_outer:last-child {
+#agqotakpin .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vmkzopbwta .gt_column_spanner {
+#agqotakpin .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1495,11 +1518,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#vmkzopbwta .gt_spanner_row {
+#agqotakpin .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vmkzopbwta .gt_group_heading {
+#agqotakpin .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1525,7 +1548,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#vmkzopbwta .gt_empty_group_heading {
+#agqotakpin .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1540,15 +1563,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#vmkzopbwta .gt_from_md > :first-child {
+#agqotakpin .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vmkzopbwta .gt_from_md > :last-child {
+#agqotakpin .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vmkzopbwta .gt_row {
+#agqotakpin .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1567,7 +1590,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#vmkzopbwta .gt_stub {
+#agqotakpin .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1580,7 +1603,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vmkzopbwta .gt_stub_row_group {
+#agqotakpin .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1594,15 +1617,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#vmkzopbwta .gt_row_group_first td {
+#agqotakpin .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vmkzopbwta .gt_row_group_first th {
+#agqotakpin .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vmkzopbwta .gt_summary_row {
+#agqotakpin .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1612,16 +1635,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vmkzopbwta .gt_first_summary_row {
+#agqotakpin .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_first_summary_row.thick {
+#agqotakpin .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vmkzopbwta .gt_last_summary_row {
+#agqotakpin .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1631,7 +1654,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_grand_summary_row {
+#agqotakpin .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1641,7 +1664,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vmkzopbwta .gt_first_grand_summary_row {
+#agqotakpin .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1651,7 +1674,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_last_grand_summary_row_top {
+#agqotakpin .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1661,11 +1684,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_striped {
+#agqotakpin .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vmkzopbwta .gt_table_body {
+#agqotakpin .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1674,7 +1697,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_footnotes {
+#agqotakpin .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1688,7 +1711,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_footnote {
+#agqotakpin .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1697,7 +1720,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vmkzopbwta .gt_sourcenotes {
+#agqotakpin .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1711,7 +1734,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vmkzopbwta .gt_sourcenote {
+#agqotakpin .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1719,63 +1742,63 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vmkzopbwta .gt_left {
+#agqotakpin .gt_left {
   text-align: left;
 }
 
-#vmkzopbwta .gt_center {
+#agqotakpin .gt_center {
   text-align: center;
 }
 
-#vmkzopbwta .gt_right {
+#agqotakpin .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vmkzopbwta .gt_font_normal {
+#agqotakpin .gt_font_normal {
   font-weight: normal;
 }
 
-#vmkzopbwta .gt_font_bold {
+#agqotakpin .gt_font_bold {
   font-weight: bold;
 }
 
-#vmkzopbwta .gt_font_italic {
+#agqotakpin .gt_font_italic {
   font-style: italic;
 }
 
-#vmkzopbwta .gt_super {
+#agqotakpin .gt_super {
   font-size: 65%;
 }
 
-#vmkzopbwta .gt_footnote_marks {
+#agqotakpin .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vmkzopbwta .gt_asterisk {
+#agqotakpin .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vmkzopbwta .gt_indent_1 {
+#agqotakpin .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vmkzopbwta .gt_indent_2 {
+#agqotakpin .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vmkzopbwta .gt_indent_3 {
+#agqotakpin .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vmkzopbwta .gt_indent_4 {
+#agqotakpin .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vmkzopbwta .gt_indent_5 {
+#agqotakpin .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1834,7 +1857,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </tr>
 <tr>
 <td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
 <td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
 <td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
 <td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
@@ -1848,7 +1871,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </tr>
 <tr>
 <td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
+<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2006</td>
 <td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
 <td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
 <td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
@@ -1867,27 +1890,27 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </div>
 </section><section id="code-counts-2" class="slide level2"><h2>Code counts</h2>
 <div class="cell">
-<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"age group and sex"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"age_group"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="dtpzuwpkiw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#dtpzuwpkiw table {
+<div id="ennajypsph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ennajypsph table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#dtpzuwpkiw thead, #dtpzuwpkiw tbody, #dtpzuwpkiw tfoot, #dtpzuwpkiw tr, #dtpzuwpkiw td, #dtpzuwpkiw th {
+#ennajypsph thead, #ennajypsph tbody, #ennajypsph tfoot, #ennajypsph tr, #ennajypsph td, #ennajypsph th {
   border-style: none;
 }
 
-#dtpzuwpkiw p {
+#ennajypsph p {
   margin: 0;
   padding: 0;
 }
 
-#dtpzuwpkiw .gt_table {
+#ennajypsph .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1913,12 +1936,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_caption {
+#ennajypsph .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#dtpzuwpkiw .gt_title {
+#ennajypsph .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1930,7 +1953,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#dtpzuwpkiw .gt_subtitle {
+#ennajypsph .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1942,7 +1965,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#dtpzuwpkiw .gt_heading {
+#ennajypsph .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1954,13 +1977,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_bottom_border {
+#ennajypsph .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_col_headings {
+#ennajypsph .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1975,7 +1998,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_col_heading {
+#ennajypsph .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1995,7 +2018,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#dtpzuwpkiw .gt_column_spanner_outer {
+#ennajypsph .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2007,15 +2030,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#dtpzuwpkiw .gt_column_spanner_outer:first-child {
+#ennajypsph .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#dtpzuwpkiw .gt_column_spanner_outer:last-child {
+#ennajypsph .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#dtpzuwpkiw .gt_column_spanner {
+#ennajypsph .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2027,11 +2050,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#dtpzuwpkiw .gt_spanner_row {
+#ennajypsph .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#dtpzuwpkiw .gt_group_heading {
+#ennajypsph .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2057,7 +2080,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#dtpzuwpkiw .gt_empty_group_heading {
+#ennajypsph .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2072,15 +2095,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#dtpzuwpkiw .gt_from_md > :first-child {
+#ennajypsph .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#dtpzuwpkiw .gt_from_md > :last-child {
+#ennajypsph .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#dtpzuwpkiw .gt_row {
+#ennajypsph .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2099,7 +2122,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#dtpzuwpkiw .gt_stub {
+#ennajypsph .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2112,7 +2135,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#dtpzuwpkiw .gt_stub_row_group {
+#ennajypsph .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2126,15 +2149,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#dtpzuwpkiw .gt_row_group_first td {
+#ennajypsph .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#dtpzuwpkiw .gt_row_group_first th {
+#ennajypsph .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#dtpzuwpkiw .gt_summary_row {
+#ennajypsph .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2144,16 +2167,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#dtpzuwpkiw .gt_first_summary_row {
+#ennajypsph .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_first_summary_row.thick {
+#ennajypsph .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#dtpzuwpkiw .gt_last_summary_row {
+#ennajypsph .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2163,7 +2186,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_grand_summary_row {
+#ennajypsph .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2173,7 +2196,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#dtpzuwpkiw .gt_first_grand_summary_row {
+#ennajypsph .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2183,7 +2206,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_last_grand_summary_row_top {
+#ennajypsph .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2193,11 +2216,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_striped {
+#ennajypsph .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#dtpzuwpkiw .gt_table_body {
+#ennajypsph .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2206,7 +2229,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_footnotes {
+#ennajypsph .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2220,7 +2243,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_footnote {
+#ennajypsph .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2229,7 +2252,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#dtpzuwpkiw .gt_sourcenotes {
+#ennajypsph .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2243,7 +2266,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#dtpzuwpkiw .gt_sourcenote {
+#ennajypsph .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2251,106 +2274,183 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#dtpzuwpkiw .gt_left {
+#ennajypsph .gt_left {
   text-align: left;
 }
 
-#dtpzuwpkiw .gt_center {
+#ennajypsph .gt_center {
   text-align: center;
 }
 
-#dtpzuwpkiw .gt_right {
+#ennajypsph .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#dtpzuwpkiw .gt_font_normal {
+#ennajypsph .gt_font_normal {
   font-weight: normal;
 }
 
-#dtpzuwpkiw .gt_font_bold {
+#ennajypsph .gt_font_bold {
   font-weight: bold;
 }
 
-#dtpzuwpkiw .gt_font_italic {
+#ennajypsph .gt_font_italic {
   font-style: italic;
 }
 
-#dtpzuwpkiw .gt_super {
+#ennajypsph .gt_super {
   font-size: 65%;
 }
 
-#dtpzuwpkiw .gt_footnote_marks {
+#ennajypsph .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#dtpzuwpkiw .gt_asterisk {
+#ennajypsph .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#dtpzuwpkiw .gt_indent_1 {
+#ennajypsph .gt_indent_1 {
   text-indent: 5px;
 }
 
-#dtpzuwpkiw .gt_indent_2 {
+#ennajypsph .gt_indent_2 {
   text-indent: 10px;
 }
 
-#dtpzuwpkiw .gt_indent_3 {
+#ennajypsph .gt_indent_3 {
   text-indent: 15px;
 }
 
-#dtpzuwpkiw .gt_indent_4 {
+#ennajypsph .gt_indent_4 {
   text-indent: 20px;
 }
 
-#dtpzuwpkiw .gt_indent_5 {
+#ennajypsph .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead><tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
-    </tr></thead>
-<tbody class="gt_table_body"></tbody>
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="6" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id=""></th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="CDM name">
+        <span class="gt_column_spanner">CDM name</span>
+      </th>
+    </tr>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Codelist name">Codelist name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Age group">Age group</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept name">Source concept name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept id">Source concept id</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="colgroup" id="Synthea synthetic health database">
+        <span class="gt_column_spanner">Synthea synthetic health database</span>
+      </th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Record count">Record count</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Person count">Person count</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="Codelist name" class="gt_row gt_left" style="text-align: left;">Asthma</td>
+<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
+<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Person count" class="gt_row gt_right" style="text-align: right;">96</td>
+</tr>
+<tr>
+<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18 to 65</td>
+<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Person count" class="gt_row gt_right" style="text-align: right;">5</td>
+</tr>
+<tr>
+<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
+<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Person count" class="gt_row gt_right" style="text-align: right;">96</td>
+</tr>
+<tr>
+<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18 to 65</td>
+<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
+<td headers="[header]CDM name
+[header_level]Synthea synthetic health database
+[header_level]Person count" class="gt_row gt_right" style="text-align: right;">5</td>
+</tr>
+</tbody>
 </table>
 </div>
 </div>
 </div>
 </section><section id="code-counts-using-achilles" class="slide level2"><h2>Code counts using achilles</h2>
+<p>We’ll get an error if we try to use achilles tables as we don’t have them in our cdm object.</p>
 <div class="cell">
-<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/summariseAchillesCodeUse.html">summariseAchillesCodeUse</a></span><span class="op">(</span><span class="va">asthma_cs</span>, cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/summariseAchillesCodeUse.html">summariseAchillesCodeUse</a></span><span class="op">(</span><span class="va">asthma_cs</span>, cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section><section id="orphan-concepts" class="slide level2"><h2>Orphan concepts</h2>
 <div class="cell">
-<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_asthma_cs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>asthma <span class="op">=</span> <span class="fl">317009</span><span class="op">)</span> <span class="co"># only </span></span>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">my_asthma_cs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>asthma <span class="op">=</span> <span class="fl">317009</span><span class="op">)</span> <span class="co"># only </span></span>
 <span><span class="va">asthma_orphan_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/summariseOrphanCodes.html">summariseOrphanCodes</a></span><span class="op">(</span><span class="va">my_asthma_cs</span>, </span>
 <span>                                            cdm <span class="op">=</span> <span class="va">cdm</span>,</span>
 <span>                                            domains <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"condition"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableOrphanCodes.html">tableOrphanCodes</a></span><span class="op">(</span><span class="va">asthma_orphan_codes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="tnrttdlmkp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tnrttdlmkp table {
+<div id="blyfuvzjpj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#blyfuvzjpj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tnrttdlmkp thead, #tnrttdlmkp tbody, #tnrttdlmkp tfoot, #tnrttdlmkp tr, #tnrttdlmkp td, #tnrttdlmkp th {
+#blyfuvzjpj thead, #blyfuvzjpj tbody, #blyfuvzjpj tfoot, #blyfuvzjpj tr, #blyfuvzjpj td, #blyfuvzjpj th {
   border-style: none;
 }
 
-#tnrttdlmkp p {
+#blyfuvzjpj p {
   margin: 0;
   padding: 0;
 }
 
-#tnrttdlmkp .gt_table {
+#blyfuvzjpj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2376,12 +2476,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_caption {
+#blyfuvzjpj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tnrttdlmkp .gt_title {
+#blyfuvzjpj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2393,7 +2493,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#tnrttdlmkp .gt_subtitle {
+#blyfuvzjpj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2405,7 +2505,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#tnrttdlmkp .gt_heading {
+#blyfuvzjpj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2417,13 +2517,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_bottom_border {
+#blyfuvzjpj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_col_headings {
+#blyfuvzjpj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2438,7 +2538,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_col_heading {
+#blyfuvzjpj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2458,7 +2558,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#tnrttdlmkp .gt_column_spanner_outer {
+#blyfuvzjpj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2470,15 +2570,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#tnrttdlmkp .gt_column_spanner_outer:first-child {
+#blyfuvzjpj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tnrttdlmkp .gt_column_spanner_outer:last-child {
+#blyfuvzjpj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tnrttdlmkp .gt_column_spanner {
+#blyfuvzjpj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2490,11 +2590,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#tnrttdlmkp .gt_spanner_row {
+#blyfuvzjpj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tnrttdlmkp .gt_group_heading {
+#blyfuvzjpj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2520,7 +2620,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#tnrttdlmkp .gt_empty_group_heading {
+#blyfuvzjpj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2535,15 +2635,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#tnrttdlmkp .gt_from_md > :first-child {
+#blyfuvzjpj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tnrttdlmkp .gt_from_md > :last-child {
+#blyfuvzjpj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tnrttdlmkp .gt_row {
+#blyfuvzjpj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2562,7 +2662,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#tnrttdlmkp .gt_stub {
+#blyfuvzjpj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2575,7 +2675,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#tnrttdlmkp .gt_stub_row_group {
+#blyfuvzjpj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2589,15 +2689,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#tnrttdlmkp .gt_row_group_first td {
+#blyfuvzjpj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tnrttdlmkp .gt_row_group_first th {
+#blyfuvzjpj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tnrttdlmkp .gt_summary_row {
+#blyfuvzjpj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2607,16 +2707,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#tnrttdlmkp .gt_first_summary_row {
+#blyfuvzjpj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_first_summary_row.thick {
+#blyfuvzjpj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tnrttdlmkp .gt_last_summary_row {
+#blyfuvzjpj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2626,7 +2726,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_grand_summary_row {
+#blyfuvzjpj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2636,7 +2736,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#tnrttdlmkp .gt_first_grand_summary_row {
+#blyfuvzjpj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2646,7 +2746,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_last_grand_summary_row_top {
+#blyfuvzjpj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2656,11 +2756,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_striped {
+#blyfuvzjpj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tnrttdlmkp .gt_table_body {
+#blyfuvzjpj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2669,7 +2769,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_footnotes {
+#blyfuvzjpj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2683,7 +2783,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_footnote {
+#blyfuvzjpj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2692,7 +2792,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#tnrttdlmkp .gt_sourcenotes {
+#blyfuvzjpj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2706,7 +2806,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#tnrttdlmkp .gt_sourcenote {
+#blyfuvzjpj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2714,63 +2814,63 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#tnrttdlmkp .gt_left {
+#blyfuvzjpj .gt_left {
   text-align: left;
 }
 
-#tnrttdlmkp .gt_center {
+#blyfuvzjpj .gt_center {
   text-align: center;
 }
 
-#tnrttdlmkp .gt_right {
+#blyfuvzjpj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tnrttdlmkp .gt_font_normal {
+#blyfuvzjpj .gt_font_normal {
   font-weight: normal;
 }
 
-#tnrttdlmkp .gt_font_bold {
+#blyfuvzjpj .gt_font_bold {
   font-weight: bold;
 }
 
-#tnrttdlmkp .gt_font_italic {
+#blyfuvzjpj .gt_font_italic {
   font-style: italic;
 }
 
-#tnrttdlmkp .gt_super {
+#blyfuvzjpj .gt_super {
   font-size: 65%;
 }
 
-#tnrttdlmkp .gt_footnote_marks {
+#blyfuvzjpj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tnrttdlmkp .gt_asterisk {
+#blyfuvzjpj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tnrttdlmkp .gt_indent_1 {
+#blyfuvzjpj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tnrttdlmkp .gt_indent_2 {
+#blyfuvzjpj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tnrttdlmkp .gt_indent_3 {
+#blyfuvzjpj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tnrttdlmkp .gt_indent_4 {
+#blyfuvzjpj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tnrttdlmkp .gt_indent_5 {
+#blyfuvzjpj .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2817,14 +2917,63 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </section><section id="your-turn-3" class="slide level2"><h2>Your turn</h2>
 <p>Using Eunomia data:</p>
 <ol type="1">
-<li class="fragment"><p>Identify codes for concussion</p></li>
+<li class="fragment"><p>Identify codes for appendicitis from the condition domain</p></li>
 <li class="fragment"><p>Get a count of the usage of these codes</p></li>
 <li class="fragment"><p>Search for orphan concepts related to your concussion codes</p></li>
-</ol>
+<li class="fragment"><p>Add the orphan code to your codelist for appendicitis and re-run the count of code use. Does including the orphan code change your results?</p></li>
+</ol></section></section><section id="section" class="title-slide slide level1 end-slide center"><h1></h1>
+<div style="margin-bottom: 25px;">
+
+</div>
+<div style="margin-bottom: 25px;">
+
+</div>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><img data-src="images/hexsticker.png" style="right: 50%; top: 50%; height: 500; fig-align: center"></p>
+</div><div class="column" style="width:65%;">
+<div style="margin-top: 135px;">
+
+</div>
+<p><span style="font-size: 100px;"><strong>CodelistGenerator</strong></span></p>
+<div style="margin-bottom: 25px;">
+
+</div>
+<p><span style="font-size: 60px; text-align: left; color: grey"><strong>Thank you for your attention!</strong></span></p>
+<div style="margin-bottom: 25px;">
+
+</div>
+<div class="columns">
+<div class="column" style="width:22%;">
+<div style="margin-bottom: 25px;">
+
+</div>
+<p><a href="https://cran.r-project.org/package=CodelistGenerator" style="color: #3a6ea5; text-decoration: underline;"><strong>CRAN</strong></a></p>
+</div><div class="column" style="width:22%;">
+<div style="margin-bottom: 25px;">
+
+</div>
+<p><a href="https://cran.r-project.org/web/packages/CodelistGenerator/CodelistGenerator.pdf" style="color: #3a6ea5; text-decoration: underline; text-align:center"><strong>Manual</strong></a></p>
+</div><div class="column" style="width:22%;">
+<div style="margin-bottom: 25px;">
+
+</div>
+<p><a href="https://github.com/darwin-eu/CodelistGenerator" style="color: #3a6ea5; text-decoration: underline; text-align:center"><strong>GitHub</strong></a></p>
+</div><div class="column" style="width:22%;">
+<div style="margin-bottom: 25px;">
+
+</div>
+<p><a href="https://darwin-eu.github.io/CodelistGenerator/" style="color: #3a6ea5; text-decoration: underline; text-align:center"><strong>Website</strong></a></p>
+</div><div class="column" style="width:1.2%;">
+
+</div>
+</div>
+</div>
+</div>
 <div class="footer footer-default">
 
 </div>
-</section></section>
+</section>
 </div>
   </div>
 
@@ -2992,7 +3141,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
         height: 900,
 
         // Factor of the display size that should remain empty around the content
-        margin: 7.0e-2,
+        margin: 0.18,
 
         math: {
           mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js',

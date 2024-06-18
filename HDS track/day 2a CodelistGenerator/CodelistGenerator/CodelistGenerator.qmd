@@ -2,12 +2,12 @@
 title: "CodelistGenerator"
 format:
   revealjs: 
-    theme: [simple, custom_1.scss]
+    theme: [simple, styleSS24.scss]
     incremental: true   
     slide-number: true
     chalkboard: true
     preview-links: auto
-    margin: 0.07
+    margin: 0.18
     code-link: true
     code-line-numbers: false
     height: 900
@@ -17,8 +17,25 @@ execute:
   eval: true
   output: true
   include: true
+  output-width: 100%
 editor: visual
 ---
+
+
+# CodelistGenerator {.title-slide}
+
+```{r, echo=FALSE}
+options(width = 130)
+```
+
+::: {style="margin-top: 25px;"}
+:::
+
+Working with the OMOP CDM vocabulary tables
+
+::: title-slide-logos
+<img src="images/hexsticker.png" alt="Logo 1" class="logo"/> <img src="images/logoHDS.png" alt="Logo 2" class="logo"/>
+:::
 
 # Reference to the CDM vocabulary tables
 
@@ -39,19 +56,9 @@ cdm <- cdm_from_con(
 )
 ```
 
-```{r}
+```{r, message=TRUE}
 cdm
 ```
-
-## CodelistGenerator
-
-Stable version available on CRAN
-
-```{r, eval=FALSE}
-install.packages("CodelistGenerator")
-```
-
-Package website can be found at <https://darwin-eu.github.io/CodelistGenerator/>
 
 ## Reference to the CDM vocabulary tables
 
@@ -65,7 +72,7 @@ cdm$concept %>% tally() %>% pull()
 
 We'll create a mock to show some of the functions where Eunomia won't work because of its partial vocabularies
 
-```{r}
+```{r, message = FALSE}
 library(CodelistGenerator)
 cdm_mock <- mockVocabRef()
 cdm_mock
@@ -341,7 +348,7 @@ Using Eunomia data:
 
 1.  Search for codes for sinusitis recorded in the condition domain
 
-2.  Do you identify any more codes if you also search in the observation domain
+2.  Do you identify any more codes if you also search in the observation domain as well as the condition domain
 
 # Codelist diagnostics
 
@@ -373,11 +380,12 @@ tableCodeUse(asthma_code_use |>
 
 ```{r}
 tableCodeUse(asthma_code_use |> 
-               filter(strata_name == "age group and sex"))
+               filter(strata_name == "age_group"))
 ```
 
 ## Code counts using achilles
 
+We'll get an error if we try to use achilles tables as we don't have them in our cdm object.
 ```{r, eval=FALSE}
 summariseAchillesCodeUse(asthma_cs, cdm = cdm)
 ```
@@ -396,8 +404,73 @@ tableOrphanCodes(asthma_orphan_codes)
 
 Using Eunomia data:
 
-1.  Identify codes for concussion
+1.  Identify codes for appendicitis from the condition domain
 
 2.  Get a count of the usage of these codes
 
 3.  Search for orphan concepts related to your concussion codes
+
+4. Add the orphan code to your codelist for appendicitis and re-run the count of code use. Does including the orphan code change your results?
+
+
+#  {.end-slide}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="35%"}
+![](images/hexsticker.png){style="right: 50%; top: 50%; height: 500; fig-align: center"}
+:::
+
+::: {.column width="65%"}
+::: {style="margin-top: 135px;"}
+:::
+
+[**CodelistGenerator**]{style="font-size: 100px;"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Thank you for your attention!**]{style="font-size: 60px; text-align: left; color: grey"}
+
+::: {style="margin-bottom: 25px;"}
+:::
+
+::: columns
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**CRAN**](https://cran.r-project.org/package=CodelistGenerator){style="color: #3a6ea5; text-decoration: underline;"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Manual**](https://cran.r-project.org/web/packages/CodelistGenerator/CodelistGenerator.pdf){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**GitHub**](https://github.com/darwin-eu/CodelistGenerator){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="22%"}
+::: {style="margin-bottom: 25px;"}
+:::
+
+[**Website**](https://darwin-eu.github.io/CodelistGenerator/){style="color: #3a6ea5; text-decoration: underline; text-align:center"}
+:::
+
+::: {.column width="1.2%"}
+:::
+:::
+:::
+:::
