@@ -27,10 +27,10 @@ https://dpa-pde-oxford.quarto.pub/codelistgenerator/
 ### CohortConstructor
 https://dpa-pde-oxford.quarto.pub/cohortconstructorss24/
 
+## Day 3
+
 ### CohortCharacteristics Part 1
 https://dpa-pde-oxford.quarto.pub/cohortcharacteristics-part1
-
-## Day 3
 
 ### PatientProfiles
 https://dpa-pde-oxford.quarto.pub/patientprofiles-summer-school
