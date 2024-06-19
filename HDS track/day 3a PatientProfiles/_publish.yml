@@ -1,7 +1,7 @@
 - source: training.qmd
   quarto-pub:
     - id: b676751e-7295-4c2b-bc02-3179dcf02a09
-      url: 'https://dpa-pde-oxford.quarto.pub/patientprofiles-summer-school'
+      url: 'https://quartopub.com/sites/dpa-pde-oxford/patientprofiles-summer-school'
 - source: cohortcharacteristics.qmd
   quarto-pub:
     - id: 51a241f3-2888-4be0-9813-21ad57d4da2e

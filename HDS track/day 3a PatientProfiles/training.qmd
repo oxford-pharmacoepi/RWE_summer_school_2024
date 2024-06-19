@@ -30,9 +30,6 @@ editor: visual
 options("width"=130)
 ```
 
-
-
-
 ## Let's get started
 
 [Posit cloud](https://posit.cloud/spaces/511957/join?access_code=dD2iGaxdb1_cmAIZkrfrSc3AZGGMRXAbYaK921lv)
@@ -144,8 +141,6 @@ attrition(cdm$sinusitis)
 
 -   To summarise tables and put it in to summarseResults format.
 
-
-
 ## addAge()
 
 ```{r, eval = FALSE}
@@ -167,8 +162,8 @@ cdm$sinusitis |>
   addAge(
     indexDate = "cohort_start_date", 
     ageName = "age", 
-    ageDefaultMonth = 1, 
-    ageDefaultDay = 1, 
+    ageMissingMonth = 1, 
+    ageMissingDay = 1, 
     ageImposeMonth = FALSE, 
     ageImposeDay = FALSE, 
     missingAgeGroupValue = "None"
@@ -238,11 +233,11 @@ For each cohort in the sinusitis table, can you find out have many subject are a
 
 ## Solution
 
-
 ```{r}
 cdm$sinusitis |> addSex() |> addAge() |> filter(age >= 18 & sex == "Male") |> 
   group_by(cohort_definition_id) |> summarise(count = n())
 ```
+
 ## addPriorObservation()
 
 ```{r, echo = F}
@@ -510,7 +505,6 @@ cdm$sinusitis |>
 Can you find out number of record with prior observation greater than 365 days in condition occurrence table using condition_start_date as index date?
 
 ## Solution
-
 
 ```{r}
 cdm$condition_occurrence |> 
@@ -993,10 +987,10 @@ cdm$sinusitis |>
 
 -   Can you get the mean count of the prescriptions (from drug exposure table) for patients with cohort_definition_id 2 in the sinusitis table?
 
-
 -   Can you get the mean prior history for each cohort definition in the sinusitis table that has an inflection (from conditions table) any time prior they had sinusitis?
 
 ## Solution
+
 ```{r}
 cdm$sinusitis |>
   addTableIntersectCount(
@@ -1007,7 +1001,9 @@ cdm$sinusitis |>
   ) |> filter(cohort_definition_id == 2) |> summarise(mean_prescription = mean(number_prescriptions))
 
 ```
+
 ## Solution
+
 ```{r}
 cdm$sinusitis |>
   addCohortIntersectFlag(
@@ -1021,8 +1017,6 @@ cdm$sinusitis |>
   summarise(mean_prior_history = mean(prior_observation))
 
 ```
-
-
 
 ## Summarise data
 
