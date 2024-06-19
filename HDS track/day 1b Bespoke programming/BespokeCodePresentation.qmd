@@ -591,11 +591,11 @@ table3 |>
 
 -   Which are the individuals with more and less records in measurement table?
 
-    -   obtain counts from measurement 
+    -   obtain counts from measurement
 
     -   join measurement to person table
 
-    -   sum all
+    -   correct 0
 
     -   filter
 
@@ -659,9 +659,9 @@ cdm$condition_occurrence |>
 
 -   Which is the ingredient with more records?
 
-    -   found ingredients (concept_class_id == "Ingredient" in cdm$concept)
+    -   found ingredients (concept_class_id == "Ingredient" in cdm\$concept)
 
-    -   find descendants of all ingredients (see cdm$concept_acenstor)
+    -   find descendants of all ingredients (see cdm\$concept_acenstor)
 
     -   inner join with drug_exposure
 

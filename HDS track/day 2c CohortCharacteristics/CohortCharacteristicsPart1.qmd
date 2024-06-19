@@ -3,7 +3,7 @@ title: "CohortCharacteristics"
 subtitle: "Part 1: Counts, Attrition, Overlap, Timing"
 format:
   revealjs: 
-    theme: [simple, custom_1.scss]
+    theme: [simple, styleSS24.scss]
     incremental: true   
     slide-number: true
     chalkboard: true
@@ -13,6 +13,7 @@ format:
     code-line-numbers: false
     height: 900
     width: 1600
+    footer: "Oxford Summer School 2024"
 execute:
   echo: true
   eval: true
@@ -22,8 +23,9 @@ editor: visual
 ## Context
 
 ```{r, echo = FALSE}
-options(width = 130)
+options(width = 120)
 ```
+
 . . .
 
 This package aims to standardise and provide the tools to conduct Characterisation studies as of the Darwin-EU Catalogue of Standard Analytics.
@@ -53,7 +55,6 @@ This package aims to standardise and provide the tools to conduct Characterisati
 -   [**summariseCohortOverlap**](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCohortOverlap.html)
 
 -   [**summariseCohortTiming**](https://darwin-eu-dev.github.io/PatientProfiles/reference/summariseCohortTiming.html)
-
 
 ## Workflow
 
@@ -212,7 +213,7 @@ myTable <- cdm$sinusitis |>
   tableCohortCount(header = c("group"), groupColumn = "sex")
 ```
 
-. . . 
+. . .
 
 ```{r, eval=FALSE}
 library(gt)
@@ -271,29 +272,15 @@ cdm$sinusitis |>
 
 Can you create a cohort with the following attrition?
 
-- all records of sinusitis (4294548, 40481087, 257012)
+-   all records of sinusitis (4294548, 40481087, 257012)
 
-- only first record per person (requi)
+-   only first record per person (requireIsFirstEntry)
 
-- restrict to female individuals
+-   restrict to female individuals (requireSex)
 
-- restrict to children between 5 and 12 years old
+-   restrict to children between 5 and 12 years old (requireAge)
 
-- plot attrition
-
-## Your turn
-
-Can you create a cohort with the following attrition?
-
-- all records of sinusitis (4294548, 40481087, 257012)
-
-- only first record per person (requireIsFirstEntry)
-
-- restrict to female individuals (requireSex)
-
-- restrict to children between 5 and 12 years old (requireAge)
-
-- plot attrition (summariseCohortAttrition + plotCohortAttrition)
+-   plot attrition (summariseCohortAttrition + plotCohortAttrition)
 
 ## Your turn
 
@@ -307,7 +294,6 @@ cdm$my_cohort |>
   summariseCohortAttrition() |>
   plotCohortAttrition()
 ```
-
 
 ## summariseCohortOverlap
 
@@ -341,23 +327,13 @@ plotCohortOverlap(result)
 
 ## Your turn
 
-Create 3 drug cohorts from these 5:
-- aspirin
-- acetaminophen
-- naproxen
-- amoxicillin
-- ibuprofen
+Create 3 drug cohorts from these 5: - aspirin - acetaminophen - naproxen - amoxicillin - ibuprofen
 
 Identify the subject overlap between them
 
 ## Your turn
 
-Create 3 drug cohorts from these 5:
-- aspirin
-- acetaminophen
-- naproxen
-- amoxicillin
-- ibuprofen
+Create 3 drug cohorts from these 5: - aspirin - acetaminophen - naproxen - amoxicillin - ibuprofen
 
 *Remember there is a function in CodelistGenerator::getDrugIngredientCodes*
 
@@ -502,7 +478,7 @@ cdm$my_cohort |>
 ::: {style="margin-top: 135px;"}
 :::
 
-[**PackageName**]{style="font-size: 100px;"}
+[**CohortCharacteristics**]{style="font-size: 100px;"}
 
 ::: {style="margin-bottom: 25px;"}
 :::

@@ -8,7 +8,7 @@
 <link href="BespokeCodePresentation_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="BespokeCodePresentation_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.335">
 <title>Bespoke code</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -388,8 +388,12 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center"><h1 class="title">Bespoke code</h1>
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">Bespoke code</h1>
   <p class="subtitle">Writing R code for OMOP CDM</p>
+
+<div class="quarto-title-authors">
+</div>
+
 </section><section id="introduction" class="slide level2"><h2>Introduction</h2>
 
 <img data-src="R_logo.png" class="center r-stretch"><ul>
@@ -486,7 +490,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
       n
   &lt;dbl&gt;
 1  2694</code></pre>
@@ -499,7 +503,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
       n
   &lt;dbl&gt;
 1  2694</code></pre>
@@ -517,7 +521,7 @@
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    year_of_birth     n
            &lt;int&gt; &lt;dbl&gt;
  1          1908     2
@@ -647,7 +651,7 @@
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 16
-Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
 $ condition_occurrence_id       &lt;int&gt; 4483, 4657, 4815, 4981, 5153, 5313, 5513…
 $ person_id                     &lt;int&gt; 263, 273, 283, 293, 304, 312, 326, 334, …
 $ condition_concept_id          &lt;int&gt; 4112343, 192671, 28060, 378001, 257012, …
@@ -675,7 +679,7 @@ $ condition_status_source_value &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, 
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 16
-Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
 $ condition_occurrence_id       &lt;int&gt; 4483, 4657, 4815, 4981, 5153, 5313, 5513…
 $ person_id                     &lt;int&gt; 263, 273, 283, 293, 304, 312, 326, 334, …
 $ concept_id                    &lt;int&gt; 4112343, 192671, 28060, 378001, 257012, …
@@ -705,7 +709,7 @@ $ condition_status_source_value &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, 
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"condition_concept_id"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    condition_concept_id
                   &lt;int&gt;
  1              4112343
@@ -728,7 +732,7 @@ $ condition_status_source_value &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, 
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="st">"concept_id"</span> <span class="op">=</span> <span class="st">"condition_concept_id"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    concept_id
         &lt;int&gt;
  1    4112343
@@ -756,19 +760,19 @@ $ condition_status_source_value &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, 
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html">distinct</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 1]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    condition_concept_id
                   &lt;int&gt;
- 1               372328
- 2               140673
- 3              4027663
- 4              4278672
- 5             40479422
- 6              4310024
- 7              4048695
- 8              4280726
- 9             40479768
-10              4156265
+ 1             40479768
+ 2              4156265
+ 3              4218389
+ 4              4035415
+ 5              4285898
+ 6              4266809
+ 7               133834
+ 8             40486433
+ 9               198809
+10               380378
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -876,7 +880,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    condition_concept_id number_counts_counts
                   &lt;int&gt;                &lt;dbl&gt;
  1             40479768                   80
@@ -903,19 +907,19 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 3]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    condition_concept_id number_counts_counts number_distinct_people
                   &lt;int&gt;                &lt;dbl&gt;                  &lt;dbl&gt;
- 1             40479768                   80                     80
- 2              4156265                  497                    459
- 3              4218389                  825                    708
- 4              4035415                   83                     82
- 5              4285898                  380                    380
- 6              4266809                  405                    405
- 7               133834                   54                     54
- 8             40486433                   64                     64
- 9               198809                   35                     35
-10               380378                   30                     30
+ 1               372328                 3605                   2025
+ 2             40479768                   80                     80
+ 3              4156265                  497                    459
+ 4              4218389                  825                    708
+ 5              4035415                   83                     82
+ 6              4285898                  380                    380
+ 7              4266809                  405                    405
+ 8               133834                   54                     54
+ 9             40486433                   64                     64
+10               198809                   35                     35
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -931,7 +935,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 5]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    condition_concept_id number_counts_counts number_distinct_people median_time
                   &lt;int&gt;                &lt;dbl&gt;                  &lt;dbl&gt; &lt;date&gt;     
  1             40479768                   80                     80 1984-01-28 
@@ -959,7 +963,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">person_id</span>,<span class="va">age</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    person_id   age
        &lt;int&gt; &lt;dbl&gt;
  1         6    59
@@ -988,7 +992,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">age</span> <span class="op">==</span> <span class="fl">55</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    person_id   age
        &lt;int&gt; &lt;dbl&gt;
  1        65    55
@@ -1018,7 +1022,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">number_records</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">number_records</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 2]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
   person_id number_records
       &lt;int&gt;          &lt;dbl&gt;
 1      1658             65</code></pre>
@@ -1248,7 +1252,7 @@ GROUP BY condition_concept_id</code></pre>
 <ul>
 <li class="fragment"><p>obtain counts from measurement</p></li>
 <li class="fragment"><p>join measurement to person table</p></li>
-<li class="fragment"><p>sum all</p></li>
+<li class="fragment"><p>correct 0</p></li>
 <li class="fragment"><p>filter</p></li>
 </ul>
 </li>
@@ -1310,7 +1314,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="st">"birth_datetime"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 4]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    person_id condition_concept_id condition_start_date   age
        &lt;int&gt;                &lt;int&gt; &lt;date&gt;               &lt;dbl&gt;
  1       263              4112343 2015-10-02              61
@@ -1357,7 +1361,7 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">number_records</span> <span class="op">==</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">number_records</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [1 x 3]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
   ingredient_concept_id ingredient_name number_records
                   &lt;int&gt; &lt;chr&gt;                    &lt;dbl&gt;
 1               1125315 Acetaminophen            14205</code></pre>
@@ -1378,7 +1382,7 @@ GROUP BY condition_concept_id</code></pre>
 <span><span class="va">table5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [?? x 22]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    person_id gender_concept_id year_of_birth month_of_birth day_of_birth
        &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt;
  1         6              8532          1963             12           31
@@ -1407,8 +1411,8 @@ GROUP BY condition_concept_id</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/compute.html">compute</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">table6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># Source:   table&lt;og_001_1718354477&gt; [?? x 22]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpQZdRcE\file4b9845595f7b.duckdb]
+<pre><code># Source:   table&lt;og_001_1718621270&gt; [?? x 22]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpC88IUP\file764435e9ef.duckdb]
    person_id gender_concept_id year_of_birth month_of_birth day_of_birth
        &lt;int&gt;             &lt;int&gt;         &lt;int&gt;          &lt;int&gt;        &lt;int&gt;
  1         6              8532          1963             12           31
@@ -2063,12 +2067,15 @@ GROUP BY condition_concept_id</code></pre>
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -2079,13 +2086,6 @@ GROUP BY condition_concept_id</code></pre>
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -2135,7 +2135,24 @@ GROUP BY condition_concept_id</code></pre>
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -2173,24 +2190,42 @@ GROUP BY condition_concept_id</code></pre>
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

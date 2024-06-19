@@ -8,7 +8,7 @@
 <link href="CohortCharacteristicsPart1_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="CohortCharacteristicsPart1_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.189">
+<meta name="generator" content="quarto-1.2.335">
 <title>CohortCharacteristics</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -383,15 +383,20 @@
       margin-right: 0; 
     }
   </style>
-<script src="CohortCharacteristicsPart1_files/libs/htmlwidgets-1.6.3/htmlwidgets.js"></script><script src="CohortCharacteristicsPart1_files/libs/viz-1.8.2/viz.js"></script><link href="CohortCharacteristicsPart1_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="CohortCharacteristicsPart1_files/libs/grViz-binding-1.0.9/grViz.js"></script><script src="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid.min.js"></script><script src="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid-init.js"></script><link href="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid.min.js"></script><script src="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid-init.js"></script><link href="CohortCharacteristicsPart1_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<script src="CohortCharacteristicsPart1_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script><script src="CohortCharacteristicsPart1_files/libs/viz-1.8.2/viz.js"></script><link href="CohortCharacteristicsPart1_files/libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="CohortCharacteristicsPart1_files/libs/grViz-binding-1.0.10/grViz.js"></script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center"><h1 class="title">CohortCharacteristics</h1>
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">CohortCharacteristics</h1>
   <p class="subtitle">Part 1: Counts, Attrition, Overlap, Timing</p>
+
+<div class="quarto-title-authors">
+</div>
+
 </section><section id="context" class="slide level2"><h2>Context</h2>
 <div class="cell">
 
@@ -451,7 +456,7 @@
 <p>
 
 </p>
-<pre class="mermaid" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
+<pre class="mermaid mermaid-js" data-tooltip-selector="#mermaid-tooltip-1">flowchart LR
   A[summarise function ] --&gt; B[Plot function ]
   A --&gt; C[Table function ]
 </pre>
@@ -479,14 +484,14 @@
 <pre><code></code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
-<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ────────────────────────────────────────────────────────────</code></pre>
+<pre><code>── # OMOP CDM reference (duckdb) of Synthea synthetic health database ──────────────────────────────────────────────────</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• omop tables: person, observation_period, visit_occurrence, visit_detail, condition_occurrence, drug_exposure,
-procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship, location,
-care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source, concept, vocabulary,
-domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor, source_to_concept_map,
-drug_strength</code></pre>
+procedure_occurrence, device_exposure, measurement, observation, death, note, note_nlp, specimen, fact_relationship,
+location, care_site, provider, payer_plan_period, cost, drug_era, dose_era, condition_era, metadata, cdm_source,
+concept, vocabulary, domain, concept_class, concept_relationship, relationship, concept_synonym, concept_ancestor,
+source_to_concept_map, drug_strength</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
 <pre><code>• cohort tables: -</code></pre>
@@ -522,19 +527,19 @@ drug_strength</code></pre>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   table&lt;main.sinusitis&gt; [?? x 4]
-# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.1/C:\Users\martics\AppData\Local\Temp\RtmpA9nlMq\file339c17f1348d.duckdb]
+# Database: DuckDB v0.10.0 [martics@Windows 10 x64:R 4.2.3/C:\Users\martics\AppData\Local\Temp\RtmpmK59Vq\file1230308c511b.duckdb]
    cohort_definition_id subject_id cohort_start_date cohort_end_date
                   &lt;int&gt;      &lt;int&gt; &lt;date&gt;            &lt;date&gt;         
- 1                    1       5277 1969-02-19        1969-03-12     
- 2                    2        105 1978-12-08        1978-12-15     
- 3                    2       1439 1996-10-25        1996-11-08     
- 4                    2       1947 1985-04-30        1985-05-21     
- 5                    2       3168 2015-10-30        2015-11-13     
- 6                    2       3227 2013-12-25        2014-01-15     
- 7                    2       3311 1986-09-21        1986-10-12     
- 8                    2       3432 1954-09-08        1954-09-15     
- 9                    2       4124 1983-11-23        1983-12-14     
-10                    2       4530 2016-10-03        2016-10-24     
+ 1                    2        800 1970-12-08        1970-12-22     
+ 2                    2        857 1997-08-22        1997-08-29     
+ 3                    2       1390 1974-12-21        1975-01-11     
+ 4                    2       1658 1951-05-31        1951-06-07     
+ 5                    2       2077 2012-01-14        2012-02-04     
+ 6                    2       2319 1963-01-10        1963-01-24     
+ 7                    2       2821 1920-07-07        1920-07-14     
+ 8                    2       2903 1979-12-26        1980-01-09     
+ 9                    2       2989 1974-10-26        1974-11-02     
+10                    2       4639 1992-05-28        1992-06-11     
 # ℹ more rows</code></pre>
 </div>
 </div>
@@ -582,16 +587,16 @@ drug_strength</code></pre>
 <pre><code>Rows: 8
 Columns: 13
 $ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1
-$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic health dat…
-$ group_name       &lt;chr&gt; "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name"…
-$ group_level      &lt;chr&gt; "chronic_sinusitis", "viral_sinusitis", "any_sinusitis", "bacterial_sinusitis", "any_sinusitis", "chron…
+$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic …
+$ group_name       &lt;chr&gt; "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "co…
+$ group_level      &lt;chr&gt; "any_sinusitis", "chronic_sinusitis", "viral_sinusitis", "bacterial_sinusitis", "bacterial_si…
 $ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall"
 $ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall"
-$ variable_name    &lt;chr&gt; "Number records", "Number records", "Number records", "Number records", "Number subjects", "Number subj…
+$ variable_name    &lt;chr&gt; "Number records", "Number records", "Number records", "Number records", "Number subjects", "N…
 $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA
 $ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count"
 $ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer"
-$ estimate_value   &lt;chr&gt; "825", "17268", "18629", "939", "2688", "812", "786", "2686"
+$ estimate_value   &lt;chr&gt; "18629", "825", "17268", "939", "786", "2686", "812", "2688"
 $ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall"
 $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall"</code></pre>
 </div>
@@ -613,23 +618,23 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 </div>
 <div class="cell-output-display">
 
-<div id="hzzvnswigy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hzzvnswigy table {
+<div id="agljipmwmq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#agljipmwmq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hzzvnswigy thead, #hzzvnswigy tbody, #hzzvnswigy tfoot, #hzzvnswigy tr, #hzzvnswigy td, #hzzvnswigy th {
+#agljipmwmq thead, #agljipmwmq tbody, #agljipmwmq tfoot, #agljipmwmq tr, #agljipmwmq td, #agljipmwmq th {
   border-style: none;
 }
 
-#hzzvnswigy p {
+#agljipmwmq p {
   margin: 0;
   padding: 0;
 }
 
-#hzzvnswigy .gt_table {
+#agljipmwmq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -655,12 +660,12 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-left-color: #D3D3D3;
 }
 
-#hzzvnswigy .gt_caption {
+#agljipmwmq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hzzvnswigy .gt_title {
+#agljipmwmq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -672,7 +677,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-width: 0;
 }
 
-#hzzvnswigy .gt_subtitle {
+#agljipmwmq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -684,7 +689,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-width: 0;
 }
 
-#hzzvnswigy .gt_heading {
+#agljipmwmq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -696,13 +701,13 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#hzzvnswigy .gt_bottom_border {
+#agljipmwmq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hzzvnswigy .gt_col_headings {
+#agljipmwmq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -717,7 +722,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#hzzvnswigy .gt_col_heading {
+#agljipmwmq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -737,7 +742,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#hzzvnswigy .gt_column_spanner_outer {
+#agljipmwmq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -749,15 +754,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 4px;
 }
 
-#hzzvnswigy .gt_column_spanner_outer:first-child {
+#agljipmwmq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hzzvnswigy .gt_column_spanner_outer:last-child {
+#agljipmwmq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hzzvnswigy .gt_column_spanner {
+#agljipmwmq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -769,11 +774,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   width: 100%;
 }
 
-#hzzvnswigy .gt_spanner_row {
+#agljipmwmq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hzzvnswigy .gt_group_heading {
+#agljipmwmq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -799,7 +804,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   text-align: left;
 }
 
-#hzzvnswigy .gt_empty_group_heading {
+#agljipmwmq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -814,15 +819,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: middle;
 }
 
-#hzzvnswigy .gt_from_md > :first-child {
+#agljipmwmq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hzzvnswigy .gt_from_md > :last-child {
+#agljipmwmq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hzzvnswigy .gt_row {
+#agljipmwmq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -841,7 +846,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#hzzvnswigy .gt_stub {
+#agljipmwmq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -854,505 +859,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#hzzvnswigy .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#hzzvnswigy .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#hzzvnswigy .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#hzzvnswigy .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hzzvnswigy .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#hzzvnswigy .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hzzvnswigy .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#hzzvnswigy .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hzzvnswigy .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#hzzvnswigy .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#hzzvnswigy .gt_left {
-  text-align: left;
-}
-
-#hzzvnswigy .gt_center {
-  text-align: center;
-}
-
-#hzzvnswigy .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#hzzvnswigy .gt_font_normal {
-  font-weight: normal;
-}
-
-#hzzvnswigy .gt_font_bold {
-  font-weight: bold;
-}
-
-#hzzvnswigy .gt_font_italic {
-  font-style: italic;
-}
-
-#hzzvnswigy .gt_super {
-  font-size: 65%;
-}
-
-#hzzvnswigy .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#hzzvnswigy .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#hzzvnswigy .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#hzzvnswigy .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#hzzvnswigy .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#hzzvnswigy .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#hzzvnswigy .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="CDM name">CDM name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Variable name">Variable name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate name">Estimate name</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="Cohort name">
-        <span class="gt_column_spanner">Cohort name</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Chronic sinusitis">Chronic sinusitis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Bacterial sinusitis">Bacterial sinusitis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Viral sinusitis">Viral sinusitis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Any sinusitis">Any sinusitis</th>
-    </tr>
-</thead>
-<tbody class="gt_table_body">
-<tr>
-<td headers="CDM name" class="gt_row gt_left" style="text-align: left;">Synthea synthetic health database</td>
-<td headers="Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
-<td headers="Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
-<td headers="[header]Cohort name
-[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">825</td>
-<td headers="[header]Cohort name
-[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">939</td>
-<td headers="[header]Cohort name
-[header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17,268</td>
-<td headers="[header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right;">18,629</td>
-</tr>
-<tr>
-<td headers="CDM name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
-<td headers="Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
-<td headers="[header]Cohort name
-[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">812</td>
-<td headers="[header]Cohort name
-[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">786</td>
-<td headers="[header]Cohort name
-[header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,686</td>
-<td headers="[header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right;">2,688</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</section><section id="tablecohortcount-1" class="slide level2"><h2>tableCohortCount</h2>
-<p>You can easily suppress a summarised_result using the suppress function:</p>
-<div class="cell">
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortCount.html">summariseCohortCount</a></span><span class="op">(</span>cohortId <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/suppress.html">suppress</a></span><span class="op">(</span>minCellCount <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/tableCohortCount.html">tableCohortCount</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-
-<div id="fkzobbfepe" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fkzobbfepe table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#fkzobbfepe thead, #fkzobbfepe tbody, #fkzobbfepe tfoot, #fkzobbfepe tr, #fkzobbfepe td, #fkzobbfepe th {
-  border-style: none;
-}
-
-#fkzobbfepe p {
-  margin: 0;
-  padding: 0;
-}
-
-#fkzobbfepe .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#fkzobbfepe .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#fkzobbfepe .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#fkzobbfepe .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#fkzobbfepe .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#fkzobbfepe .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#fkzobbfepe .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#fkzobbfepe .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#fkzobbfepe .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#fkzobbfepe .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#fkzobbfepe .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#fkzobbfepe .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#fkzobbfepe .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#fkzobbfepe .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#fkzobbfepe .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#fkzobbfepe .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#fkzobbfepe .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#fkzobbfepe .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#fkzobbfepe .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#fkzobbfepe .gt_stub_row_group {
+#agljipmwmq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1366,15 +873,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: top;
 }
 
-#fkzobbfepe .gt_row_group_first td {
+#agljipmwmq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fkzobbfepe .gt_row_group_first th {
+#agljipmwmq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fkzobbfepe .gt_summary_row {
+#agljipmwmq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1384,16 +891,16 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fkzobbfepe .gt_first_summary_row {
+#agljipmwmq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_first_summary_row.thick {
+#agljipmwmq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fkzobbfepe .gt_last_summary_row {
+#agljipmwmq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1403,7 +910,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_grand_summary_row {
+#agljipmwmq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1413,7 +920,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fkzobbfepe .gt_first_grand_summary_row {
+#agljipmwmq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1423,7 +930,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_last_grand_summary_row_top {
+#agljipmwmq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1433,11 +940,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_striped {
+#agljipmwmq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fkzobbfepe .gt_table_body {
+#agljipmwmq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1446,7 +953,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_footnotes {
+#agljipmwmq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1460,7 +967,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_footnote {
+#agljipmwmq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1469,7 +976,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fkzobbfepe .gt_sourcenotes {
+#agljipmwmq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1483,7 +990,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fkzobbfepe .gt_sourcenote {
+#agljipmwmq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1491,63 +998,63 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fkzobbfepe .gt_left {
+#agljipmwmq .gt_left {
   text-align: left;
 }
 
-#fkzobbfepe .gt_center {
+#agljipmwmq .gt_center {
   text-align: center;
 }
 
-#fkzobbfepe .gt_right {
+#agljipmwmq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fkzobbfepe .gt_font_normal {
+#agljipmwmq .gt_font_normal {
   font-weight: normal;
 }
 
-#fkzobbfepe .gt_font_bold {
+#agljipmwmq .gt_font_bold {
   font-weight: bold;
 }
 
-#fkzobbfepe .gt_font_italic {
+#agljipmwmq .gt_font_italic {
   font-style: italic;
 }
 
-#fkzobbfepe .gt_super {
+#agljipmwmq .gt_super {
   font-size: 65%;
 }
 
-#fkzobbfepe .gt_footnote_marks {
+#agljipmwmq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fkzobbfepe .gt_asterisk {
+#agljipmwmq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fkzobbfepe .gt_indent_1 {
+#agljipmwmq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fkzobbfepe .gt_indent_2 {
+#agljipmwmq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fkzobbfepe .gt_indent_3 {
+#agljipmwmq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fkzobbfepe .gt_indent_4 {
+#agljipmwmq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fkzobbfepe .gt_indent_5 {
+#agljipmwmq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1563,9 +1070,9 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Any sinusitis">Any sinusitis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Bacterial sinusitis">Bacterial sinusitis</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Viral sinusitis">Viral sinusitis</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Chronic sinusitis">Chronic sinusitis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Bacterial sinusitis">Bacterial sinusitis</th>
     </tr>
 </thead>
 <tbody class="gt_table_body">
@@ -1576,11 +1083,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="[header]Cohort name
 [header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18,629</td>
 <td headers="[header]Cohort name
+[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">939</td>
+<td headers="[header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">17,268</td>
 <td headers="[header]Cohort name
-[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">825</td>
-<td headers="[header]Cohort name
-[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right;">939</td>
+[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right;">825</td>
 </tr>
 <tr>
 <td headers="CDM name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
@@ -1589,43 +1096,43 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="[header]Cohort name
 [header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,688</td>
 <td headers="[header]Cohort name
+[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">786</td>
+<td headers="[header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,686</td>
 <td headers="[header]Cohort name
-[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">812</td>
-<td headers="[header]Cohort name
-[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right;">786</td>
+[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right;">812</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-</section><section id="tablecohortcount-2" class="slide level2"><h2>tableCohortCount</h2>
-<p>We can easily create a gt or flextable from the output of summariseCohortCount:</p>
+</section><section id="tablecohortcount-1" class="slide level2"><h2>tableCohortCount</h2>
+<p>You can easily suppress a summarised_result using the suppress function:</p>
 <div class="cell">
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">PatientProfiles</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/PatientProfiles/reference/addSex.html">addSex</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortCount.html">summariseCohortCount</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/tableCohortCount.html">tableCohortCount</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span>, groupColumn <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortCount.html">summariseCohortCount</a></span><span class="op">(</span>cohortId <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/suppress.html">suppress</a></span><span class="op">(</span>minCellCount <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/tableCohortCount.html">tableCohortCount</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="fiijgordhl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fiijgordhl table {
+<div id="wbpibzihdl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wbpibzihdl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#fiijgordhl thead, #fiijgordhl tbody, #fiijgordhl tfoot, #fiijgordhl tr, #fiijgordhl td, #fiijgordhl th {
+#wbpibzihdl thead, #wbpibzihdl tbody, #wbpibzihdl tfoot, #wbpibzihdl tr, #wbpibzihdl td, #wbpibzihdl th {
   border-style: none;
 }
 
-#fiijgordhl p {
+#wbpibzihdl p {
   margin: 0;
   padding: 0;
 }
 
-#fiijgordhl .gt_table {
+#wbpibzihdl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1651,12 +1158,12 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-left-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_caption {
+#wbpibzihdl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#fiijgordhl .gt_title {
+#wbpibzihdl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1668,7 +1175,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-width: 0;
 }
 
-#fiijgordhl .gt_subtitle {
+#wbpibzihdl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1680,7 +1187,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-width: 0;
 }
 
-#fiijgordhl .gt_heading {
+#wbpibzihdl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1692,13 +1199,13 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_bottom_border {
+#wbpibzihdl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_col_headings {
+#wbpibzihdl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1713,7 +1220,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_col_heading {
+#wbpibzihdl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1733,7 +1240,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#fiijgordhl .gt_column_spanner_outer {
+#wbpibzihdl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1745,15 +1252,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 4px;
 }
 
-#fiijgordhl .gt_column_spanner_outer:first-child {
+#wbpibzihdl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#fiijgordhl .gt_column_spanner_outer:last-child {
+#wbpibzihdl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#fiijgordhl .gt_column_spanner {
+#wbpibzihdl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1765,11 +1272,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   width: 100%;
 }
 
-#fiijgordhl .gt_spanner_row {
+#wbpibzihdl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#fiijgordhl .gt_group_heading {
+#wbpibzihdl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1795,7 +1302,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   text-align: left;
 }
 
-#fiijgordhl .gt_empty_group_heading {
+#wbpibzihdl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1810,15 +1317,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: middle;
 }
 
-#fiijgordhl .gt_from_md > :first-child {
+#wbpibzihdl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#fiijgordhl .gt_from_md > :last-child {
+#wbpibzihdl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#fiijgordhl .gt_row {
+#wbpibzihdl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1837,7 +1344,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#fiijgordhl .gt_stub {
+#wbpibzihdl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1850,7 +1357,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fiijgordhl .gt_stub_row_group {
+#wbpibzihdl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1864,15 +1371,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: top;
 }
 
-#fiijgordhl .gt_row_group_first td {
+#wbpibzihdl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#fiijgordhl .gt_row_group_first th {
+#wbpibzihdl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#fiijgordhl .gt_summary_row {
+#wbpibzihdl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1882,16 +1389,16 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fiijgordhl .gt_first_summary_row {
+#wbpibzihdl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_first_summary_row.thick {
+#wbpibzihdl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#fiijgordhl .gt_last_summary_row {
+#wbpibzihdl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1901,7 +1408,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_grand_summary_row {
+#wbpibzihdl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1911,7 +1418,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fiijgordhl .gt_first_grand_summary_row {
+#wbpibzihdl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1921,7 +1428,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_last_grand_summary_row_top {
+#wbpibzihdl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1931,11 +1438,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_striped {
+#wbpibzihdl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#fiijgordhl .gt_table_body {
+#wbpibzihdl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1944,7 +1451,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_footnotes {
+#wbpibzihdl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1958,7 +1465,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_footnote {
+#wbpibzihdl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1967,7 +1474,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fiijgordhl .gt_sourcenotes {
+#wbpibzihdl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1981,7 +1488,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#fiijgordhl .gt_sourcenote {
+#wbpibzihdl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1989,63 +1496,63 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#fiijgordhl .gt_left {
+#wbpibzihdl .gt_left {
   text-align: left;
 }
 
-#fiijgordhl .gt_center {
+#wbpibzihdl .gt_center {
   text-align: center;
 }
 
-#fiijgordhl .gt_right {
+#wbpibzihdl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#fiijgordhl .gt_font_normal {
+#wbpibzihdl .gt_font_normal {
   font-weight: normal;
 }
 
-#fiijgordhl .gt_font_bold {
+#wbpibzihdl .gt_font_bold {
   font-weight: bold;
 }
 
-#fiijgordhl .gt_font_italic {
+#wbpibzihdl .gt_font_italic {
   font-style: italic;
 }
 
-#fiijgordhl .gt_super {
+#wbpibzihdl .gt_super {
   font-size: 65%;
 }
 
-#fiijgordhl .gt_footnote_marks {
+#wbpibzihdl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#fiijgordhl .gt_asterisk {
+#wbpibzihdl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#fiijgordhl .gt_indent_1 {
+#wbpibzihdl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#fiijgordhl .gt_indent_2 {
+#wbpibzihdl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#fiijgordhl .gt_indent_3 {
+#wbpibzihdl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#fiijgordhl .gt_indent_4 {
+#wbpibzihdl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#fiijgordhl .gt_indent_5 {
+#wbpibzihdl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2061,8 +1568,506 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
     </tr>
 <tr class="gt_col_headings">
 <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Bacterial sinusitis">Bacterial sinusitis</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Chronic sinusitis">Chronic sinusitis</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Any sinusitis">Any sinusitis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Chronic sinusitis">Chronic sinusitis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Viral sinusitis">Viral sinusitis</th>
+    </tr>
+</thead>
+<tbody class="gt_table_body">
+<tr>
+<td headers="CDM name" class="gt_row gt_left" style="text-align: left;">Synthea synthetic health database</td>
+<td headers="Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
+<td headers="Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
+<td headers="[header]Cohort name
+[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">939</td>
+<td headers="[header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18,629</td>
+<td headers="[header]Cohort name
+[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">825</td>
+<td headers="[header]Cohort name
+[header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">17,268</td>
+</tr>
+<tr>
+<td headers="CDM name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td headers="Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
+<td headers="Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
+<td headers="[header]Cohort name
+[header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">786</td>
+<td headers="[header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,688</td>
+<td headers="[header]Cohort name
+[header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">812</td>
+<td headers="[header]Cohort name
+[header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">2,686</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section><section id="tablecohortcount-2" class="slide level2"><h2>tableCohortCount</h2>
+<p>We can easily create a gt or flextable from the output of summariseCohortCount:</p>
+<div class="cell">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">PatientProfiles</span><span class="fu">::</span><span class="fu"><a href="https://darwin-eu-dev.github.io/PatientProfiles/reference/addSex.html">addSex</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortCount.html">summariseCohortCount</a></span><span class="op">(</span>strata <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/tableCohortCount.html">tableCohortCount</a></span><span class="op">(</span>header <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"group"</span><span class="op">)</span>, groupColumn <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div id="pfcbjbpgtv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pfcbjbpgtv table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#pfcbjbpgtv thead, #pfcbjbpgtv tbody, #pfcbjbpgtv tfoot, #pfcbjbpgtv tr, #pfcbjbpgtv td, #pfcbjbpgtv th {
+  border-style: none;
+}
+
+#pfcbjbpgtv p {
+  margin: 0;
+  padding: 0;
+}
+
+#pfcbjbpgtv .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#pfcbjbpgtv .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#pfcbjbpgtv .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#pfcbjbpgtv .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#pfcbjbpgtv .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#pfcbjbpgtv .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#pfcbjbpgtv .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#pfcbjbpgtv .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#pfcbjbpgtv .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#pfcbjbpgtv .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#pfcbjbpgtv .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#pfcbjbpgtv .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#pfcbjbpgtv .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#pfcbjbpgtv .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#pfcbjbpgtv .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfcbjbpgtv .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#pfcbjbpgtv .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#pfcbjbpgtv .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#pfcbjbpgtv .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfcbjbpgtv .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#pfcbjbpgtv .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfcbjbpgtv .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#pfcbjbpgtv .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfcbjbpgtv .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#pfcbjbpgtv .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#pfcbjbpgtv .gt_left {
+  text-align: left;
+}
+
+#pfcbjbpgtv .gt_center {
+  text-align: center;
+}
+
+#pfcbjbpgtv .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#pfcbjbpgtv .gt_font_normal {
+  font-weight: normal;
+}
+
+#pfcbjbpgtv .gt_font_bold {
+  font-weight: bold;
+}
+
+#pfcbjbpgtv .gt_font_italic {
+  font-style: italic;
+}
+
+#pfcbjbpgtv .gt_super {
+  font-size: 65%;
+}
+
+#pfcbjbpgtv .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#pfcbjbpgtv .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#pfcbjbpgtv .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#pfcbjbpgtv .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#pfcbjbpgtv .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#pfcbjbpgtv .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#pfcbjbpgtv .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="gt_col_headings gt_spanner_row">
+<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="CDM name">CDM name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Variable name">Variable name</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Estimate name">Estimate name</th>
+      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="4" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="Cohort name">
+        <span class="gt_column_spanner">Cohort name</span>
+      </th>
+    </tr>
+<tr class="gt_col_headings">
+<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Any sinusitis">Any sinusitis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Bacterial sinusitis">Bacterial sinusitis</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Chronic sinusitis">Chronic sinusitis</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Viral sinusitis">Viral sinusitis</th>
     </tr>
 </thead>
@@ -2075,11 +2080,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Female  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
 <td headers="Female  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Female  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">9,542</td>
+<td headers="Female  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">494</td>
 <td headers="Female  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">427</td>
-<td headers="Female  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">9,542</td>
 <td headers="Female  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">8,824</td>
 </tr>
@@ -2088,11 +2093,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Female  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
 <td headers="Female  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Female  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1,371</td>
+<td headers="Female  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">418</td>
 <td headers="Female  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">424</td>
-<td headers="Female  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1,371</td>
 <td headers="Female  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">1,371</td>
 </tr>
@@ -2104,11 +2109,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Male  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
 <td headers="Male  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Male  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">9,087</td>
+<td headers="Male  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">445</td>
 <td headers="Male  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">398</td>
-<td headers="Male  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">9,087</td>
 <td headers="Male  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">8,444</td>
 </tr>
@@ -2117,11 +2122,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Male  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
 <td headers="Male  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Male  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1,317</td>
+<td headers="Male  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">368</td>
 <td headers="Male  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">388</td>
-<td headers="Male  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">1,317</td>
 <td headers="Male  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">1,315</td>
 </tr>
@@ -2133,11 +2138,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Overall  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number records</td>
 <td headers="Overall  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Overall  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18,629</td>
+<td headers="Overall  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">939</td>
 <td headers="Overall  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">825</td>
-<td headers="Overall  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18,629</td>
 <td headers="Overall  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">17,268</td>
 </tr>
@@ -2146,11 +2151,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <td headers="Overall  Variable name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Number subjects</td>
 <td headers="Overall  Estimate name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">N</td>
 <td headers="Overall  [header]Cohort name
+[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,688</td>
+<td headers="Overall  [header]Cohort name
 [header_level]Bacterial sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">786</td>
 <td headers="Overall  [header]Cohort name
 [header_level]Chronic sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">812</td>
-<td headers="Overall  [header]Cohort name
-[header_level]Any sinusitis" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2,688</td>
 <td headers="Overall  [header]Cohort name
 [header_level]Viral sinusitis" class="gt_row gt_right" style="text-align: right;">2,686</td>
 </tr>
@@ -2180,12 +2185,12 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">cdm</span><span class="op">$</span><span class="va">sinusitis</span> <span class="op">|&gt;</span> <span class="fu"><a href="https://darwin-eu-dev.github.io/omopgenerics/reference/attrition.html">attrition</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 7
-  cohort_definition_id number_records number_subjects reason_id reason                    excluded_records excluded_subjects
-                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                                &lt;int&gt;             &lt;int&gt;
-1                    1            939             786         1 Initial qualifying events                0                 0
-2                    2          17268            2686         1 Initial qualifying events                0                 0
-3                    3            825             812         1 Initial qualifying events                0                 0
-4                    4          18629            2688         1 Initial qualifying events                0                 0</code></pre>
+  cohort_definition_id number_records number_subjects reason_id reason                excluded_records excluded_subjects
+                 &lt;int&gt;          &lt;int&gt;           &lt;int&gt;     &lt;int&gt; &lt;chr&gt;                            &lt;int&gt;             &lt;int&gt;
+1                    1            939             786         1 Initial qualifying e…                0                 0
+2                    2          17268            2686         1 Initial qualifying e…                0                 0
+3                    3            825             812         1 Initial qualifying e…                0                 0
+4                    4          18629            2688         1 Initial qualifying e…                0                 0</code></pre>
 </div>
 </div>
 </section><section id="summarisecohortattrition-1" class="slide level2"><h2>summariseCohortAttrition</h2>
@@ -2198,17 +2203,17 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <pre><code>Rows: 16
 Columns: 13
 $ result_id        &lt;int&gt; 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4
-$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic health dat…
-$ group_name       &lt;chr&gt; "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name"…
-$ group_level      &lt;chr&gt; "bacterial_sinusitis", "bacterial_sinusitis", "bacterial_sinusitis", "bacterial_sinusitis", "viral_sinu…
-$ strata_name      &lt;chr&gt; "reason", "reason", "reason", "reason", "reason", "reason", "reason", "reason", "reason", "reason", "re…
-$ strata_level     &lt;chr&gt; "Initial qualifying events", "Initial qualifying events", "Initial qualifying events", "Initial qualify…
-$ variable_name    &lt;chr&gt; "number_records", "number_subjects", "excluded_records", "excluded_subjects", "number_records", "number…
+$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic …
+$ group_name       &lt;chr&gt; "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "cohort_name", "co…
+$ group_level      &lt;chr&gt; "bacterial_sinusitis", "bacterial_sinusitis", "bacterial_sinusitis", "bacterial_sinusitis", "…
+$ strata_name      &lt;chr&gt; "reason", "reason", "reason", "reason", "reason", "reason", "reason", "reason", "reason", "re…
+$ strata_level     &lt;chr&gt; "Initial qualifying events", "Initial qualifying events", "Initial qualifying events", "Initi…
+$ variable_name    &lt;chr&gt; "number_records", "number_subjects", "excluded_records", "excluded_subjects", "number_records…
 $ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
-$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "cou…
-$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "int…
-$ estimate_value   &lt;chr&gt; "939", "786", "0", "0", "17268", "2686", "0", "0", "825", "812", "0", "0", "18629", "2688", "0", "0"
-$ additional_name  &lt;chr&gt; "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "reason_id",…
+$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "co…
+$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "inte…
+$ estimate_value   &lt;chr&gt; "939", "786", "0", "0", "17268", "2686", "0", "0", "825", "812", "0", "0", "18629", "2688", "…
+$ additional_name  &lt;chr&gt; "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "reason_id", "r…
 $ additional_level &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"</code></pre>
 </div>
 </div>
@@ -2219,8 +2224,8 @@ $ additional_level &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortAttrition.html">summariseCohortAttrition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/plotCohortAttrition.html">plotCohortAttrition</a></span><span class="op">(</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-fa2fd318f0bf1dff24ae" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-fa2fd318f0bf1dff24ae">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"More than one cohort found, please select only one cohort to show attrition.\", shape = \"box\", penwidth = \"0\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"black\", width = \"4\", fillcolor = \"#FFFFFF\", pos = \"1,1!\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-56361c6a35360c623080" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-56361c6a35360c623080">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"More than one cohort found, please select only one cohort to show attrition.\", shape = \"box\", penwidth = \"0\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"black\", width = \"4\", fillcolor = \"#FFFFFF\", pos = \"1,1!\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="plotcohortattrition-1" class="slide level2"><h2>plotCohortAttrition</h2>
@@ -2244,19 +2249,11 @@ $ additional_level &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/summariseCohortAttrition.html">summariseCohortAttrition</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/plotCohortAttrition.html">plotCohortAttrition</a></span><span class="op">(</span>cohortId <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-21e1f547aaf25fcc8844" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-21e1f547aaf25fcc8844">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 786\nN records = 939\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.36\", fillcolor = \"#F0F8FF\", pos = \"1,1!\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-63fb58f3745ddd0c7138" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-63fb58f3745ddd0c7138">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 786\nN records = 939\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.36\", fillcolor = \"#F0F8FF\", pos = \"1,1!\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="your-turn" class="slide level2"><h2>Your turn</h2>
-<p>Can you create a cohort with the following attrition?</p>
-<ul>
-<li class="fragment"><p>all records of sinusitis (4294548, 40481087, 257012)</p></li>
-<li class="fragment"><p>only first record per person (requi)</p></li>
-<li class="fragment"><p>restrict to female individuals</p></li>
-<li class="fragment"><p>restrict to children between 5 and 12 years old</p></li>
-<li class="fragment"><p>plot attrition</p></li>
-</ul></section><section id="your-turn-1" class="slide level2"><h2>Your turn</h2>
 <p>Can you create a cohort with the following attrition?</p>
 <ul>
 <li class="fragment"><p>all records of sinusitis (4294548, 40481087, 257012)</p></li>
@@ -2264,11 +2261,11 @@ $ additional_level &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
 <li class="fragment"><p>restrict to female individuals (requireSex)</p></li>
 <li class="fragment"><p>restrict to children between 5 and 12 years old (requireAge)</p></li>
 <li class="fragment"><p>plot attrition (summariseCohortAttrition + plotCohortAttrition)</p></li>
-</ul></section><section id="your-turn-2" class="slide level2"><h2>Your turn</h2>
+</ul></section><section id="your-turn-1" class="slide level2"><h2>Your turn</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-432ca65472803fafc92d" style="width:960px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-432ca65472803fafc92d">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,688\nN records = 18,629\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,4.1!\"] \n  \"2\" [label = \"N subjects = 2,688\nN records = 2,688\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,2.8!\"] \n  \"3\" [label = \"N subjects = 1,371\nN records = 1,371\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,1.6!\"] \n  \"4\" [label = \"Final events\nN subjects = 467\nN records = 467\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,0.3!\"] \n  \"5\" [label = \"N subjects = 0\nN records = 15941\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,3.4!\"] \n  \"6\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,3.4!\"] \n  \"7\" [label = \"N subjects = 1,317\nN records = 1317\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,2.2!\"] \n  \"8\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,2.2!\"] \n  \"9\" [label = \"N subjects = 904\nN records = 904\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,1!\"] \n  \"10\" [label = \"Age requirement: 5 to\n12\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,1!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"6\"->\"5\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-75983d2793643a500d0b" style="width:960px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-75983d2793643a500d0b">{"x":{"diagram":"digraph {\n\ngraph [layout = \"neato\",\n       outputorder = \"edgesfirst\",\n       bgcolor = \"white\"]\n\nnode [fontname = \"Helvetica\",\n      fontsize = \"10\",\n      shape = \"circle\",\n      fixedsize = \"true\",\n      width = \"0.5\",\n      style = \"filled\",\n      fillcolor = \"aliceblue\",\n      color = \"gray70\",\n      fontcolor = \"gray50\"]\n\nedge [fontname = \"Helvetica\",\n     fontsize = \"8\",\n     len = \"1.5\",\n     color = \"gray80\",\n     arrowsize = \"0.5\"]\n\n  \"1\" [label = \"Initial events\nN subjects = 2,688\nN records = 18,629\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,4.1!\"] \n  \"2\" [label = \"N subjects = 2,688\nN records = 2,688\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,2.8!\"] \n  \"3\" [label = \"N subjects = 1,371\nN records = 1,371\", shape = \"box\", penwidth = \"1\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.4\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,1.6!\"] \n  \"4\" [label = \"Final events\nN subjects = 467\nN records = 467\", shape = \"box\", penwidth = \"2\", color = \"black\", fontname = \"Calibri\", fontsize = \"11\", fontcolor = \"black\", height = \"0.6\", width = \"1.44\", fillcolor = \"#F0F8FF\", pos = \"1,0.3!\"] \n  \"5\" [label = \"N subjects = 0\nN records = 15941\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,3.4!\"] \n  \"6\" [label = \"Restricted to first\nentry\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,3.4!\"] \n  \"7\" [label = \"N subjects = 1,317\nN records = 1317\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,2.2!\"] \n  \"8\" [label = \"Sex requirement:\nFemale\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,2.2!\"] \n  \"9\" [label = \"N subjects = 904\nN records = 904\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"9\", fontcolor = \"black\", height = \"0.4\", width = \"1.2\", fillcolor = \"#C0C0C0\", pos = \"3,1!\"] \n  \"10\" [label = \"Age requirement: 5 to\n12\", shape = \"box\", color = \"black\", fontname = \"Calibri\", fontsize = \"10\", fontcolor = \"back\", height = \"0.4\", width = \"1.68\", fillcolor = \"#FFFFFF\", pos = \"1,1!\"] \n\"1\"->\"2\" [color = \"black\"] \n\"2\"->\"3\" [color = \"black\"] \n\"3\"->\"4\" [color = \"black\"] \n\"6\"->\"5\" [color = \"black\"] \n\"8\"->\"7\" [color = \"black\"] \n\"10\"->\"9\" [color = \"black\"] \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </section><section id="summarisecohortoverlap" class="slide level2"><h2>summariseCohortOverlap</h2>
@@ -2280,19 +2277,19 @@ $ additional_level &lt;chr&gt; "1", "1", "1", "1", "1", "1", "1", "1", "1", "1",
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 72
 Columns: 13
-$ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic health dat…
-$ group_name       &lt;chr&gt; "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator", "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator",…
-$ group_level      &lt;chr&gt; "viral_sinusitis &amp;&amp;&amp; chronic_sinusitis", "viral_sinusitis &amp;&amp;&amp; chronic_sinusitis", "viral_sinusitis &amp;&amp;&amp; …
-$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ variable_name    &lt;chr&gt; "overlap", "reference", "comparator", "overlap", "reference", "comparator", "overlap", "reference", "co…
-$ variable_level   &lt;chr&gt; "number_subjects", "number_subjects", "number_subjects", "number_subjects", "number_subjects", "number_…
-$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "cou…
-$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "int…
-$ estimate_value   &lt;chr&gt; "810", "1876", "2", "812", "0", "1876", "786", "0", "1902", "812", "1876", "0", "466", "320", "346", "8…
-$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…</code></pre>
+$ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic …
+$ group_name       &lt;chr&gt; "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator", "cohort_name_reference &amp;&amp;&amp; cohort_name_co…
+$ group_level      &lt;chr&gt; "bacterial_sinusitis &amp;&amp;&amp; any_sinusitis", "bacterial_sinusitis &amp;&amp;&amp; any_sinusitis", "bacterial_…
+$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ variable_name    &lt;chr&gt; "overlap", "reference", "comparator", "overlap", "reference", "comparator", "overlap", "refer…
+$ variable_level   &lt;chr&gt; "number_subjects", "number_subjects", "number_subjects", "number_subjects", "number_subjects"…
+$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "co…
+$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "inte…
+$ estimate_value   &lt;chr&gt; "786", "0", "1902", "2686", "2", "0", "785", "1", "1901", "466", "346", "320", "810", "1876",…
+$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…</code></pre>
 </div>
 </div>
 </section><section id="tablecohortoverlap" class="slide level2"><h2>tableCohortOverlap</h2>
@@ -2302,23 +2299,23 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/tableCohortOverlap.html">tableCohortOverlap</a></span><span class="op">(</span><span class="va">result</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 
-<div id="frdeddlthx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#frdeddlthx table {
+<div id="tcskrrlfvl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tcskrrlfvl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#frdeddlthx thead, #frdeddlthx tbody, #frdeddlthx tfoot, #frdeddlthx tr, #frdeddlthx td, #frdeddlthx th {
+#tcskrrlfvl thead, #tcskrrlfvl tbody, #tcskrrlfvl tfoot, #tcskrrlfvl tr, #tcskrrlfvl td, #tcskrrlfvl th {
   border-style: none;
 }
 
-#frdeddlthx p {
+#tcskrrlfvl p {
   margin: 0;
   padding: 0;
 }
 
-#frdeddlthx .gt_table {
+#tcskrrlfvl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2344,12 +2341,12 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-left-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_caption {
+#tcskrrlfvl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#frdeddlthx .gt_title {
+#tcskrrlfvl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2361,7 +2358,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-width: 0;
 }
 
-#frdeddlthx .gt_subtitle {
+#tcskrrlfvl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2373,7 +2370,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-width: 0;
 }
 
-#frdeddlthx .gt_heading {
+#tcskrrlfvl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2385,13 +2382,13 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_bottom_border {
+#tcskrrlfvl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_col_headings {
+#tcskrrlfvl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2406,7 +2403,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_col_heading {
+#tcskrrlfvl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2426,7 +2423,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#frdeddlthx .gt_column_spanner_outer {
+#tcskrrlfvl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2438,15 +2435,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 4px;
 }
 
-#frdeddlthx .gt_column_spanner_outer:first-child {
+#tcskrrlfvl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#frdeddlthx .gt_column_spanner_outer:last-child {
+#tcskrrlfvl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#frdeddlthx .gt_column_spanner {
+#tcskrrlfvl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2458,11 +2455,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   width: 100%;
 }
 
-#frdeddlthx .gt_spanner_row {
+#tcskrrlfvl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#frdeddlthx .gt_group_heading {
+#tcskrrlfvl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2488,7 +2485,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   text-align: left;
 }
 
-#frdeddlthx .gt_empty_group_heading {
+#tcskrrlfvl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2503,15 +2500,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: middle;
 }
 
-#frdeddlthx .gt_from_md > :first-child {
+#tcskrrlfvl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#frdeddlthx .gt_from_md > :last-child {
+#tcskrrlfvl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#frdeddlthx .gt_row {
+#tcskrrlfvl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2530,7 +2527,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#frdeddlthx .gt_stub {
+#tcskrrlfvl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2543,7 +2540,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#frdeddlthx .gt_stub_row_group {
+#tcskrrlfvl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2557,15 +2554,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: top;
 }
 
-#frdeddlthx .gt_row_group_first td {
+#tcskrrlfvl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#frdeddlthx .gt_row_group_first th {
+#tcskrrlfvl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#frdeddlthx .gt_summary_row {
+#tcskrrlfvl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2575,16 +2572,16 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#frdeddlthx .gt_first_summary_row {
+#tcskrrlfvl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_first_summary_row.thick {
+#tcskrrlfvl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#frdeddlthx .gt_last_summary_row {
+#tcskrrlfvl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2594,7 +2591,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_grand_summary_row {
+#tcskrrlfvl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2604,7 +2601,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#frdeddlthx .gt_first_grand_summary_row {
+#tcskrrlfvl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2614,7 +2611,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_last_grand_summary_row_top {
+#tcskrrlfvl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2624,11 +2621,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_striped {
+#tcskrrlfvl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#frdeddlthx .gt_table_body {
+#tcskrrlfvl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2637,7 +2634,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_footnotes {
+#tcskrrlfvl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2651,7 +2648,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_footnote {
+#tcskrrlfvl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2660,7 +2657,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#frdeddlthx .gt_sourcenotes {
+#tcskrrlfvl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2674,7 +2671,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#frdeddlthx .gt_sourcenote {
+#tcskrrlfvl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2682,63 +2679,63 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#frdeddlthx .gt_left {
+#tcskrrlfvl .gt_left {
   text-align: left;
 }
 
-#frdeddlthx .gt_center {
+#tcskrrlfvl .gt_center {
   text-align: center;
 }
 
-#frdeddlthx .gt_right {
+#tcskrrlfvl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#frdeddlthx .gt_font_normal {
+#tcskrrlfvl .gt_font_normal {
   font-weight: normal;
 }
 
-#frdeddlthx .gt_font_bold {
+#tcskrrlfvl .gt_font_bold {
   font-weight: bold;
 }
 
-#frdeddlthx .gt_font_italic {
+#tcskrrlfvl .gt_font_italic {
   font-style: italic;
 }
 
-#frdeddlthx .gt_super {
+#tcskrrlfvl .gt_super {
   font-size: 65%;
 }
 
-#frdeddlthx .gt_footnote_marks {
+#tcskrrlfvl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#frdeddlthx .gt_asterisk {
+#tcskrrlfvl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#frdeddlthx .gt_indent_1 {
+#tcskrrlfvl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#frdeddlthx .gt_indent_2 {
+#tcskrrlfvl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#frdeddlthx .gt_indent_3 {
+#tcskrrlfvl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#frdeddlthx .gt_indent_4 {
+#tcskrrlfvl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#frdeddlthx .gt_indent_5 {
+#tcskrrlfvl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2823,14 +2820,14 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 </div>
 </div>
 </div>
-</section><section id="your-turn-3" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-2" class="slide level2"><h2>Your turn</h2>
 <p>Create 3 drug cohorts from these 5: - aspirin - acetaminophen - naproxen - amoxicillin - ibuprofen</p>
 <p>Identify the subject overlap between them</p>
-</section><section id="your-turn-4" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-3" class="slide level2"><h2>Your turn</h2>
 <p>Create 3 drug cohorts from these 5: - aspirin - acetaminophen - naproxen - amoxicillin - ibuprofen</p>
 <p><em>Remember there is a function in CodelistGenerator::getDrugIngredientCodes</em></p>
 <p>Identify the subject overlap between them and create a plot to show the overlap</p>
-</section><section id="your-turn-5" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-4" class="slide level2"><h2>Your turn</h2>
 
 <img data-src="CohortCharacteristicsPart1_files/figure-revealjs/unnamed-chunk-27-1.png" width="960" class="r-stretch"></section><section id="summarisecohorttiming" class="slide level2"><h2>summariseCohortTiming</h2>
 <p>We have a function to identify the time between cohorts to see which cohorts occur first compared to the other.</p>
@@ -2858,19 +2855,19 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 42
 Columns: 13
-$ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1…
-$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic health dat…
-$ group_name       &lt;chr&gt; "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator", "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator",…
-$ group_level      &lt;chr&gt; "morphine &amp;&amp;&amp; acetaminophen", "acetaminophen &amp;&amp;&amp; morphine", "warfarin &amp;&amp;&amp; acetaminophen", "acetaminophe…
-$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ variable_name    &lt;chr&gt; "number records", "number records", "number records", "number records", "number records", "number recor…
-$ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
-$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "cou…
-$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "int…
-$ estimate_value   &lt;chr&gt; "35", "35", "136", "136", "6", "6", "35", "35", "136", "136", "6", "6", "-28231", "-12316", "-33784", "…
-$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…
-$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "ove…</code></pre>
+$ result_id        &lt;int&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, …
+$ cdm_name         &lt;chr&gt; "Synthea synthetic health database", "Synthea synthetic health database", "Synthea synthetic …
+$ group_name       &lt;chr&gt; "cohort_name_reference &amp;&amp;&amp; cohort_name_comparator", "cohort_name_reference &amp;&amp;&amp; cohort_name_co…
+$ group_level      &lt;chr&gt; "warfarin &amp;&amp;&amp; acetaminophen", "acetaminophen &amp;&amp;&amp; warfarin", "acetaminophen &amp;&amp;&amp; morphine", "mo…
+$ strata_name      &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ strata_level     &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ variable_name    &lt;chr&gt; "number records", "number records", "number records", "number records", "number records", "nu…
+$ variable_level   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
+$ estimate_name    &lt;chr&gt; "count", "count", "count", "count", "count", "count", "count", "count", "count", "count", "co…
+$ estimate_type    &lt;chr&gt; "integer", "integer", "integer", "integer", "integer", "integer", "integer", "integer", "inte…
+$ estimate_value   &lt;chr&gt; "136", "136", "35", "35", "6", "6", "136", "136", "35", "35", "6", "6", "-33784", "-1106", "-…
+$ additional_name  &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…
+$ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "overall", "overall", "overall", "overall", "over…</code></pre>
 </div>
 </div>
 </div>
@@ -2884,23 +2881,23 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <div class="cell">
 <div class="cell-output-display">
 
-<div id="mtmtuocxzz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#mtmtuocxzz table {
+<div id="hwypzjdzou" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hwypzjdzou table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#mtmtuocxzz thead, #mtmtuocxzz tbody, #mtmtuocxzz tfoot, #mtmtuocxzz tr, #mtmtuocxzz td, #mtmtuocxzz th {
+#hwypzjdzou thead, #hwypzjdzou tbody, #hwypzjdzou tfoot, #hwypzjdzou tr, #hwypzjdzou td, #hwypzjdzou th {
   border-style: none;
 }
 
-#mtmtuocxzz p {
+#hwypzjdzou p {
   margin: 0;
   padding: 0;
 }
 
-#mtmtuocxzz .gt_table {
+#hwypzjdzou .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2926,12 +2923,12 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-left-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_caption {
+#hwypzjdzou .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#mtmtuocxzz .gt_title {
+#hwypzjdzou .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2943,7 +2940,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-width: 0;
 }
 
-#mtmtuocxzz .gt_subtitle {
+#hwypzjdzou .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2955,7 +2952,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-width: 0;
 }
 
-#mtmtuocxzz .gt_heading {
+#hwypzjdzou .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2967,13 +2964,13 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_bottom_border {
+#hwypzjdzou .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_col_headings {
+#hwypzjdzou .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2988,7 +2985,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_col_heading {
+#hwypzjdzou .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3008,7 +3005,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#mtmtuocxzz .gt_column_spanner_outer {
+#hwypzjdzou .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3020,15 +3017,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 4px;
 }
 
-#mtmtuocxzz .gt_column_spanner_outer:first-child {
+#hwypzjdzou .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#mtmtuocxzz .gt_column_spanner_outer:last-child {
+#hwypzjdzou .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#mtmtuocxzz .gt_column_spanner {
+#hwypzjdzou .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3040,11 +3037,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   width: 100%;
 }
 
-#mtmtuocxzz .gt_spanner_row {
+#hwypzjdzou .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#mtmtuocxzz .gt_group_heading {
+#hwypzjdzou .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3070,7 +3067,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   text-align: left;
 }
 
-#mtmtuocxzz .gt_empty_group_heading {
+#hwypzjdzou .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3085,15 +3082,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: middle;
 }
 
-#mtmtuocxzz .gt_from_md > :first-child {
+#hwypzjdzou .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#mtmtuocxzz .gt_from_md > :last-child {
+#hwypzjdzou .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#mtmtuocxzz .gt_row {
+#hwypzjdzou .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3112,7 +3109,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   overflow-x: hidden;
 }
 
-#mtmtuocxzz .gt_stub {
+#hwypzjdzou .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3125,7 +3122,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#mtmtuocxzz .gt_stub_row_group {
+#hwypzjdzou .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3139,15 +3136,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   vertical-align: top;
 }
 
-#mtmtuocxzz .gt_row_group_first td {
+#hwypzjdzou .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#mtmtuocxzz .gt_row_group_first th {
+#hwypzjdzou .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#mtmtuocxzz .gt_summary_row {
+#hwypzjdzou .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3157,16 +3154,16 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#mtmtuocxzz .gt_first_summary_row {
+#hwypzjdzou .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_first_summary_row.thick {
+#hwypzjdzou .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#mtmtuocxzz .gt_last_summary_row {
+#hwypzjdzou .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3176,7 +3173,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_grand_summary_row {
+#hwypzjdzou .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3186,7 +3183,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#mtmtuocxzz .gt_first_grand_summary_row {
+#hwypzjdzou .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3196,7 +3193,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-top-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_last_grand_summary_row_top {
+#hwypzjdzou .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3206,11 +3203,11 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_striped {
+#hwypzjdzou .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#mtmtuocxzz .gt_table_body {
+#hwypzjdzou .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3219,7 +3216,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-bottom-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_footnotes {
+#hwypzjdzou .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3233,7 +3230,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_footnote {
+#hwypzjdzou .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3242,7 +3239,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#mtmtuocxzz .gt_sourcenotes {
+#hwypzjdzou .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3256,7 +3253,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   border-right-color: #D3D3D3;
 }
 
-#mtmtuocxzz .gt_sourcenote {
+#hwypzjdzou .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3264,63 +3261,63 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
   padding-right: 5px;
 }
 
-#mtmtuocxzz .gt_left {
+#hwypzjdzou .gt_left {
   text-align: left;
 }
 
-#mtmtuocxzz .gt_center {
+#hwypzjdzou .gt_center {
   text-align: center;
 }
 
-#mtmtuocxzz .gt_right {
+#hwypzjdzou .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#mtmtuocxzz .gt_font_normal {
+#hwypzjdzou .gt_font_normal {
   font-weight: normal;
 }
 
-#mtmtuocxzz .gt_font_bold {
+#hwypzjdzou .gt_font_bold {
   font-weight: bold;
 }
 
-#mtmtuocxzz .gt_font_italic {
+#hwypzjdzou .gt_font_italic {
   font-style: italic;
 }
 
-#mtmtuocxzz .gt_super {
+#hwypzjdzou .gt_super {
   font-size: 65%;
 }
 
-#mtmtuocxzz .gt_footnote_marks {
+#hwypzjdzou .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#mtmtuocxzz .gt_asterisk {
+#hwypzjdzou .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#mtmtuocxzz .gt_indent_1 {
+#hwypzjdzou .gt_indent_1 {
   text-indent: 5px;
 }
 
-#mtmtuocxzz .gt_indent_2 {
+#hwypzjdzou .gt_indent_2 {
   text-indent: 10px;
 }
 
-#mtmtuocxzz .gt_indent_3 {
+#hwypzjdzou .gt_indent_3 {
   text-indent: 15px;
 }
 
-#mtmtuocxzz .gt_indent_4 {
+#hwypzjdzou .gt_indent_4 {
   text-indent: 20px;
 }
 
-#mtmtuocxzz .gt_indent_5 {
+#hwypzjdzou .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3457,7 +3454,8 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <span>  <span class="fu"><a href="https://darwin-eu-dev.github.io/CohortCharacteristics/reference/plotCohortTiming.html">plotCohortTiming</a></span><span class="op">(</span>timeScale <span class="op">=</span> <span class="st">"years"</span>, facet <span class="op">=</span> <span class="st">"cdm_name"</span>, colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"group_level"</span><span class="op">)</span>, plotType <span class="op">=</span> <span class="st">"density"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in `plotCohortTiming()`:
-! Please provide a cohort timing summarised result with density estimates (use `density = TRUE` in summariseCohortTiming).</code></pre>
+! Please provide a cohort timing summarised result with density estimates (use `density = TRUE` in
+  summariseCohortTiming).</code></pre>
 </div>
 </div>
 </div>
@@ -3474,9 +3472,9 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 </div>
 </section><section id="plotcohorttiming-3" class="slide level2"><h2>plotCohortTiming</h2>
 
-<img data-src="CohortCharacteristicsPart1_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" class="r-stretch"></section><section id="your-turn-6" class="slide level2"><h2>Your turn</h2>
+<img data-src="CohortCharacteristicsPart1_files/figure-revealjs/unnamed-chunk-38-1.png" width="960" class="r-stretch"></section><section id="your-turn-5" class="slide level2"><h2>Your turn</h2>
 <p>Can you do a density plot of the three cohorts that you created before (for the overlap exercice)?</p>
-</section><section id="your-turn-7" class="slide level2"><h2>Your turn</h2>
+</section><section id="your-turn-6" class="slide level2"><h2>Your turn</h2>
 
 <img data-src="CohortCharacteristicsPart1_files/figure-revealjs/unnamed-chunk-39-1.png" width="960" class="r-stretch"></section><section id="section" class="title-slide slide level1 end-slide center"><h1></h1>
 <div style="margin-bottom: 25px;">
@@ -3492,7 +3490,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 <div style="margin-top: 135px;">
 
 </div>
-<p><span style="font-size: 100px;"><strong>PackageName</strong></span></p>
+<p><span style="font-size: 100px;"><strong>CohortCharacteristics</strong></span></p>
 <div style="margin-bottom: 25px;">
 
 </div>
@@ -3528,7 +3526,7 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
 </div>
 </div>
 <div class="footer footer-default">
-
+<p>Oxford Summer School 2024</p>
 </div>
 </section>
 </div>
@@ -3731,12 +3729,15 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -3747,13 +3748,6 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -3803,7 +3797,24 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -3841,24 +3852,42 @@ $ additional_level &lt;chr&gt; "overall", "overall", "overall", "overall", "over
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>
