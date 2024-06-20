@@ -408,7 +408,7 @@ Using Eunomia data:
 
 2.  Get a count of the usage of these codes
 
-3.  Search for orphan concepts related to your concussion codes
+3.  Search for orphan concepts related to your appendicitis codes
 
 4. Add the orphan code to your codelist for appendicitis and re-run the count of code use. Does including the orphan code change your results?
 

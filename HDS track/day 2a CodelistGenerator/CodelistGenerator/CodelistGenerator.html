@@ -5,10 +5,11 @@
 <script src="CodelistGenerator_files/libs/quarto-html/popper.min.js"></script>
 <script src="CodelistGenerator_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="CodelistGenerator_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="CodelistGenerator_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="CodelistGenerator_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="CodelistGenerator_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.4.553">
 <title>CodelistGenerator</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -18,12 +19,18 @@
 <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -87,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-<link rel="stylesheet" href="CodelistGenerator_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+<link rel="stylesheet" href="CodelistGenerator_files/libs/revealjs/dist/theme/quarto.css">
 <link href="CodelistGenerator_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
 <link href="CodelistGenerator_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
 <link href="CodelistGenerator_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -132,44 +139,44 @@
     font-weight: 400;
   }
 
-  .callout.callout-captioned.callout-style-simple .callout-body {
+  .callout.callout-titled.callout-style-simple .callout-body {
     margin-top: 0.2em;
   }
 
-  .callout:not(.callout-captioned) .callout-body {
+  .callout:not(.callout-titled) .callout-body {
       display: flex;
   }
 
-  .callout:not(.no-icon).callout-captioned.callout-style-simple .callout-content {
+  .callout:not(.no-icon).callout-titled.callout-style-simple .callout-content {
     padding-left: 1.6em;
   }
 
-  .callout.callout-captioned .callout-header {
+  .callout.callout-titled .callout-header {
     padding-top: 0.2em;
     margin-bottom: -0.2em;
   }
 
-  .callout.callout-captioned .callout-caption  p {
+  .callout.callout-titled .callout-title  p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
   }
     
-  .callout.callout-captioned.callout-style-simple .callout-content  p {
+  .callout.callout-titled.callout-style-simple .callout-content  p {
     margin-top: 0;
   }
 
-  .callout.callout-captioned.callout-style-default .callout-content  p {
+  .callout.callout-titled.callout-style-default .callout-content  p {
     margin-top: 0.7em;
   }
 
-  .callout.callout-style-simple div.callout-caption {
+  .callout.callout-style-simple div.callout-title {
     border-bottom: none;
     font-size: .9rem;
     font-weight: 600;
     opacity: 75%;
   }
 
-  .callout.callout-style-default  div.callout-caption {
+  .callout.callout-style-default  div.callout-title {
     border-bottom: none;
     font-weight: 600;
     opacity: 85%;
@@ -201,7 +208,7 @@
     background-size: 0.9rem 0.9rem;
   }
 
-  .callout-caption {
+  .callout-title {
     display: flex
   }
     
@@ -214,16 +221,17 @@
     display: none !important;
   }
 
-  .callout.callout-captioned .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+  .callout.callout-titled .callout-body > .callout-content > :last-child {
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
-  .callout.callout-captioned .callout-icon::before {
+  .callout.callout-titled .callout-icon::before {
     margin-top: .5rem;
     padding-right: .5rem;
   }
 
-  .callout:not(.callout-captioned) .callout-icon::before {
+  .callout:not(.callout-titled) .callout-icon::before {
     margin-top: 1rem;
     padding-right: .5rem;
   }
@@ -238,7 +246,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEU0lEQVRYCcVXTWhcVRQ+586kSUMMxkyaElstCto2SIhitS5Ek8xUKV2poatCcVHtUlFQk8mbaaziwpWgglJwVaquitBOfhQXFlqlzSJpFSpIYyXNjBNiTCck7x2/8/LeNDOZxDuEkgOXe++553zfefee+/OYLOXFk3+1LLrRdiO81yNqZ6K9cG0P3MeFaMIQjXssE8Z1JzLO9ls20MBZX7oG8w9GxB0goaPrW5aNMp1yOZIa7Wv6o2ykpLtmAPs/vrG14Z+6d4jpbSKuhdcSyq9wGMPXjonwmESXrriLzFGOdDBLB8Y6MNYBu0dRokSygMA/mrun8MGFN3behm6VVAwg4WR3i6FvYK1T7MHo9BK7ydH+1uurECoouk5MPRyVSBrBHMYwVobG2aOXM07sWrn5qgB60rc6mcwIDJtQrnrEr44kmy+UO9r0u9O5/YbkS9juQckLed3DyW2XV/qWBBB3ptvI8EUY3I9p/67OW+g967TNr3Sotn3IuVlfMLVnsBwH4fsnebJvyGm5GeIUA3jljERmrv49SizPYuq+z7c2H/jlGC+Ghhupn/hcapqmcudB9jwJ/3jvnvu6vu5lVzF1fXyZuZZ7U8nRmVzytvT+H3kilYvH09mLWrQdwFSsFEsxFVs5fK7A0g8gMZjbif4ACpKbjv7gNGaD8bUrlk8x+KRflttr22JEMRUbTUwwDQScyzPgedQHZT0xnx7ujw2jfVfExwYHwOsDTjLdJ2ebmeQIlJ7neo41s/DrsL3kl+W2lWvAga0tR3zueGr6GL78M3ifH0rGXrBC2aAR8uYcIA5gwV8zIE8onoh8u0Fca/ciF7j1uOzEnqcIm59sEXoGc0+z6+H45V1CvAvHcD7THztu669cnp+L0okAeIc6zjbM/24LgGM1gZk7jnRu1aQWoU9sfUOuhrmtaPIO3YY1KLLWZaEO5TKUbMY5zx8W9UJ6elpLwKXbsaZ4EFl7B4bMtDv0iRipKoDQT2sNQI9b1utXFdYisi+wzZ/ri/1m7QfDgEuvgUUEIJPq3DhX/5DWNqIXDOweC2wvIR90Oq3lDpdMIgD2r0dXvGdsEW5H6x6HLRJYU7C69VefO1x8Gde1ZFSJLfWS1jbCnhtOPxmpfv2LXOA2Xk2tvnwKKPFuZ/oRmwBwqRQDcKNeVQkYcOjtWVBuM/JuYw5b6isojIkYxyYAFn5K7ZBF10fea52y8QltAg6jnMqNHFBmGkQ1j+U43HMi2xMar1Nv0zGsf1s8nUsmUtPOOrbFIR8bHFDMB5zL13Gmr/kGlCkUzedTzzmzsaJXhYawnA3UmARpiYj5ooJZiUoxFRtK3X6pgNPv+IZVPcnwbOl6f+aBaO1CNvPW9n9LmCp01nuSaTRF2YxHqZ8DYQT6WsXT+RD6eUztwYLZ8rM+rcPxamv1VQzFUkzFXvkiVrySGQgJNvXHJAxiU3/NwiC03rSf05VBaPtu/Z7/B8Yn/w7eguloAAAAAElFTkSuQmCC');
   }
 
-  div.callout-note.callout-style-default .callout-caption {
+  div.callout-note.callout-style-default .callout-title {
     background-color: #dae6fb
   }
 
@@ -250,7 +258,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAEKklEQVRYCcVXTWhcVRS+575MJym48A+hSRFr00ySRQhURRfd2HYjk2SSTokuBCkU2o0LoSKKraKIBTcuFCoidGFD08nkBzdREbpQ1EDNIv8qSGMFUboImMSZd4/f9zJv8ibJMC8xJQfO3HPPPef7zrvvvnvviIkpC9nsw0UttFunbUhpFzFtarSd6WJkStVMw5xyVqYTvkwfzuf/5FgtkVoB0729j1rjXwThS7Vio+Mo6DNnvLfahoZ+i/o32lULuJ3NNiz7q6+pyAUkJaFF6JwaM2lUJlV0MlnQn5aTRbEu0SEqHUa0A4AdiGuB1kFXRfVyg5d87+Dg4DL6m2TLAub60ilj7A1Ec4odSAc8X95sHh7+ZRPCFo6Fnp7HfU/fBng/hi10CjCnWnJjsxvDNxWw0NfV6Rv5GgP3I3jGWXumdTD/3cbEOP2ZbOZp69yniG3FQ9z1jD7bnBu9Fc2tKGC2q+uAJOQHBDRiZX1x36o7fWBs7J9ownbtO+n0/qWkvW7UPIfc37WgT6ZGR++EOJyeQDSb9UB+DZ1G6DdLDzyS+b/kBCYGsYgJbSQHuThGKRcw5xdeQf8YdNHsc6ePXrlSYMBuSIAFTGAtQo+VuALo4BX83N190NWZWbynBjhOHsmNfFWLeL6v+ynsA58zDvvAC8j5PkbOcXCMg2PZFk3q8MjI7WAG/Dp9AwP7jdGBOOQkAvlFUB+irtm16I1Zw9YBcpGTGXYmk3kQIC/Cds55l+iMI3jqhjAuaoe+am2Jw5GT3Nbz3CkE12NavmzN5+erJW7046n/CH1RO/RVa8lBLozXk9uqykkGAyRXLWlLv5jyp4RFsG5vGVzpDLnIjTWgnRy2Rr+tDKvRc7Y8AyZq10jj8DqXdnIRNtFZb+t/ZRtXcDiVnzpqx8mPcDWxgARUqx0W1QB9MeUZiNrV4qP+Ehc+BpNgATsTX8ozYKL2NtFYAHc84fG7ndxUPr+AR/iQSns7uSUufAymwDOb2+NjK27lEFocm/EE2WpyIy/Hi66MWuMKJn8RvxIcj87IM5Vh9663ziW36kR0HNenXuxmfaD8JC7tfKbrhFr7LiZCrMjrzTeGx+PmkosrkNzW94ObzwocJ7A1HokLolY+AvkTiD/q1H0cN48c5EL8Crkttsa/AXQVDmutfyku0E7jShx49XqV3MFK8IryDhYVbj7Sj2P2eBxwcXoe8T8idsKKPRcnZw1b+slFTubwUwhktrfnAt7J++jwQtLZcm3sr9LQrjRzz6cfMv9aLvgmnAGvpoaGLxM4mAEaLV7iAzQ3oU0IvD5x9ix3yF2RAAuYAOO2f7PEFWCXZ4C9Pb2UsgDeVnFSpbFK7/IWu7TPTvBqzbGdCHOJQSxiEjt6IyZmxQyEJHv6xyQsYk//moVFsN2zP6fRImjfq7/n/wFDguUQFNEwugAAAABJRU5ErkJggg==');
   }
 
-  div.callout-important.callout-style-default .callout-caption {
+  div.callout-important.callout-style-default .callout-title {
     background-color: #f7dddc
   }
 
@@ -262,7 +270,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAAETklEQVRYCeVWW2gcVRg+58yaTUnizqbipZeX4uWhBEniBaoUX1Ioze52t7sRq6APio9V9MEaoWlVsFasRq0gltaAPuxms8lu0gcviE/FFOstVbSIxgcv6SU7EZqmdc7v9+9mJtNks51NTUH84ed889/PP+cmxP+d5FIbMJmNbpREu4WUkiTtCicKny0l1pIKmBzovF2S+hIJHX8iEu3hZJ5lNZGqyRrGSIQpq15AzF28jgpeY6yk6GVdrfFqdrD6Iw+QlB8g0YS2g7dyQmXM/IDhBhT0UCiRf59lfqmmDvzRt6kByV/m4JjtzuaujMUM2c5Z2d6JdKrRb3K2q6mA+oYVz8JnDdKPmmNthzkAk/lN63sYPgevrguc72aZX/L9C6x09GYyxBgCX4NlvyGUHOKELlm5rXeR1kchuChJt4SSwyddZRXgvwMGvYo4QSlk3/zkHD8UHxwVJA6zjZZqP8v8kK8OWLnIZtLyCAJagYC4rTGW/9Pqj92N/c+LUaAj27movwbi19tk/whRCIE7Q9vyI6yvRpftAKVTdUjOW40X3h5OXsKCdmFcx0xlLJoSuQngnrJe7Kcjm4OMq9FlC7CMmScQANuNvjfP3PjGXDBaUQmbp296S5L4DrpbrHN1T87ZVEZVCzg1FF0Ft+dKrlLukI+/c9ENo+TvlTDbYFvuKPtQ9+l052rXrgKoWkDAFnvh0wTOmYn8R5f4k/jN/fZiCM1tQx9jQQ4ANhqG4hiL0qIFTGViG9DKB7GYzgubnpofgYRwO+DFjh0Zin2m4b/97EDkXkc+f6xYAPX0KK2I/7fUQuwzuwo/L3AkcjugPNixC8cHf0FyPjWlItmLxWw4Ou9YsQCr5fijMGoD/zpdRy95HRysyXA74MWOnscpO4j2y3HAVisw85hX5+AFBRSHt4ShfLFkIMXTqyKFc46xdzQM6XbAi702a7sy04J0+feReMFKp5q9esYLCqAZYw/k14E/xcLLsFElaornTuJB0svMuJINy8xkIYuL+xPAlWRceH6+HX7THJ0djLUom46zREu7tTkxwmf/FdOZ/sh6Q8qvEAiHpm4PJ4a/doJe0gH1t+aHRgCzOvBvJedEK5OFE5jpm4AGP2a8Dxe3gGJ/pAutug9Gp6he92CsSsWBaEcxGx0FHytmIpuqGkOpldqNYQK8cSoXvd+xLxXADw0kf6UkJNFtdo5MOgaLjiQOQHcn+A6h5NuL2s0qsC2LOM75PcF3yr5STuBSAcGG+meA14K/CI21HcS4LBT6tv0QAh8Dr5l93AhZzG5ZJ4VxAqdZUEl9z7WJ4aN+svMvwHHL21UKTd1mqvChH7/Za5xzXBBKrUcB0TQ+Ulgkfbi/H/YT5EptrGzsEK7tR1B7ln9BBwckYfMiuSqklSznIuoIIOM42MQO+QnduCoFCI0bpkzjCjddHPN/F+2Yu+sd9bKNpVwHhbS3LluK/0zgfwD0xYI5dXuzlQAAAABJRU5ErkJggg==');
   }
 
-  div.callout-warning.callout-style-default .callout-caption {
+  div.callout-warning.callout-style-default .callout-title {
     background-color: #fcefdc
   }
 
@@ -274,7 +282,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAADr0lEQVRYCe1XTWgTQRj9ZjZV8a9SPIkKgj8I1bMHsUWrqYLVg4Ue6v9BwZOxSYsIerFao7UiUryIqJcqgtpimhbBXoSCVxUFe9CTiogUrUp2Pt+3aUI2u5vdNh4dmMzOzHvvezuz8xNFM0mjnbXaNu1MvFWRXkXEyE6aYOYJpdW4IXuA4r0fo8qqSMDBU0v1HJUgVieAXxzCsdE/YJTdFcVIZQNMyhruOMJKXYFoLfIfIvVIMWdsrd+Rpd86ZmyzzjJmLStqRn0v8lzkb4rVIXvnpScOJuAn2ACC65FkPzEdEy4TPWRLJ2h7z4cArXzzaOdKlbOvKKX25Wl00jSnrwVxAg3o4dRxhO13RBSdNvH0xSARv3adTXbBdTf64IWO2vH0LT+cv4GR1DJt+DUItaQogeBX/chhbTBxEiZ6gftlDNXTrvT7co4ub5A6gp9HIcHvzTa46OS5fBeP87Qm0fQkr4FsYgVQ7Qg+ZayaDg9jhg1GkWj8RG6lkeSacrrHgDaxdoBiZPg+NXV/KifMuB6//JmYH4CntVEHy/keA6x4h4CU5oFy8GzrBS18cLJMXcljAKB6INjWsRcuZBWVaS3GDrqB7rdapVIeA+isQ57Eev9eCqzqOa81CY05VLd6SamW2wA2H3SiTbnbSxmzfp7WtKZkqy4mdyAlGx7ennghYf8voqp9cLSgKdqNfa6RdRsAAkPwRuJZNbpByn+RrJi1RXTwdi8RQF6ymDwGMAtZ6TVE+4uoKh+MYkcLsT0Hk8eAienbiGdjJHZTpmNjlbFJNKDVAp2fJlYju6IreQxQ08UJDNYdoLSl6AadO+fFuCQqVMB1NJwPm69T04Wv5WhfcWyfXQB+wXRs1pt+nCknRa0LVzSA/2B+a9+zQJadb7IyyV24YAxKp2Jqs3emZTuNnKxsah+uabKbMk7CbTgJx/zIgQYErIeTKRQ9yD9wxVof5YolPHqaWo7TD6tJlh7jQnK5z2n3+fGdggIOx2kaa2YI9QWarc5Ce1ipNWMKeSG4DysFF52KBmTNMmn5HqCFkwy34rDg05gDwgH3bBi+sgFhN/e8QvRn8kbamCOhgrZ9GJhFDgfcMHzFb6BAtjKpFhzTjwv1KCVuxHvCbsSiEz4CANnj84cwHdFXAbAOJ4LTSAawGWFn5tDhLMYz6nWeU2wJfIhmIJBefcd/A5FWQWGgrWzyORZ3Q6HuV+Jf0Bj+BTX69fm1zWgK7By1YTXchFDORywnfQ7GpzOo6S+qECrsx2ifVQAAAABJRU5ErkJggg==');
   }
 
-  div.callout-tip.callout-style-default .callout-caption {
+  div.callout-tip.callout-style-default .callout-title {
     background-color: #ccf1e3
   }
 
@@ -286,7 +294,7 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAIAAAAACshmLzAAACV0lEQVRYCdVWzWoUQRCuqp2ICBLJXgITZL1EfQDBW/bkzUMUD7klD+ATSHBEfAIfQO+iXsWDxJsHL96EHAwhgzlkg8nBg25XWb0zIb0zs9muYYWkoKeru+vn664fBqElyZNuyh167NXJ8Ut8McjbmEraKHkd7uAnAFku+VWdb3reSmRV8PKSLfZ0Gjn3a6Xlcq9YGb6tADjn+lUfTXtVmaZ1KwBIvFI11rRXlWlatwIAAv2asaa9mlB9wwygiDX26qaw1yYPzFXg2N1GgG0FMF8Oj+VIx7E/03lHx8UhvYyNZLN7BwSPgekXXLribw7w5/c8EF+DBK5idvDVYtEEwMeYefjjLAdEyQ3M9nfOkgnPTEkYU+sxMq0BxNR6jExrAI31H1rzvLEfRIdgcv1XEdj6QTQAS2wtstEALLG1yEZ3QhH6oDX7ExBSFEkFINXH98NTrme5IOaaA7kIfiu2L8A3qhH9zRbukdCqdsA98TdElyeMe5BI8Rs2xHRIsoTSSVFfCFCWGPn9XHb4cdobRIWABNf0add9jakDjQJpJ1bTXOJXnnRXHRf+dNL1ZV1MBRCXhMbaHqGI1JkKIL7+i8uffuP6wVQAzO7+qVEbF6NbS0LJureYcWXUUhH66nLR5rYmva+2tjRFtojkM2aD76HEGAD3tPtKM309FJg5j/K682ywcWJ3PASCcycH/22u+Bh7Aa0ehM2Fu4z0SAE81HF9RkB21c5bEn4Dzw+/qNOyXr3DCTQDMBOdhi4nAgiFDGCinIa2owCEChUwD8qzd03PG+qdW/4fDzjUMcE1ZpIAAAAASUVORK5CYII=');
   }
 
-  div.callout-caution.callout-style-default .callout-caption {
+  div.callout-caution.callout-style-default .callout-title {
     background-color: #ffe5d0
   }
 
@@ -383,11 +391,12 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center"><h1 class="title">CodelistGenerator</h1>
-</section><section id="codelistgenerator" class="title-slide slide level1 center"><h1>CodelistGenerator</h1>
-<div class="cell">
+<section id="title-slide" class="quarto-title-block center"><h1 class="title">CodelistGenerator</h1>
 
+<div class="quarto-title-authors">
 </div>
+
+</section><section id="codelistgenerator" class="title-slide slide level1 center"><h1>CodelistGenerator</h1>
 <div style="margin-top: 25px;">
 
 </div>
@@ -463,7 +472,7 @@ drug_strength</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 10
-Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpQJTSN1\file264855784a17.duckdb]
 $ concept_id       &lt;int&gt; 35208414, 1118088, 40213201, 1557272, 4336464, 4295880, 3020630, 19129655, 44923712, 1569708, 40213216,…
 $ concept_name     &lt;chr&gt; "Gastrointestinal hemorrhage, unspecified", "celecoxib 200 MG Oral Capsule [Celebrex]", "pneumococcal p…
 $ domain_id        &lt;chr&gt; "Condition", "Drug", "Drug", "Drug", "Procedure", "Procedure", "Measurement", "Drug", "Drug", "Conditio…
@@ -509,7 +518,7 @@ $ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 4
-Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpQJTSN1\file264855784a17.duckdb]
 $ ancestor_concept_id      &lt;int&gt; 4180628, 4179141, 21500574, 21505770, 21503967, 36203060, 36151386, 21502552, 40765628, 4433964…
 $ descendant_concept_id    &lt;int&gt; 313217, 4146173, 1118084, 1119510, 40162522, 40479422, 1119510, 1112807, 40769189, 19128009, 15…
 $ min_levels_of_separation &lt;int&gt; 5, 2, 4, 0, 5, 4, 0, 4, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0,…
@@ -522,7 +531,7 @@ $ max_levels_of_separation &lt;int&gt; 6, 2, 4, 0, 6, 4, 0, 4, 2, 2, 0, 0, 0, 0,
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 6
-Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpQJTSN1\file264855784a17.duckdb]
 $ concept_id_1     &lt;int&gt; 192671, 1118088, 1569708, 35208414, 35208414, 40162359, 44923712, 45011828
 $ concept_id_2     &lt;int&gt; 35208414, 44923712, 35208414, 192671, 1569708, 45011828, 1118088, 40162359
 $ relationship_id  &lt;chr&gt; "Mapped from", "Mapped from", "Subsumes", "Maps to", "Is a", "Mapped from", "Maps to", "Maps to"
@@ -537,7 +546,7 @@ $ invalid_reason   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: ??
 Columns: 3
-Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpQJTSN1\file264855784a17.duckdb]
 $ concept_id           &lt;int&gt; 964261, 1322184, 441267, 1718412, 4336464, 4102123, 4237458, 4280726, 4330583, 3014576, 4242997, 30…
 $ concept_synonym_name &lt;chr&gt; "cyanocobalamin 5000 MCG/ML Injectable Solution", "clopidogrel", "Cystic fibrosis (disorder)", "Kyl…
 $ language_concept_id  &lt;int&gt; 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, 4180186, …</code></pre>
@@ -624,7 +633,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getVocabularies.html">getVocabularies</a></span><span class="op">(</span>cdm <span class="op">=</span> <span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Gender"  "NDC"     "Visit"   "RxNorm"  "CVX"     "SNOMED"  "None"    "ICD10CM" "LOINC"  </code></pre>
+<pre><code>[1] "NDC"     "Visit"   "RxNorm"  "CVX"     "SNOMED"  "None"    "Gender"  "ICD10CM" "LOINC"  </code></pre>
 </div>
 </div>
 </section><section id="available-domains" class="slide level2"><h2>Available domains</h2>
@@ -632,7 +641,7 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 <div class="cell">
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/getDomains.html">getDomains</a></span><span class="op">(</span><span class="va">cdm</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Measurement" "Drug"        "Observation" "Visit"       "Procedure"   "Condition"   "Gender"     </code></pre>
+<pre><code>[1] "Measurement" "Drug"        "Procedure"   "Condition"   "Gender"      "Observation" "Visit"      </code></pre>
 </div>
 </div>
 </section><section id="concept-classes" class="slide level2"><h2>Concept classes</h2>
@@ -642,8 +651,8 @@ $ count_value  &lt;dbl&gt; 5</code></pre>
 <span>                  standardConcept <span class="op">=</span> <span class="st">"Standard"</span>,</span>
 <span>                  domain <span class="op">=</span> <span class="st">"Drug"</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Quant Branded Drug"  "Branded Drug"        "Ingredient"          "Quant Clinical Drug" "Branded Drug Comp"  
-[6] "CVX"                 "Clinical Drug"       "Branded Pack"        "Clinical Drug Comp" </code></pre>
+<pre><code>[1] "Ingredient"          "Quant Clinical Drug" "Quant Branded Drug"  "CVX"                 "Clinical Drug"      
+[6] "Branded Pack"        "Branded Drug Comp"   "Clinical Drug Comp"  "Branded Drug"       </code></pre>
 </div>
 </div>
 <div class="fragment">
@@ -729,7 +738,7 @@ along with 81 more codelists</code></pre>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">concept_id</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1310149</span>, <span class="fl">40163554</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Source:   SQL [2 x 10]
-# Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpWE8REB\file58cc6651ce.duckdb]
+# Database: DuckDB v1.0.0 [eburn@Windows 10 x64:R 4.4.0/C:\Users\eburn\AppData\Local\Temp\RtmpQJTSN1\file264855784a17.duckdb]
   concept_id concept_name   domain_id vocabulary_id concept_class_id standard_concept concept_code valid_start_date valid_end_date
        &lt;int&gt; &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;        &lt;date&gt;           &lt;date&gt;        
 1    1310149 Warfarin       Drug      RxNorm        Ingredient       S                11289        1970-01-01       2099-12-31    
@@ -846,24 +855,24 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"overall"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="vgoxgtfbza" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vgoxgtfbza table {
+<div>
+<div id="dkjbruemch" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dkjbruemch table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vgoxgtfbza thead, #vgoxgtfbza tbody, #vgoxgtfbza tfoot, #vgoxgtfbza tr, #vgoxgtfbza td, #vgoxgtfbza th {
+#dkjbruemch thead, #dkjbruemch tbody, #dkjbruemch tfoot, #dkjbruemch tr, #dkjbruemch td, #dkjbruemch th {
   border-style: none;
 }
 
-#vgoxgtfbza p {
+#dkjbruemch p {
   margin: 0;
   padding: 0;
 }
 
-#vgoxgtfbza .gt_table {
+#dkjbruemch .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -889,12 +898,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_caption {
+#dkjbruemch .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vgoxgtfbza .gt_title {
+#dkjbruemch .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -906,7 +915,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#vgoxgtfbza .gt_subtitle {
+#dkjbruemch .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -918,7 +927,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#vgoxgtfbza .gt_heading {
+#dkjbruemch .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -930,13 +939,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_bottom_border {
+#dkjbruemch .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_col_headings {
+#dkjbruemch .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -951,7 +960,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_col_heading {
+#dkjbruemch .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -971,7 +980,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#vgoxgtfbza .gt_column_spanner_outer {
+#dkjbruemch .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -983,15 +992,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#vgoxgtfbza .gt_column_spanner_outer:first-child {
+#dkjbruemch .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vgoxgtfbza .gt_column_spanner_outer:last-child {
+#dkjbruemch .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vgoxgtfbza .gt_column_spanner {
+#dkjbruemch .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1003,11 +1012,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#vgoxgtfbza .gt_spanner_row {
+#dkjbruemch .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vgoxgtfbza .gt_group_heading {
+#dkjbruemch .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1033,7 +1042,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#vgoxgtfbza .gt_empty_group_heading {
+#dkjbruemch .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1048,15 +1057,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#vgoxgtfbza .gt_from_md > :first-child {
+#dkjbruemch .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vgoxgtfbza .gt_from_md > :last-child {
+#dkjbruemch .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vgoxgtfbza .gt_row {
+#dkjbruemch .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1075,7 +1084,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#vgoxgtfbza .gt_stub {
+#dkjbruemch .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1088,7 +1097,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vgoxgtfbza .gt_stub_row_group {
+#dkjbruemch .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1102,15 +1111,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#vgoxgtfbza .gt_row_group_first td {
+#dkjbruemch .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vgoxgtfbza .gt_row_group_first th {
+#dkjbruemch .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vgoxgtfbza .gt_summary_row {
+#dkjbruemch .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1120,16 +1129,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vgoxgtfbza .gt_first_summary_row {
+#dkjbruemch .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_first_summary_row.thick {
+#dkjbruemch .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vgoxgtfbza .gt_last_summary_row {
+#dkjbruemch .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1139,7 +1148,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_grand_summary_row {
+#dkjbruemch .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1149,7 +1158,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vgoxgtfbza .gt_first_grand_summary_row {
+#dkjbruemch .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1159,7 +1168,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_last_grand_summary_row_top {
+#dkjbruemch .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1169,11 +1178,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_striped {
+#dkjbruemch .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vgoxgtfbza .gt_table_body {
+#dkjbruemch .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1182,7 +1191,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_footnotes {
+#dkjbruemch .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1196,7 +1205,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_footnote {
+#dkjbruemch .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1205,7 +1214,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vgoxgtfbza .gt_sourcenotes {
+#dkjbruemch .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1219,7 +1228,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vgoxgtfbza .gt_sourcenote {
+#dkjbruemch .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1227,131 +1236,128 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#vgoxgtfbza .gt_left {
+#dkjbruemch .gt_left {
   text-align: left;
 }
 
-#vgoxgtfbza .gt_center {
+#dkjbruemch .gt_center {
   text-align: center;
 }
 
-#vgoxgtfbza .gt_right {
+#dkjbruemch .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vgoxgtfbza .gt_font_normal {
+#dkjbruemch .gt_font_normal {
   font-weight: normal;
 }
 
-#vgoxgtfbza .gt_font_bold {
+#dkjbruemch .gt_font_bold {
   font-weight: bold;
 }
 
-#vgoxgtfbza .gt_font_italic {
+#dkjbruemch .gt_font_italic {
   font-style: italic;
 }
 
-#vgoxgtfbza .gt_super {
+#dkjbruemch .gt_super {
   font-size: 65%;
 }
 
-#vgoxgtfbza .gt_footnote_marks {
+#dkjbruemch .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vgoxgtfbza .gt_asterisk {
+#dkjbruemch .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vgoxgtfbza .gt_indent_1 {
+#dkjbruemch .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vgoxgtfbza .gt_indent_2 {
+#dkjbruemch .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vgoxgtfbza .gt_indent_3 {
+#dkjbruemch .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vgoxgtfbza .gt_indent_4 {
+#dkjbruemch .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vgoxgtfbza .gt_indent_5 {
+#dkjbruemch .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="5" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id=""></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="CDM name">
-        <span class="gt_column_spanner">CDM name</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Codelist name">Codelist name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept name">Source concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept id">Source concept id</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="colgroup" id="Synthea synthetic health database">
-        <span class="gt_column_spanner">Synthea synthetic health database</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Record count">Record count</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Person count">Person count</th>
-    </tr>
+<tr class="header gt_col_headings gt_spanner_row">
+<th colspan="5" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"></th>
+<th colspan="2" id="CDM name" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">CDM name</span></th>
+</tr>
+<tr class="odd gt_col_headings gt_spanner_row">
+<th rowspan="2" id="Codelist name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Codelist name</th>
+<th rowspan="2" id="Standard concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept name</th>
+<th rowspan="2" id="Standard concept id" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept id</th>
+<th rowspan="2" id="Source concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept name</th>
+<th rowspan="2" id="Source concept id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept id</th>
+<th colspan="2" id="Synthea synthetic health database" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">Synthea synthetic health database</span></th>
+</tr>
+<tr class="header gt_col_headings">
+<th id="Record count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Record count</th>
+<th id="Person count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Person count</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left;">Asthma</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers="Codelist name">Asthma</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">101</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">101</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">101</td>
+[header_level]Person count">101</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
-<td headers="[header]CDM name
+<tr class="even">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">96</td>
+[header_level]Person count">96</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">5</td>
+[header_level]Person count">5</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -1361,24 +1367,24 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"year"</span>,</span>
 <span>         <span class="va">strata_level</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"2004"</span>, <span class="st">"2005"</span>, <span class="st">"2006"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="agqotakpin" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#agqotakpin table {
+<div>
+<div id="wrqfkgxxzr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wrqfkgxxzr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#agqotakpin thead, #agqotakpin tbody, #agqotakpin tfoot, #agqotakpin tr, #agqotakpin td, #agqotakpin th {
+#wrqfkgxxzr thead, #wrqfkgxxzr tbody, #wrqfkgxxzr tfoot, #wrqfkgxxzr tr, #wrqfkgxxzr td, #wrqfkgxxzr th {
   border-style: none;
 }
 
-#agqotakpin p {
+#wrqfkgxxzr p {
   margin: 0;
   padding: 0;
 }
 
-#agqotakpin .gt_table {
+#wrqfkgxxzr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1404,12 +1410,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#agqotakpin .gt_caption {
+#wrqfkgxxzr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#agqotakpin .gt_title {
+#wrqfkgxxzr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1421,7 +1427,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#agqotakpin .gt_subtitle {
+#wrqfkgxxzr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1433,7 +1439,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#agqotakpin .gt_heading {
+#wrqfkgxxzr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1445,13 +1451,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#agqotakpin .gt_bottom_border {
+#wrqfkgxxzr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#agqotakpin .gt_col_headings {
+#wrqfkgxxzr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1466,7 +1472,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#agqotakpin .gt_col_heading {
+#wrqfkgxxzr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1486,7 +1492,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#agqotakpin .gt_column_spanner_outer {
+#wrqfkgxxzr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1498,15 +1504,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#agqotakpin .gt_column_spanner_outer:first-child {
+#wrqfkgxxzr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#agqotakpin .gt_column_spanner_outer:last-child {
+#wrqfkgxxzr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#agqotakpin .gt_column_spanner {
+#wrqfkgxxzr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1518,11 +1524,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#agqotakpin .gt_spanner_row {
+#wrqfkgxxzr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#agqotakpin .gt_group_heading {
+#wrqfkgxxzr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1548,7 +1554,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#agqotakpin .gt_empty_group_heading {
+#wrqfkgxxzr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1563,15 +1569,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#agqotakpin .gt_from_md > :first-child {
+#wrqfkgxxzr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#agqotakpin .gt_from_md > :last-child {
+#wrqfkgxxzr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#agqotakpin .gt_row {
+#wrqfkgxxzr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1590,7 +1596,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#agqotakpin .gt_stub {
+#wrqfkgxxzr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1603,7 +1609,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#agqotakpin .gt_stub_row_group {
+#wrqfkgxxzr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1617,15 +1623,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#agqotakpin .gt_row_group_first td {
+#wrqfkgxxzr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#agqotakpin .gt_row_group_first th {
+#wrqfkgxxzr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#agqotakpin .gt_summary_row {
+#wrqfkgxxzr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1635,16 +1641,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#agqotakpin .gt_first_summary_row {
+#wrqfkgxxzr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#agqotakpin .gt_first_summary_row.thick {
+#wrqfkgxxzr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#agqotakpin .gt_last_summary_row {
+#wrqfkgxxzr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1654,7 +1660,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#agqotakpin .gt_grand_summary_row {
+#wrqfkgxxzr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1664,7 +1670,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#agqotakpin .gt_first_grand_summary_row {
+#wrqfkgxxzr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1674,7 +1680,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#agqotakpin .gt_last_grand_summary_row_top {
+#wrqfkgxxzr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1684,11 +1690,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#agqotakpin .gt_striped {
+#wrqfkgxxzr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#agqotakpin .gt_table_body {
+#wrqfkgxxzr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1697,7 +1703,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#agqotakpin .gt_footnotes {
+#wrqfkgxxzr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1711,7 +1717,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#agqotakpin .gt_footnote {
+#wrqfkgxxzr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1720,7 +1726,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#agqotakpin .gt_sourcenotes {
+#wrqfkgxxzr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1734,7 +1740,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#agqotakpin .gt_sourcenote {
+#wrqfkgxxzr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1742,149 +1748,146 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#agqotakpin .gt_left {
+#wrqfkgxxzr .gt_left {
   text-align: left;
 }
 
-#agqotakpin .gt_center {
+#wrqfkgxxzr .gt_center {
   text-align: center;
 }
 
-#agqotakpin .gt_right {
+#wrqfkgxxzr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#agqotakpin .gt_font_normal {
+#wrqfkgxxzr .gt_font_normal {
   font-weight: normal;
 }
 
-#agqotakpin .gt_font_bold {
+#wrqfkgxxzr .gt_font_bold {
   font-weight: bold;
 }
 
-#agqotakpin .gt_font_italic {
+#wrqfkgxxzr .gt_font_italic {
   font-style: italic;
 }
 
-#agqotakpin .gt_super {
+#wrqfkgxxzr .gt_super {
   font-size: 65%;
 }
 
-#agqotakpin .gt_footnote_marks {
+#wrqfkgxxzr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#agqotakpin .gt_asterisk {
+#wrqfkgxxzr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#agqotakpin .gt_indent_1 {
+#wrqfkgxxzr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#agqotakpin .gt_indent_2 {
+#wrqfkgxxzr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#agqotakpin .gt_indent_3 {
+#wrqfkgxxzr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#agqotakpin .gt_indent_4 {
+#wrqfkgxxzr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#agqotakpin .gt_indent_5 {
+#wrqfkgxxzr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="6" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id=""></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="CDM name">
-        <span class="gt_column_spanner">CDM name</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Codelist name">Codelist name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Year">Year</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept name">Source concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept id">Source concept id</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="colgroup" id="Synthea synthetic health database">
-        <span class="gt_column_spanner">Synthea synthetic health database</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Record count">Record count</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Person count">Person count</th>
-    </tr>
+<tr class="header gt_col_headings gt_spanner_row">
+<th colspan="6" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"></th>
+<th colspan="2" id="CDM name" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">CDM name</span></th>
+</tr>
+<tr class="odd gt_col_headings gt_spanner_row">
+<th rowspan="2" id="Codelist name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Codelist name</th>
+<th rowspan="2" id="Year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Year</th>
+<th rowspan="2" id="Standard concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept name</th>
+<th rowspan="2" id="Standard concept id" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept id</th>
+<th rowspan="2" id="Source concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept name</th>
+<th rowspan="2" id="Source concept id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept id</th>
+<th colspan="2" id="Synthea synthetic health database" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">Synthea synthetic health database</span></th>
+</tr>
+<tr class="header gt_col_headings">
+<th id="Record count" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Record count</th>
+<th id="Person count" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Person count</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left;">Asthma</td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers="Codelist name">Asthma</td>
+<td class="gt_row gt_right" headers="Year" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_left" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_left" style="text-align: right;">&lt;5</td>
+[header_level]Person count">&lt;5</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2006</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="[header]CDM name
+<tr class="even">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_right" headers="Year" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2006</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_left" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_left" style="text-align: right;">&lt;5</td>
+[header_level]Person count">&lt;5</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_right" headers="Year" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_left" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_left" style="text-align: right;">&lt;5</td>
+[header_level]Person count">&lt;5</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Year" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2006</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="[header]CDM name
+<tr class="even">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_right" headers="Year" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">2004</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_left" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">&lt;5</td>
+<td class="gt_row gt_left" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_left" style="text-align: right;">&lt;5</td>
+[header_level]Person count">&lt;5</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -1893,24 +1896,24 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <div class="sourceCode" id="cb64"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableCodeUse.html">tableCodeUse</a></span><span class="op">(</span><span class="va">asthma_code_use</span> <span class="op">|&gt;</span> </span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">strata_name</span> <span class="op">==</span> <span class="st">"age_group"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="ennajypsph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ennajypsph table {
+<div>
+<div id="xsnscfiifb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xsnscfiifb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ennajypsph thead, #ennajypsph tbody, #ennajypsph tfoot, #ennajypsph tr, #ennajypsph td, #ennajypsph th {
+#xsnscfiifb thead, #xsnscfiifb tbody, #xsnscfiifb tfoot, #xsnscfiifb tr, #xsnscfiifb td, #xsnscfiifb th {
   border-style: none;
 }
 
-#ennajypsph p {
+#xsnscfiifb p {
   margin: 0;
   padding: 0;
 }
 
-#ennajypsph .gt_table {
+#xsnscfiifb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1936,12 +1939,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ennajypsph .gt_caption {
+#xsnscfiifb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ennajypsph .gt_title {
+#xsnscfiifb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1953,7 +1956,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#ennajypsph .gt_subtitle {
+#xsnscfiifb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1965,7 +1968,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#ennajypsph .gt_heading {
+#xsnscfiifb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1977,13 +1980,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ennajypsph .gt_bottom_border {
+#xsnscfiifb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ennajypsph .gt_col_headings {
+#xsnscfiifb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1998,7 +2001,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ennajypsph .gt_col_heading {
+#xsnscfiifb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2018,7 +2021,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#ennajypsph .gt_column_spanner_outer {
+#xsnscfiifb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2030,15 +2033,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#ennajypsph .gt_column_spanner_outer:first-child {
+#xsnscfiifb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ennajypsph .gt_column_spanner_outer:last-child {
+#xsnscfiifb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ennajypsph .gt_column_spanner {
+#xsnscfiifb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2050,11 +2053,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#ennajypsph .gt_spanner_row {
+#xsnscfiifb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ennajypsph .gt_group_heading {
+#xsnscfiifb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2080,7 +2083,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#ennajypsph .gt_empty_group_heading {
+#xsnscfiifb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2095,15 +2098,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#ennajypsph .gt_from_md > :first-child {
+#xsnscfiifb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ennajypsph .gt_from_md > :last-child {
+#xsnscfiifb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ennajypsph .gt_row {
+#xsnscfiifb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2122,7 +2125,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#ennajypsph .gt_stub {
+#xsnscfiifb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2135,7 +2138,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#ennajypsph .gt_stub_row_group {
+#xsnscfiifb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2149,15 +2152,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#ennajypsph .gt_row_group_first td {
+#xsnscfiifb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ennajypsph .gt_row_group_first th {
+#xsnscfiifb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ennajypsph .gt_summary_row {
+#xsnscfiifb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2167,16 +2170,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#ennajypsph .gt_first_summary_row {
+#xsnscfiifb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ennajypsph .gt_first_summary_row.thick {
+#xsnscfiifb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ennajypsph .gt_last_summary_row {
+#xsnscfiifb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2186,7 +2189,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ennajypsph .gt_grand_summary_row {
+#xsnscfiifb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2196,7 +2199,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#ennajypsph .gt_first_grand_summary_row {
+#xsnscfiifb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2206,7 +2209,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ennajypsph .gt_last_grand_summary_row_top {
+#xsnscfiifb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2216,11 +2219,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ennajypsph .gt_striped {
+#xsnscfiifb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ennajypsph .gt_table_body {
+#xsnscfiifb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2229,7 +2232,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ennajypsph .gt_footnotes {
+#xsnscfiifb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2243,7 +2246,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ennajypsph .gt_footnote {
+#xsnscfiifb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2252,7 +2255,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#ennajypsph .gt_sourcenotes {
+#xsnscfiifb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2266,7 +2269,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ennajypsph .gt_sourcenote {
+#xsnscfiifb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2274,149 +2277,146 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#ennajypsph .gt_left {
+#xsnscfiifb .gt_left {
   text-align: left;
 }
 
-#ennajypsph .gt_center {
+#xsnscfiifb .gt_center {
   text-align: center;
 }
 
-#ennajypsph .gt_right {
+#xsnscfiifb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ennajypsph .gt_font_normal {
+#xsnscfiifb .gt_font_normal {
   font-weight: normal;
 }
 
-#ennajypsph .gt_font_bold {
+#xsnscfiifb .gt_font_bold {
   font-weight: bold;
 }
 
-#ennajypsph .gt_font_italic {
+#xsnscfiifb .gt_font_italic {
   font-style: italic;
 }
 
-#ennajypsph .gt_super {
+#xsnscfiifb .gt_super {
   font-size: 65%;
 }
 
-#ennajypsph .gt_footnote_marks {
+#xsnscfiifb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ennajypsph .gt_asterisk {
+#xsnscfiifb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ennajypsph .gt_indent_1 {
+#xsnscfiifb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ennajypsph .gt_indent_2 {
+#xsnscfiifb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ennajypsph .gt_indent_3 {
+#xsnscfiifb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ennajypsph .gt_indent_4 {
+#xsnscfiifb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ennajypsph .gt_indent_5 {
+#xsnscfiifb .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="6" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id=""></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id="CDM name">
-        <span class="gt_column_spanner">CDM name</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Codelist name">Codelist name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Age group">Age group</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept name">Source concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Source concept id">Source concept id</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="2" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="colgroup" id="Synthea synthetic health database">
-        <span class="gt_column_spanner">Synthea synthetic health database</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Record count">Record count</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Person count">Person count</th>
-    </tr>
+<tr class="header gt_col_headings gt_spanner_row">
+<th colspan="6" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"></th>
+<th colspan="2" id="CDM name" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">CDM name</span></th>
+</tr>
+<tr class="odd gt_col_headings gt_spanner_row">
+<th rowspan="2" id="Codelist name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Codelist name</th>
+<th rowspan="2" id="Age group" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Age group</th>
+<th rowspan="2" id="Standard concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept name</th>
+<th rowspan="2" id="Standard concept id" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept id</th>
+<th rowspan="2" id="Source concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept name</th>
+<th rowspan="2" id="Source concept id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Source concept id</th>
+<th colspan="2" id="Synthea synthetic health database" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="colgroup"><span class="gt_column_spanner">Synthea synthetic health database</span></th>
+</tr>
+<tr class="header gt_col_headings">
+<th id="Record count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Record count</th>
+<th id="Person count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Person count</th>
+</tr>
 </thead>
 <tbody class="gt_table_body">
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left;">Asthma</td>
-<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers="Codelist name">Asthma</td>
+<td class="gt_row gt_left" headers="Age group" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">96</td>
+[header_level]Person count">96</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18 to 65</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
-<td headers="[header]CDM name
+<tr class="even">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Age group" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18 to 65</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">-</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Overall</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">5</td>
+[header_level]Person count">5</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
-<td headers="[header]CDM name
+<tr class="odd">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Age group" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;"></td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">96</td>
+[header_level]Person count">5</td>
 </tr>
-<tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
-<td headers="Age group" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">18 to 65</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="Source concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Asthma</td>
-<td headers="Source concept id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">317009</td>
-<td headers="[header]CDM name
+<tr class="even">
+<td class="gt_row gt_left" headers="Codelist name" style="text-align: left; border-top-width: 1px; border-top-style: hidden; border-top-color: #000000;"></td>
+<td class="gt_row gt_left" headers="Age group" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">0 to 17</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td class="gt_row gt_left" headers="Source concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td class="gt_row gt_left" headers="Source concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td class="gt_row gt_right" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">5</td>
-<td headers="[header]CDM name
+[header_level]Record count" style="text-align: right; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">96</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Person count" class="gt_row gt_right" style="text-align: right;">5</td>
+[header_level]Person count">96</td>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -2433,24 +2433,24 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 <span>                                            domains <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"condition"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://darwin-eu.github.io/CodelistGenerator/reference/tableOrphanCodes.html">tableOrphanCodes</a></span><span class="op">(</span><span class="va">asthma_orphan_codes</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-
-<div id="blyfuvzjpj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#blyfuvzjpj table {
+<div>
+<div id="bidfbnsaip" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bidfbnsaip table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#blyfuvzjpj thead, #blyfuvzjpj tbody, #blyfuvzjpj tfoot, #blyfuvzjpj tr, #blyfuvzjpj td, #blyfuvzjpj th {
+#bidfbnsaip thead, #bidfbnsaip tbody, #bidfbnsaip tfoot, #bidfbnsaip tr, #bidfbnsaip td, #bidfbnsaip th {
   border-style: none;
 }
 
-#blyfuvzjpj p {
+#bidfbnsaip p {
   margin: 0;
   padding: 0;
 }
 
-#blyfuvzjpj .gt_table {
+#bidfbnsaip .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2476,12 +2476,12 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_caption {
+#bidfbnsaip .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#blyfuvzjpj .gt_title {
+#bidfbnsaip .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2493,7 +2493,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-width: 0;
 }
 
-#blyfuvzjpj .gt_subtitle {
+#bidfbnsaip .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2505,7 +2505,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-width: 0;
 }
 
-#blyfuvzjpj .gt_heading {
+#bidfbnsaip .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2517,13 +2517,13 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_bottom_border {
+#bidfbnsaip .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_col_headings {
+#bidfbnsaip .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2538,7 +2538,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_col_heading {
+#bidfbnsaip .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2558,7 +2558,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#blyfuvzjpj .gt_column_spanner_outer {
+#bidfbnsaip .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2570,15 +2570,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 4px;
 }
 
-#blyfuvzjpj .gt_column_spanner_outer:first-child {
+#bidfbnsaip .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#blyfuvzjpj .gt_column_spanner_outer:last-child {
+#bidfbnsaip .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#blyfuvzjpj .gt_column_spanner {
+#bidfbnsaip .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2590,11 +2590,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   width: 100%;
 }
 
-#blyfuvzjpj .gt_spanner_row {
+#bidfbnsaip .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#blyfuvzjpj .gt_group_heading {
+#bidfbnsaip .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2620,7 +2620,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   text-align: left;
 }
 
-#blyfuvzjpj .gt_empty_group_heading {
+#bidfbnsaip .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2635,15 +2635,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: middle;
 }
 
-#blyfuvzjpj .gt_from_md > :first-child {
+#bidfbnsaip .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#blyfuvzjpj .gt_from_md > :last-child {
+#bidfbnsaip .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#blyfuvzjpj .gt_row {
+#bidfbnsaip .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2662,7 +2662,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   overflow-x: hidden;
 }
 
-#blyfuvzjpj .gt_stub {
+#bidfbnsaip .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2675,7 +2675,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#blyfuvzjpj .gt_stub_row_group {
+#bidfbnsaip .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2689,15 +2689,15 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   vertical-align: top;
 }
 
-#blyfuvzjpj .gt_row_group_first td {
+#bidfbnsaip .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#blyfuvzjpj .gt_row_group_first th {
+#bidfbnsaip .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#blyfuvzjpj .gt_summary_row {
+#bidfbnsaip .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2707,16 +2707,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#blyfuvzjpj .gt_first_summary_row {
+#bidfbnsaip .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_first_summary_row.thick {
+#bidfbnsaip .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#blyfuvzjpj .gt_last_summary_row {
+#bidfbnsaip .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2726,7 +2726,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_grand_summary_row {
+#bidfbnsaip .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2736,7 +2736,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#blyfuvzjpj .gt_first_grand_summary_row {
+#bidfbnsaip .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2746,7 +2746,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_last_grand_summary_row_top {
+#bidfbnsaip .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2756,11 +2756,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_striped {
+#bidfbnsaip .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#blyfuvzjpj .gt_table_body {
+#bidfbnsaip .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2769,7 +2769,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_footnotes {
+#bidfbnsaip .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2783,7 +2783,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_footnote {
+#bidfbnsaip .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2792,7 +2792,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#blyfuvzjpj .gt_sourcenotes {
+#bidfbnsaip .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2806,7 +2806,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#blyfuvzjpj .gt_sourcenote {
+#bidfbnsaip .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2814,103 +2814,100 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
   padding-right: 5px;
 }
 
-#blyfuvzjpj .gt_left {
+#bidfbnsaip .gt_left {
   text-align: left;
 }
 
-#blyfuvzjpj .gt_center {
+#bidfbnsaip .gt_center {
   text-align: center;
 }
 
-#blyfuvzjpj .gt_right {
+#bidfbnsaip .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#blyfuvzjpj .gt_font_normal {
+#bidfbnsaip .gt_font_normal {
   font-weight: normal;
 }
 
-#blyfuvzjpj .gt_font_bold {
+#bidfbnsaip .gt_font_bold {
   font-weight: bold;
 }
 
-#blyfuvzjpj .gt_font_italic {
+#bidfbnsaip .gt_font_italic {
   font-style: italic;
 }
 
-#blyfuvzjpj .gt_super {
+#bidfbnsaip .gt_super {
   font-size: 65%;
 }
 
-#blyfuvzjpj .gt_footnote_marks {
+#bidfbnsaip .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#blyfuvzjpj .gt_asterisk {
+#bidfbnsaip .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#blyfuvzjpj .gt_indent_1 {
+#bidfbnsaip .gt_indent_1 {
   text-indent: 5px;
 }
 
-#blyfuvzjpj .gt_indent_2 {
+#bidfbnsaip .gt_indent_2 {
   text-indent: 10px;
 }
 
-#blyfuvzjpj .gt_indent_3 {
+#bidfbnsaip .gt_indent_3 {
   text-indent: 15px;
 }
 
-#blyfuvzjpj .gt_indent_4 {
+#bidfbnsaip .gt_indent_4 {
   text-indent: 20px;
 }
 
-#blyfuvzjpj .gt_indent_5 {
+#bidfbnsaip .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="7" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="colgroup" id=""></th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="1" style="background-color: #C8C8C8; text-align: center; font-weight: bold;" scope="col" id="CDM name">
-        <span class="gt_column_spanner">CDM name</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings gt_spanner_row">
-<th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Codelist name">Codelist name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Domain id">Domain id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept name">Standard concept name</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept id">Standard concept id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Standard concept">Standard concept</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Vocabulary id">Vocabulary id</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="2" colspan="1" style="text-align: center; font-weight: bold;" scope="col" id="Relationship id">Relationship id</th>
-      <th class="gt_center gt_columns_top_border gt_column_spanner_outer" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Synthea synthetic health database">
-        <span class="gt_column_spanner">Synthea synthetic health database</span>
-      </th>
-    </tr>
-<tr class="gt_col_headings">
-<th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="background-color: #E1E1E1; text-align: center; font-weight: bold;" scope="col" id="Record count">Record count</th>
-    </tr>
+<tr class="header gt_col_headings gt_spanner_row">
+<th colspan="7" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="colgroup"></th>
+<th id="CDM name" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #C8C8C8; font-weight: bold;" scope="col"><span class="gt_column_spanner">CDM name</span></th>
+</tr>
+<tr class="odd gt_col_headings gt_spanner_row">
+<th rowspan="2" id="Codelist name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Codelist name</th>
+<th rowspan="2" id="Domain id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Domain id</th>
+<th rowspan="2" id="Standard concept name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept name</th>
+<th rowspan="2" id="Standard concept id" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept id</th>
+<th rowspan="2" id="Standard concept" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Standard concept</th>
+<th rowspan="2" id="Vocabulary id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Vocabulary id</th>
+<th rowspan="2" id="Relationship id" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" style="text-align: center; font-weight: bold;" scope="col">Relationship id</th>
+<th id="Synthea synthetic health database" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col"><span class="gt_column_spanner">Synthea synthetic health database</span></th>
+</tr>
+<tr class="header gt_col_headings">
+<th id="Record count" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="text-align: center; background-color: #E1E1E1; font-weight: bold;" scope="col">Record count</th>
+</tr>
 </thead>
-<tbody class="gt_table_body"><tr>
-<td headers="Codelist name" class="gt_row gt_left" style="text-align: left;">Cs</td>
-<td headers="Domain id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Condition</td>
-<td headers="Standard concept name" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
-<td headers="Standard concept id" class="gt_row gt_right" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
-<td headers="Standard concept" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Standard</td>
-<td headers="Vocabulary id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Snomed</td>
-<td headers="Relationship id" class="gt_row gt_left" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">From initial search</td>
-<td headers="[header]CDM name
+<tbody class="gt_table_body"><tr class="odd">
+<td class="gt_row gt_left" style="text-align: left;" headers="Codelist name">Cs</td>
+<td class="gt_row gt_left" headers="Domain id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Condition</td>
+<td class="gt_row gt_left" headers="Standard concept name" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Childhood asthma</td>
+<td class="gt_row gt_right" headers="Standard concept id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">4051466</td>
+<td class="gt_row gt_left" headers="Standard concept" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Standard</td>
+<td class="gt_row gt_left" headers="Vocabulary id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">Snomed</td>
+<td class="gt_row gt_left" headers="Relationship id" style="text-align: left; border-left-width: 1px; border-left-style: solid; border-left-color: #D3D3D3; border-right-width: 1px; border-right-style: solid; border-right-color: #D3D3D3; border-top-width: 1px; border-top-style: solid; border-top-color: #D3D3D3; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: #D3D3D3;">From initial search</td>
+<td class="gt_row gt_right" style="text-align: right;" headers="[header]CDM name
 [header_level]Synthea synthetic health database
-[header_level]Record count" class="gt_row gt_right" style="text-align: right;">96</td>
+[header_level]Record count">96</td>
 </tr></tbody>
 </table>
+</div>
 </div>
 </div>
 </div>
@@ -2970,8 +2967,10 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
 </div>
 </div>
 </div>
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
 </div>
@@ -2984,12 +2983,11 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': true,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
  
@@ -3174,13 +3172,16 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
-
+        }
+    
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+    
           // dispatch for shiny
           if (window.jQuery) {
             if (previousSlide) {
@@ -3191,14 +3192,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
             }
           }
         }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
-        }
-
+    
         // hookup for slidy
         if (window.w3c_slidy) {
           window.w3c_slidy.add_observer(function (slide_num) {
@@ -3206,7 +3200,7 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
           });
         }
-
+    
       })();
     </script><script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -3232,9 +3226,23 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
       tabsets.forEach(function(tabset) {
         const tabby = new Tabby('#' + tabset.id);
       });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
       const clipboard = new window.ClipboardJS('.code-copy-button', {
-        target: function(trigger) {
-          return trigger.previousElementSibling;
+        text: function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
         }
       });
       clipboard.on('success', function(e) {
@@ -3246,17 +3254,51 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -3265,9 +3307,18 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
           },
           interactive: true,
           interactiveBorder: 10,
-          theme: 'quarto-reveal',
-          placement: 'bottom-start'
+          theme: 'light-border',
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
@@ -3276,31 +3327,54 @@ $ standard_concept &lt;chr&gt; "S", "S"</code></pre>
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>
