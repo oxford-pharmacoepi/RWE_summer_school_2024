@@ -16,9 +16,6 @@ https://dpa-pde-oxford.quarto.pub/bespoke-code/
 ### OMOPSketch and database characterisation
 https://dpa-pde-oxford.quarto.pub/omopsketch/
 
-### General practical
-https://dpa-pde-oxford.quarto.pub/generalpractical/
-
 ## Day 2
 
 ### CodelistGenerator
@@ -37,7 +34,6 @@ https://dpa-pde-oxford.quarto.pub/patientprofiles-summer-school
 
 ### CohortCharacteristics Part 2
 https://dpa-pde-oxford.quarto.pub/summarisecharacteristics-summer-school/
-
 
 ### IncidencePrevalence
 https://dpa-pde-oxford.quarto.pub/incidenceprevalence/
